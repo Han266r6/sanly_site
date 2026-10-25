@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanly Ädim — Türkmenistanda Sanly Hyzmatlar</title>
+  <!-- Tailwind CSS (Gurnamak gerek däl, brauzerde göni işleýär) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- PWA Manifest (Telefona programma ýaly gurnalmagy üçin) -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#065f46">
+</head>
+<body class="bg-neutral-50 text-neutral-900 font-sans">
+
+  <!-- Ýokarky Menýu -->
+  <header class="bg-white border-b border-neutral-200 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="w-8 h-8 rounded-lg bg-emerald-800 text-white flex items-center justify-center font-bold text-sm">SÄ</span>
+        <span class="font-bold text-lg text-neutral-900">Sanly Ädim</span>
+      </div>
+      <a href="#hasapla" class="px-4 py-2 text-xs font-semibold bg-emerald-800 text-white rounded-lg hover:bg-emerald-700 transition">
+        Hasaplaýjy
+      </a>
+    </div>
+  </header>
+
+  <!-- Baş Sahypa -->
+  <main class="max-w-5xl mx-auto px-4 py-12">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider block mb-2">Bütin Ilat Üçin Sanly Platforma</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-neutral-900 mb-3">
+        Türkmenistanda Halk Üçin Gerekli Sanly Hyzmatlar
+      </h1>
+      <p class="text-neutral-600 text-sm">
+        Kommunal schetçikleri hasaplamak, arzan gatnaw we azyk nyrh barometri.
+      </p>
+    </div>
+
+    <!-- Interaktiw Hasaplaýjy (Tok & Gaz) -->
+    <div id="hasapla" class="bg-white rounded-2xl border border-neutral-200 p-6 max-w-lg mx-auto shadow-sm">
+      <h2 class="text-base font-bold text-neutral-900 mb-1">JemagatHasap — Tok & Gaz Hasaplaýjysy</h2>
+      <p class="text-xs text-neutral-500 mb-5">Öňki we häzirki sany giriziň, tölegi manatda takyk çykarar.</p>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <label class="block font-semibold text-neutral-700 mb-1">Tok / Elektrik (kWh sarp edilişi):</label>
+          <input type="number" id="tokInput" value="200" class="w-full border border-neutral-300 rounded-lg p-2.5 text-sm" oninput="hasapla()">
+        </div>
+
+        <div>
+          <label class="block font-semibold text-neutral-700 mb-1">Tebigy Gaz (m³ sarp edilişi):</label>
+          <input type="number" id="gasInput" value="80" class="w-full border border-neutral-300 rounded-lg p-2.5 text-sm" oninput="hasapla()">
+        </div>
+
+        <div class="pt-4 border-t border-neutral-100 flex items-center justify-between">
+          <span class="text-sm font-semibold text-neutral-600">Tölemeli jemi baha:</span>
+          <span id="jemiNetije" class="text-2xl font-extrabold text-emerald-800">8.60 TMT</span>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="text-center py-8 text-xs text-neutral-400 border-t border-neutral-200 mt-12">
+    © 2026 Sanly Ädim. 100% Mugt we GitHub arkaly işleýär.
+  </footer>
+
+  <!-- Awtomatiki Hasaplaýyş Kody -->
+  <script>
+    function hasapla() {
+      const tok = Number(document.getElementById('tokInput').value) || 0;
+      const gas = Number(document.getElementById('gasInput').value) || 0;
+      const jemi = (tok * 0.035) + (gas * 0.02);
+      document.getElementById('jemiNetije').innerText = jemi.toFixed(2) + " TMT";
+    }
+
+    // Oflaýn rejim (PWA)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
+    }
+  </script>
+</body>
+</html>
