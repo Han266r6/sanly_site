@@ -9,13 +9,12 @@
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
   <style>
-    /* Audio range scrubber styling */
     input[type=range] { accent-color: #10b981; }
   </style>
 </head>
 <body class="bg-neutral-950 text-neutral-100 font-sans pb-28 antialiased selection:bg-emerald-500 selection:text-white">
 
-  <!-- Ýokarky Menýu -->
+  <!-- Ýokarky Menýu (Header) -->
   <header class="bg-neutral-900/90 backdrop-blur-md border-b border-neutral-800 sticky top-0 z-40">
     <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
       <div class="flex items-center gap-2.5">
@@ -37,22 +36,24 @@
         >
       </div>
 
-      <div class="flex items-center gap-2">
-        <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-          Türkmen Hitleri
-        </span>
+      <!-- ÜÝTGEDILEN ÝERI (33-nji setir): Göni Admin Paneline Geçiriji Düwme -->
+      <div class="flex items-center gap-3">
+        <a href="admin.html" class="px-3.5 py-1.5 text-xs font-semibold rounded-full bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white border border-neutral-700 flex items-center gap-1.5 transition shadow-sm">
+          <i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-400"></i>
+          Admin Panel
+        </a>
       </div>
     </div>
   </header>
 
   <main class="max-w-6xl mx-auto px-4 py-8 space-y-10">
 
-    <!-- Esasy Reklama / Täze Hit Banneri -->
+    <!-- ÜÝTGEDILEN ÝERI (43-nji setir): Admin Panelden Üýdgedilip Bilinýän Banner -->
     <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-emerald-900 via-neutral-900 to-neutral-900 p-6 sm:p-10 border border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
       <div class="space-y-3 max-w-lg text-center sm:text-left">
         <span class="text-xs uppercase font-bold tracking-wider text-emerald-400">Hepdäniň Iň Köp Diňlenen Aýdymy</span>
-        <h1 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Mähri Pirgulyýewa — Ýyldyzym</h1>
-        <p class="text-neutral-300 text-xs sm:text-sm">Täze 2026 estrada aýdymlaryny ýokary hilde, onlaýn we mugt diňläň!</p>
+        <h1 id="heroBannerTitle" class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Mähri Pirgulyýewa — Ýyldyzym</h1>
+        <p id="heroBannerDesc" class="text-neutral-300 text-xs sm:text-sm">Täze 2026 estrada aýdymlaryny ýokary hilde, onlaýn we mugt diňläň!</p>
         <button onclick="playSong(0)" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold rounded-full text-xs sm:text-sm transition flex items-center gap-2 mx-auto sm:mx-0 shadow-lg shadow-emerald-500/20">
           <i data-lucide="play" class="w-4 h-4 fill-current"></i>
           Şu Wagt Diňle
@@ -70,16 +71,16 @@
           <i data-lucide="flame" class="w-5 h-5 text-emerald-400"></i>
           Iň Täze & Meşhur Aýdymlar
         </h2>
-        <span class="text-xs text-neutral-400" id="songCountText">4 aýdym</span>
+        <span class="text-xs text-neutral-400" id="songCountText">0 aýdym</span>
       </div>
 
       <div class="bg-neutral-900/60 border border-neutral-800/80 rounded-2xl overflow-hidden divide-y divide-neutral-800/60" id="songsContainer">
-        <!-- Aýdymlar JavaScript arkaly şu ýere çykar -->
+        <!-- Aýdymlar şu ýere çykar -->
       </div>
     </section>
   </main>
 
-  <!-- Aşakdaky Hemişelik Audio Pleýer (Sticky Music Bar) -->
+  <!-- Aşakdaky Hemişelik Audio Pleýer -->
   <div class="fixed bottom-0 left-0 right-0 bg-neutral-900/95 backdrop-blur-lg border-t border-neutral-800 px-4 py-3 z-50 shadow-2xl">
     <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
       
@@ -94,7 +95,7 @@
         </div>
       </div>
 
-      <!-- Orta: Düwmeler we Sürgiç (Timeline) -->
+      <!-- Orta: Düwmeler we Sürgiç -->
       <div class="flex flex-col items-center gap-1.5 w-full sm:w-2/4">
         <div class="flex items-center gap-4">
           <button onclick="prevSong()" class="text-neutral-400 hover:text-white transition">
@@ -123,13 +124,15 @@
     </div>
   </div>
 
-  <!-- Hakyky Audio Obýekti -->
   <audio id="audioElement" preload="metadata"></audio>
 
   <!-- JavaScript Kodlary -->
   <script>
-    // Aýdymlaryň Maglumaty (Öz aýdymlaryňyzy şu ýere goşup bilersiňiz!)
-    const playlist = [
+    // ==========================================
+    // ÜÝTGEDILEN ÝERI (121-nji setir):
+    // Admin Paneli Bilen Baglanyşdyrylan Playlist
+    // ==========================================
+    const defaultSongs = [
       {
         title: "Ýyldyzym",
         artist: "Mähri Pirgulyýewa",
@@ -156,6 +159,18 @@
       }
     ];
 
+    // Admin panelinde goşulan aýdymlary okaýar, ýok bolsa başlangyç aýdymlary alýar:
+    let savedSongs = JSON.parse(localStorage.getItem("mySongs"));
+    const playlist = (savedSongs && savedSongs.length > 0) ? savedSongs : defaultSongs;
+
+    // Admin panelinde üýtgedilen banneri täzeleýär:
+    if (localStorage.getItem("bannerTitle")) {
+      document.getElementById("heroBannerTitle").innerText = localStorage.getItem("bannerTitle");
+    }
+    if (localStorage.getItem("bannerDesc")) {
+      document.getElementById("heroBannerDesc").innerText = localStorage.getItem("bannerDesc");
+    }
+
     let currentIndex = 0;
     const audio = document.getElementById("audioElement");
     const playIcon = document.getElementById("mainPlayIcon");
@@ -163,7 +178,6 @@
     const currentTimeText = document.getElementById("currentTime");
     const totalDurationText = document.getElementById("totalDuration");
 
-    // Aýdymlary Sanawa Çykarmak
     function renderSongs(list) {
       const container = document.getElementById("songsContainer");
       container.innerHTML = "";
@@ -171,30 +185,29 @@
       list.forEach((song, idx) => {
         const item = document.createElement("div");
         item.className = "flex items-center justify-between p-3.5 hover:bg-neutral-800/50 transition cursor-pointer group";
-        item.innerHTML = \`
+        item.innerHTML = `
           <div class="flex items-center gap-3.5">
-            <span class="text-xs font-mono text-neutral-500 w-4">\${idx + 1}</span>
-            <button onclick="playSong(\${idx})" class="w-9 h-9 rounded-full bg-neutral-800 group-hover:bg-emerald-500 group-hover:text-neutral-950 text-white flex items-center justify-center transition">
+            <span class="text-xs font-mono text-neutral-500 w-4">${idx + 1}</span>
+            <button onclick="playSong(${idx})" class="w-9 h-9 rounded-full bg-neutral-800 group-hover:bg-emerald-500 group-hover:text-neutral-950 text-white flex items-center justify-center transition">
               <i data-lucide="play" class="w-4 h-4 fill-current"></i>
             </button>
             <div>
-              <h4 class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400 transition">\${song.title}</h4>
-              <p class="text-[11px] text-neutral-400">\${song.artist}</p>
+              <h4 class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400 transition">${song.title}</h4>
+              <p class="text-[11px] text-neutral-400">${song.artist}</p>
             </div>
           </div>
           <div class="flex items-center gap-3 text-xs text-neutral-400">
-            <span class="font-mono">\${song.duration}</span>
-            <a href="\${song.src}" download class="p-2 hover:text-emerald-400 transition" title="Ýükle (Download)">
+            <span class="font-mono">${song.duration}</span>
+            <a href="${song.src}" download class="p-2 hover:text-emerald-400 transition" title="Ýükle (Download)">
               <i data-lucide="download" class="w-4 h-4"></i>
             </a>
           </div>
-        \`;
+        `;
         container.appendChild(item);
       });
       lucide.createIcons();
     }
 
-    // Aýdymy Goýbermek
     function playSong(index) {
       currentIndex = index;
       const song = playlist[currentIndex];
@@ -234,7 +247,6 @@
       playSong(currentIndex);
     }
 
-    // Wagt Çyzygy (Timeline) Sazlamak
     audio.ontimeupdate = () => {
       if (audio.duration) {
         const progress = (audio.currentTime / audio.duration) * 100;
@@ -257,10 +269,9 @@
     function formatTime(sec) {
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
-      return \`\${m}:\${s < 10 ? '0' : ''}\${s}\`;
+      return `${m}:${s < 10 ? '0' : ''}${s}`;
     }
 
-    // Gözleg Funksiýasy
     function filterSongs() {
       const q = document.getElementById("searchInput").value.toLowerCase();
       const filtered = playlist.filter(s => s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q));
@@ -268,8 +279,8 @@
       document.getElementById("songCountText").innerText = filtered.length + " aýdym";
     }
 
-    // Başlangyçda Aýdymlary Ýükle
     renderSongs(playlist);
+    document.getElementById("songCountText").innerText = playlist.length + " aýdym";
     lucide.createIcons();
   </script>
 </body>
