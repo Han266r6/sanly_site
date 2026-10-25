@@ -1,115 +1,351 @@
 <!DOCTYPE html>
-<html lang="tk">
+<html lang="tk" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Paneli — Awtomatiki Aýdym Dolandyryş</title>
+  <title>Şahsy Admin Panel — Aýdym.com</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-    body { background-color: #0b0f19; color: #f3f4f6; padding: 20px 16px; min-height: 100vh; }
-    .container { max-width: 800px; margin: 0 auto; }
-    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 14px; border-bottom: 1px solid #1f2937; }
-    .header h1 { font-size: 22px; font-weight: 800; color: #10b981; }
-    .btn-site { background: #1f2937; color: #f3f4f6; text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+    :root {
+      --bg-main: #0e1118;
+      --bg-card: #141824;
+      --bg-card-inner: #0b0e15;
+      --border: #232b3e;
+      --text: #ffffff;
+      --text-sub: #94a3b8;
+      --accent: #10b981;
+      --accent-hover: #059669;
+    }
 
-    .card { background: #111827; border: 1px solid #1f2937; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-    .card h2 { font-size: 17px; margin-bottom: 12px; color: #38bdf8; display: flex; align-items: center; gap: 8px; }
+    [data-theme="light"] {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-inner: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-sub: #64748b;
+      --accent: #059669;
+      --accent-hover: #047857;
+    }
 
-    .step-box { background: #064e3b22; border: 1px solid #05966955; border-radius: 10px; padding: 16px; margin-bottom: 16px; font-size: 14px; line-height: 1.6; color: #a7f3d0; }
-    .step-box ol { margin-left: 20px; margin-top: 8px; }
-    .step-box li { margin-bottom: 6px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.15s, border 0.15s; }
+    body { background-color: var(--bg-main); color: var(--text); padding: 24px 16px; min-height: 100vh; }
+    .container { max-width: 950px; margin: 0 auto; }
 
-    .btn-gh { display: inline-flex; align-items: center; gap: 8px; background: #10b981; color: #000; text-decoration: none; padding: 12px 18px; border-radius: 8px; font-weight: 700; font-size: 14px; margin-top: 10px; }
-    .btn-gh:hover { background: #34d399; }
+    .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .header-left { display: flex; align-items: center; gap: 12px; }
+    .header h1 { font-size: 22px; font-weight: 800; color: var(--accent); }
+    .header-actions { display: flex; align-items: center; gap: 10px; }
+    .btn-theme { width: 38px; height: 38px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; }
+    .btn-back { background: var(--bg-card); color: var(--text); border: 1px solid var(--border); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; }
+    .btn-back:hover { border-color: var(--accent); color: var(--accent); }
 
-    .song-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
-    .song-item { display: flex; align-items: center; justify-content: space-between; background: #0b0f19; padding: 12px 14px; border-radius: 8px; border: 1px solid #1f2937; }
-    .song-name { font-weight: 700; font-size: 14px; color: #fff; }
-    .song-file { font-size: 12px; color: #9ca3af; font-family: monospace; }
+    .tabs-nav { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; overflow-x: auto; }
+    .tab-btn { background: transparent; border: none; padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 700; color: var(--text-sub); cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+    .tab-btn:hover { color: var(--text); background: var(--bg-card); }
+    .tab-btn.active { background: var(--accent); color: #000; }
+
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+    .card h2 { font-size: 18px; font-weight: 800; margin-bottom: 14px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+
+    .help-banner { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; font-size: 13px; line-height: 1.6; color: var(--accent); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label { font-size: 13px; font-weight: 700; color: var(--text-sub); }
+    .form-group input, .form-group select { padding: 12px; background: var(--bg-card-inner); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; }
+    .form-group input:focus, .form-group select:focus { border-color: var(--accent); }
+
+    .btn-submit { background: var(--accent); color: #000; border: none; padding: 14px 20px; border-radius: 8px; font-weight: 800; font-size: 15px; cursor: pointer; width: 100%; transition: 0.15s; }
+    .btn-submit:hover { background: var(--accent-hover); }
+
+    .gh-upload-box { display: flex; align-items: center; justify-content: space-between; background: var(--bg-card-inner); border: 1px dashed var(--border); padding: 16px; border-radius: 10px; margin-top: 10px; }
+    .btn-gh-link { background: #1f2937; color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+    .btn-gh-link:hover { background: var(--accent); color: #000; }
+
+    .items-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+    .list-item { display: flex; align-items: center; justify-content: space-between; background: var(--bg-card-inner); border: 1px solid var(--border); padding: 12px 16px; border-radius: 10px; }
+    .item-left { display: flex; align-items: center; gap: 12px; }
+    .item-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+    .item-title { font-weight: 700; font-size: 14px; color: var(--text); }
+    .item-sub { font-size: 12px; color: var(--text-sub); }
+    .tag-badge { font-size: 11px; padding: 2px 8px; border-radius: 12px; background: rgba(16,185,129,0.15); color: var(--accent); border: 1px solid rgba(16,185,129,0.3); }
+
+    .btn-del { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .btn-del:hover { background: #ef4444; color: #fff; }
+
+    @media (max-width: 650px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <div class="header">
-      <h1>⚙️ Admin Dolandyryş Paneli</h1>
-      <a href="index.html" class="btn-site">← Saýta Gaýtmak</a>
+    <header class="header">
+      <div class="header-left">
+        <h1>⚙️ Şahsy Admin Paneli</h1>
+      </div>
+      <div class="header-actions">
+        <button class="btn-theme" id="themeBtn" onclick="toggleTheme()" title="Režimi çalyş">🌙</button>
+        <a href="index.html" class="btn-back">← Saýta Gaýtmak</a>
+      </div>
+    </header>
+
+    <!-- TABLAR -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="showTab('songsTab')">🎵 Aýdymlar & Tertip</button>
+      <button class="tab-btn" onclick="showTab('artistsTab')">👤 Aýdymçylar (Artists)</button>
+      <button class="tab-btn" onclick="showTab('albumsTab')">💿 Albomlar & Pleýlistler</button>
+      <button class="tab-btn" onclick="showTab('githubTab')">📂 GitHub music/ Papkasy</button>
     </div>
 
-    <!-- NÄHILI AÝDYM GOŞMALY? -->
-    <div class="card">
-      <h2>🚀 Awtomatiki Aýdym Goşmak (Kod ýazmazdan)</h2>
-      <div class="step-box">
-        <b>Koduňyzy ýazyp oturmak gerek däl!</b> Diňe şu ýönekeý ädimleri ediň:
-        <ol>
-          <li>Telefonyňyzda aýdymyň adyny göni <b>«Aýdymçy - Aýdymyň ady.mp3»</b> ediň (Mysal: <code>Imael Angel - Bad Times.mp3</code>).</li>
-          <li>Aşakdaky ýaşyl düwmä basyp, göni GitHub-yň <code>music</code> papkasyna giriň.</li>
-          <li><b>«Add file» ➔ «Upload files»</b> basyp, aýdymy ýükläň we <b>«Commit changes»</b> basyň!</li>
-        </ol>
-        Şondan soň saýtyňyz şol aýdymlary <b>awtomatiki</b> tapar we bütin dünýä üçin taýýar pleýere goşar!
+    <!-- 1. AÝDYMLAR WE TERTIP -->
+    <div id="songsTab" class="tab-content">
+      <div class="card">
+        <h2>➕ Aýdymy Tertipläp Goşmak</h2>
+        <div class="help-banner">
+          💡 Bu ýerde aýdymy haýsy <b>Aýdymça</b>, haýsy <b>Alboma</b> we haýsy <b>Pleýliste</b> degişlidigini saýlap bilersiňiz. Şonda baş sahypada hemme aýdym tertipli, aýratyn durar!
+        </div>
+
+        <form id="songForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Aýdymyň ady *</label>
+              <input type="text" id="trackTitle" placeholder="Mysal: Bad Times" required>
+            </div>
+            <div class="form-group">
+              <label>Aýdymçyny saýlaň *</label>
+              <select id="trackArtistSelect" required>
+                <option value="Imael Angel">Imael Angel</option>
+                <option value="Jelil Nurberdiýew">Jelil Nurberdiýew</option>
+                <option value="Mekan Ataýew">Mekan Ataýew</option>
+                <option value="Maral Durdyýewa">Maral Durdyýewa</option>
+                <option value="Blok3">Blok3</option>
+                <option value="Nazir Habibow">Nazir Habibow</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Degişli Albom / Pleýlist</label>
+              <select id="trackAlbumSelect">
+                <option value="Daşary ýurt aýdymlary">Daşary ýurt aýdymlary</option>
+                <option value="Türkmen Toý Aýdymlary">Türkmen Toý Aýdymlary</option>
+                <option value="Retro Söýgi Aýdymlary">Retro Söýgi Aýdymlary</option>
+                <option value="Rahatlyk & Dynç alyş">Rahatlyk & Dynç alyş</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Audio Faýl Ady (GitHub-daky) *</label>
+              <input type="text" id="trackFileName" placeholder="Mysal: Imael Angel - Bad Times - ECHO.mp3" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-submit">＋ Aýdymlaryň Sanawyna Goş</button>
+        </form>
       </div>
 
-      <a href="https://github.com/Han266r6/sanly_site/tree/main/music" target="_blank" class="btn-gh">
-        📂 GitHub «music» Papkasynda Aýdym Ýüklemek ➔
-      </a>
+      <div class="card">
+        <h2>📋 Tertiplenen Aýdymlar Sanawy</h2>
+        <div id="songsListContainer" class="items-list"></div>
+      </div>
     </div>
 
-    <!-- HÄZIRKI GITHUB-DAKY AÝDYMLAR -->
-    <div class="card">
-      <h2>📁 Häzir GitHub-da Bar Bolan Aýdymlaryňyz</h2>
-      <div id="loadingStatus" style="color: #9ca3af; font-size: 13px;">GitHub barlanýar...</div>
-      <div id="adminSongList" class="song-list"></div>
+    <!-- 2. AÝDYMÇYLAR -->
+    <div id="artistsTab" class="tab-content" style="display: none;">
+      <div class="card">
+        <h2>👤 Täze Aýdymçy Goşmak</h2>
+        <form id="artistForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Aýdymçynyň doly ady *</label>
+              <input type="text" id="artistNameInput" placeholder="Mysal: Jelil Nurberdiýew" required>
+            </div>
+            <div class="form-group">
+              <label>Surat (Avatar) URL *</label>
+              <input type="url" id="artistImgInput" placeholder="https://..." value="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" required>
+            </div>
+          </div>
+          <button type="submit" class="btn-submit">＋ Aýdymçy Goş</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>👥 Bar Bolan Aýdymçylar (Tegelek Awatarly)</h2>
+        <div id="artistsListContainer" class="items-list"></div>
+      </div>
     </div>
+
+    <!-- 3. ALBOMAR & PLEÝLISTLER -->
+    <div id="albumsTab" class="tab-content" style="display: none;">
+      <div class="card">
+        <h2>💿 Täze Albom ýa-da Pleýlist Döretmek</h2>
+        <form id="albumForm">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Albom / Pleýlist Ady *</label>
+              <input type="text" id="albumTitleInput" placeholder="Mysal: Tomus Hitleri 2026" required>
+            </div>
+            <div class="form-group">
+              <label>Gysgaça Düşündiriş</label>
+              <input type="text" id="albumSubInput" placeholder="Mysal: Iň täze toý aýdymlary">
+            </div>
+            <div class="form-group full">
+              <label>Albom Daşlygy (Cover Art URL)</label>
+              <input type="url" id="albumCoverInput" value="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&h=300&fit=crop">
+            </div>
+          </div>
+          <button type="submit" class="btn-submit">＋ Albom Döret</button>
+        </form>
+      </div>
+
+      <div class="card">
+        <h2>🗂 Häzirki Albomlar & Pleýlistler</h2>
+        <div id="albumsListContainer" class="items-list"></div>
+      </div>
+    </div>
+
+    <!-- 4. GITHUB BÖLÜMI -->
+    <div id="githubTab" class="tab-content" style="display: none;">
+      <div class="card">
+        <h2>📂 GitHub music/ Papkasy Bilen Birikme</h2>
+        <p style="font-size: 14px; color: var(--text-sub); line-height: 1.6; margin-bottom: 14px;">
+          Siziň GitHub repozitoriýaňyzdaky <code>music/</code> papkasy döredildi. Täze aýdymlary kompýuteriňizden ýa-da telefonyňyzdan gönümel şol papka taşlap bilersiňiz:
+        </p>
+
+        <div class="gh-upload-box">
+          <div>
+            <div style="font-weight: 700;">📂 GitHub-yň music/ papkasyny açmak</div>
+            <div style="font-size: 12px; color: var(--text-sub);">Faýllary göni şu salgynyň içine «Upload files» arkaly ýükläň</div>
+          </div>
+          <a href="https://github.com/Han266r6/sanly_site/tree/main/music" target="_blank" class="btn-gh-link">
+            GitHub-da Aç ➔
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <script>
     const GITHUB_REPO = "Han266r6/sanly_site";
 
-    async function loadAdminSongs() {
-      const container = document.getElementById('adminSongList');
-      const status = document.getElementById('loadingStatus');
+    function showTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).style.display = 'block';
+      event.currentTarget.classList.add('active');
+    }
 
-      try {
-        const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/music?t=` + Date.now());
-        if (!res.ok) {
-          status.innerText = 'music/ papkasy entek döredilmändir. Ýokardaky düwmä basyp dörediň.';
-          return;
-        }
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+      const target = cur === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', target);
+      localStorage.setItem('aydym_theme', target);
+      document.getElementById('themeBtn').innerText = target === 'dark' ? '🌙' : '☀️';
+    }
 
-        const files = await res.json();
-        const mp3s = files.filter(f => f.name.toLowerCase().endsWith('.mp3'));
+    let adminSongs = [
+      { id: 1, title: "Bad Times - ECHO", artist: "Imael Angel", album: "Daşary ýurt aýdymlary", file: "Imael Angel - Bad Times - ECHO.mp3" },
+      { id: 2, title: "Gözleriň", artist: "Mekan Ataýew", album: "Retro Söýgi Aýdymlary", file: "SoundHelix-Song-1.mp3" },
+      { id: 3, title: "Bir Aý", artist: "Jelil Nurberdiýew", album: "Türkmen Toý Aýdymlary", file: "SoundHelix-Song-3.mp3" }
+    ];
 
-        if (mp3s.length === 0) {
-          status.innerText = 'Papkada entek aýdym ýok. Ýokardaky düwmeden aýdym ýükläň!';
-          return;
-        }
-
-        status.innerText = `GitHub-da ${mp3s.length} sany MP3 faýl tapyldy:`;
-        container.innerHTML = '';
-
-        mp3s.forEach((file) => {
-          const item = document.createElement('div');
-          item.className = 'song-item';
-          item.innerHTML = `
+    function renderAdminSongs() {
+      const container = document.getElementById('songsListContainer');
+      container.innerHTML = '';
+      adminSongs.forEach((s, idx) => {
+        const item = document.createElement('div');
+        item.className = 'list-item';
+        item.innerHTML = `
+          <div class="item-left">
+            <span style="font-size: 20px;">🎵</span>
             <div>
-              <div class="song-name">🎵 ${file.name}</div>
-              <div class="song-file">Göwrümi: ${(file.size / (1024*1024)).toFixed(2)} MB</div>
+              <div class="item-title">${s.title}</div>
+              <div class="item-sub">${s.artist} • <span class="tag-badge">${s.album}</span></div>
             </div>
-            <div>
-              <a href="https://github.com/${GITHUB_REPO}/blob/main/music/${file.name}" target="_blank" style="color: #38bdf8; font-size: 12px; text-decoration: none;">GitHub-da gör ➔</a>
-            </div>
-          `;
-          container.appendChild(item);
-        });
-      } catch (e) {
-        status.innerText = 'Maglumat alynmady: ' + e.message;
+          </div>
+          <button class="btn-del" onclick="deleteSong(${idx})">Aýyr ✕</button>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    document.getElementById('songForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('trackTitle').value.trim();
+      const artist = document.getElementById('trackArtistSelect').value;
+      const album = document.getElementById('trackAlbumSelect').value;
+      const file = document.getElementById('trackFileName').value.trim();
+
+      adminSongs.unshift({ id: Date.now(), title, artist, album, file });
+      renderAdminSongs();
+      alert(`«${title}» aýdymy üstünlikli tertiplendi we goşuldy!`);
+      document.getElementById('trackTitle').value = '';
+      document.getElementById('trackFileName').value = '';
+    });
+
+    function deleteSong(idx) {
+      if (confirm('Aýyrmak isleýärsiňizmi?')) {
+        adminSongs.splice(idx, 1);
+        renderAdminSongs();
       }
     }
 
-    window.onload = loadAdminSongs;
+    let adminArtists = [
+      { name: "Jelil Nurberdiýew", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop" },
+      { name: "Imael Angel", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" },
+      { name: "Mekan Ataýew", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop" },
+      { name: "Maral Durdyýewa", img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop" },
+      { name: "Blok3", img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop" }
+    ];
+
+    function renderAdminArtists() {
+      const container = document.getElementById('artistsListContainer');
+      container.innerHTML = '';
+      adminArtists.forEach((a, idx) => {
+        const item = document.createElement('div');
+        item.className = 'list-item';
+        item.innerHTML = `
+          <div class="item-left">
+            <img src="${a.img}" class="item-avatar" alt="${a.name}">
+            <div>
+              <div class="item-title">${a.name}</div>
+              <div class="item-sub">Tegelek awatarly aýdymçy</div>
+            </div>
+          </div>
+          <button class="btn-del" onclick="deleteArtist(${idx})">Aýyr ✕</button>
+        `;
+        container.appendChild(item);
+      });
+    }
+
+    document.getElementById('artistForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('artistNameInput').value.trim();
+      const img = document.getElementById('artistImgInput').value.trim();
+      adminArtists.unshift({ name, img });
+      renderAdminArtists();
+      alert(`«${name}» aýdymçysy sanawa goşuldy!`);
+      document.getElementById('artistNameInput').value = '';
+    });
+
+    function deleteArtist(idx) {
+      if (confirm('Aýyrmak isleýärsiňizmi?')) {
+        adminArtists.splice(idx, 1);
+        renderAdminArtists();
+      }
+    }
+
+    window.onload = () => {
+      const saved = localStorage.getItem('aydym_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      document.getElementById('themeBtn').innerText = saved === 'dark' ? '🌙' : '☀️';
+      renderAdminSongs();
+      renderAdminArtists();
+    };
   </script>
 </body>
 </html>
