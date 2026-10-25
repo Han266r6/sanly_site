@@ -3,81 +3,274 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sanly Ädim — Türkmenistanda Sanly Hyzmatlar</title>
-  <!-- Tailwind CSS (Gurnamak gerek däl, brauzerde göni işleýär) -->
+  <title>Aýdym Portaly — Türkmen Aýdymlary Onlaýn</title>
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- PWA Manifest (Telefona programma ýaly gurnalmagy üçin) -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#065f46">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    /* Audio range scrubber styling */
+    input[type=range] { accent-color: #10b981; }
+  </style>
 </head>
-<body class="bg-neutral-50 text-neutral-900 font-sans">
+<body class="bg-neutral-950 text-neutral-100 font-sans pb-28 antialiased selection:bg-emerald-500 selection:text-white">
 
   <!-- Ýokarky Menýu -->
-  <header class="bg-white border-b border-neutral-200 sticky top-0 z-50">
-    <div class="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <span class="w-8 h-8 rounded-lg bg-emerald-800 text-white flex items-center justify-center font-bold text-sm">SÄ</span>
-        <span class="font-bold text-lg text-neutral-900">Sanly Ädim</span>
+  <header class="bg-neutral-900/90 backdrop-blur-md border-b border-neutral-800 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-900/30">
+          <i data-lucide="music" class="w-5 h-5 text-white"></i>
+        </div>
+        <span class="text-xl font-extrabold tracking-tight text-white">Aýdym<span class="text-emerald-400">.tm</span></span>
       </div>
-      <a href="#hasapla" class="px-4 py-2 text-xs font-semibold bg-emerald-800 text-white rounded-lg hover:bg-emerald-700 transition">
-        Hasaplaýjy
-      </a>
+
+      <!-- Gözleg Meýdançasy -->
+      <div class="flex-1 max-w-md relative hidden sm:block">
+        <i data-lucide="search" class="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+        <input 
+          type="text" 
+          id="searchInput" 
+          oninput="filterSongs()" 
+          placeholder="Aýdym ýa-da aýdymçy gözläň..." 
+          class="w-full bg-neutral-800/90 border border-neutral-700/80 rounded-full pl-10 pr-4 py-2 text-xs sm:text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500 transition"
+        >
+      </div>
+
+      <div class="flex items-center gap-2">
+        <span class="text-xs font-semibold px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          Türkmen Hitleri
+        </span>
+      </div>
     </div>
   </header>
 
-  <!-- Baş Sahypa -->
-  <main class="max-w-5xl mx-auto px-4 py-12">
-    <div class="text-center max-w-2xl mx-auto mb-10">
-      <span class="text-xs font-bold text-emerald-800 uppercase tracking-wider block mb-2">Bütin Ilat Üçin Sanly Platforma</span>
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-neutral-900 mb-3">
-        Türkmenistanda Halk Üçin Gerekli Sanly Hyzmatlar
-      </h1>
-      <p class="text-neutral-600 text-sm">
-        Kommunal schetçikleri hasaplamak, arzan gatnaw we azyk nyrh barometri.
-      </p>
-    </div>
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-10">
 
-    <!-- Interaktiw Hasaplaýjy (Tok & Gaz) -->
-    <div id="hasapla" class="bg-white rounded-2xl border border-neutral-200 p-6 max-w-lg mx-auto shadow-sm">
-      <h2 class="text-base font-bold text-neutral-900 mb-1">JemagatHasap — Tok & Gaz Hasaplaýjysy</h2>
-      <p class="text-xs text-neutral-500 mb-5">Öňki we häzirki sany giriziň, tölegi manatda takyk çykarar.</p>
-
-      <div class="space-y-4 text-xs">
-        <div>
-          <label class="block font-semibold text-neutral-700 mb-1">Tok / Elektrik (kWh sarp edilişi):</label>
-          <input type="number" id="tokInput" value="200" class="w-full border border-neutral-300 rounded-lg p-2.5 text-sm" oninput="hasapla()">
-        </div>
-
-        <div>
-          <label class="block font-semibold text-neutral-700 mb-1">Tebigy Gaz (m³ sarp edilişi):</label>
-          <input type="number" id="gasInput" value="80" class="w-full border border-neutral-300 rounded-lg p-2.5 text-sm" oninput="hasapla()">
-        </div>
-
-        <div class="pt-4 border-t border-neutral-100 flex items-center justify-between">
-          <span class="text-sm font-semibold text-neutral-600">Tölemeli jemi baha:</span>
-          <span id="jemiNetije" class="text-2xl font-extrabold text-emerald-800">8.60 TMT</span>
-        </div>
+    <!-- Esasy Reklama / Täze Hit Banneri -->
+    <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-emerald-900 via-neutral-900 to-neutral-900 p-6 sm:p-10 border border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
+      <div class="space-y-3 max-w-lg text-center sm:text-left">
+        <span class="text-xs uppercase font-bold tracking-wider text-emerald-400">Hepdäniň Iň Köp Diňlenen Aýdymy</span>
+        <h1 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Mähri Pirgulyýewa — Ýyldyzym</h1>
+        <p class="text-neutral-300 text-xs sm:text-sm">Täze 2026 estrada aýdymlaryny ýokary hilde, onlaýn we mugt diňläň!</p>
+        <button onclick="playSong(0)" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold rounded-full text-xs sm:text-sm transition flex items-center gap-2 mx-auto sm:mx-0 shadow-lg shadow-emerald-500/20">
+          <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+          Şu Wagt Diňle
+        </button>
+      </div>
+      <div class="w-32 h-32 sm:w-44 sm:h-44 rounded-2xl bg-neutral-800 border border-neutral-700 flex items-center justify-center shrink-0 shadow-inner">
+        <i data-lucide="disc" class="w-16 h-16 text-emerald-400 animate-spin" style="animation-duration: 8s;"></i>
       </div>
     </div>
+
+    <!-- Aýdymlaryň Sanawy -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+          <i data-lucide="flame" class="w-5 h-5 text-emerald-400"></i>
+          Iň Täze & Meşhur Aýdymlar
+        </h2>
+        <span class="text-xs text-neutral-400" id="songCountText">4 aýdym</span>
+      </div>
+
+      <div class="bg-neutral-900/60 border border-neutral-800/80 rounded-2xl overflow-hidden divide-y divide-neutral-800/60" id="songsContainer">
+        <!-- Aýdymlar JavaScript arkaly şu ýere çykar -->
+      </div>
+    </section>
   </main>
 
-  <footer class="text-center py-8 text-xs text-neutral-400 border-t border-neutral-200 mt-12">
-    © 2026 Sanly Ädim. 100% Mugt we GitHub arkaly işleýär.
-  </footer>
+  <!-- Aşakdaky Hemişelik Audio Pleýer (Sticky Music Bar) -->
+  <div class="fixed bottom-0 left-0 right-0 bg-neutral-900/95 backdrop-blur-lg border-t border-neutral-800 px-4 py-3 z-50 shadow-2xl">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      
+      <!-- Çep tarap: Aýdym maglumaty -->
+      <div class="flex items-center gap-3 w-full sm:w-1/4">
+        <div class="w-12 h-12 rounded-xl bg-neutral-800 flex items-center justify-center shrink-0 border border-neutral-700">
+          <i data-lucide="music-2" class="w-6 h-6 text-emerald-400"></i>
+        </div>
+        <div class="truncate">
+          <h4 id="playerTitle" class="text-xs sm:text-sm font-bold text-white truncate">Aýdym saýlaň</h4>
+          <p id="playerArtist" class="text-[11px] text-neutral-400 truncate">Aýdymçy</p>
+        </div>
+      </div>
 
-  <!-- Awtomatiki Hasaplaýyş Kody -->
+      <!-- Orta: Düwmeler we Sürgiç (Timeline) -->
+      <div class="flex flex-col items-center gap-1.5 w-full sm:w-2/4">
+        <div class="flex items-center gap-4">
+          <button onclick="prevSong()" class="text-neutral-400 hover:text-white transition">
+            <i data-lucide="skip-back" class="w-4 h-4"></i>
+          </button>
+          <button id="mainPlayBtn" onclick="togglePlay()" class="w-10 h-10 rounded-full bg-emerald-500 hover:bg-emerald-400 text-neutral-950 flex items-center justify-center transition shadow-lg shadow-emerald-500/25">
+            <i data-lucide="play" id="mainPlayIcon" class="w-5 h-5 fill-current"></i>
+          </button>
+          <button onclick="nextSong()" class="text-neutral-400 hover:text-white transition">
+            <i data-lucide="skip-forward" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+        <div class="w-full flex items-center gap-2 text-[10px] text-neutral-400 font-mono">
+          <span id="currentTime">0:00</span>
+          <input type="range" id="seekSlider" min="0" max="100" value="0" oninput="seekSong()" class="w-full h-1 bg-neutral-700 rounded-lg cursor-pointer">
+          <span id="totalDuration">0:00</span>
+        </div>
+      </div>
+
+      <!-- Sag tarap: Ses (Volume) -->
+      <div class="hidden sm:flex items-center justify-end gap-2 w-1/4">
+        <i data-lucide="volume-2" class="w-4 h-4 text-neutral-400"></i>
+        <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.8" oninput="changeVolume()" class="w-20 h-1 bg-neutral-700 rounded-lg cursor-pointer">
+      </div>
+    </div>
+  </div>
+
+  <!-- Hakyky Audio Obýekti -->
+  <audio id="audioElement" preload="metadata"></audio>
+
+  <!-- JavaScript Kodlary -->
   <script>
-    function hasapla() {
-      const tok = Number(document.getElementById('tokInput').value) || 0;
-      const gas = Number(document.getElementById('gasInput').value) || 0;
-      const jemi = (tok * 0.035) + (gas * 0.02);
-      document.getElementById('jemiNetije').innerText = jemi.toFixed(2) + " TMT";
+    // Aýdymlaryň Maglumaty (Öz aýdymlaryňyzy şu ýere goşup bilersiňiz!)
+    const playlist = [
+      {
+        title: "Ýyldyzym",
+        artist: "Mähri Pirgulyýewa",
+        duration: "3:42",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+      },
+      {
+        title: "Gara Gözler",
+        artist: "Söhbet Jumaýew",
+        duration: "4:15",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+      },
+      {
+        title: "Gel Gözelim",
+        artist: "Merdan Nurgylyjow",
+        duration: "3:10",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+      },
+      {
+        title: "Janym Eje",
+        artist: "Selbi Tuwakgylyjowa",
+        duration: "3:55",
+        src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+      }
+    ];
+
+    let currentIndex = 0;
+    const audio = document.getElementById("audioElement");
+    const playIcon = document.getElementById("mainPlayIcon");
+    const seekSlider = document.getElementById("seekSlider");
+    const currentTimeText = document.getElementById("currentTime");
+    const totalDurationText = document.getElementById("totalDuration");
+
+    // Aýdymlary Sanawa Çykarmak
+    function renderSongs(list) {
+      const container = document.getElementById("songsContainer");
+      container.innerHTML = "";
+
+      list.forEach((song, idx) => {
+        const item = document.createElement("div");
+        item.className = "flex items-center justify-between p-3.5 hover:bg-neutral-800/50 transition cursor-pointer group";
+        item.innerHTML = \`
+          <div class="flex items-center gap-3.5">
+            <span class="text-xs font-mono text-neutral-500 w-4">\${idx + 1}</span>
+            <button onclick="playSong(\${idx})" class="w-9 h-9 rounded-full bg-neutral-800 group-hover:bg-emerald-500 group-hover:text-neutral-950 text-white flex items-center justify-center transition">
+              <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+            </button>
+            <div>
+              <h4 class="text-xs sm:text-sm font-bold text-white group-hover:text-emerald-400 transition">\${song.title}</h4>
+              <p class="text-[11px] text-neutral-400">\${song.artist}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 text-xs text-neutral-400">
+            <span class="font-mono">\${song.duration}</span>
+            <a href="\${song.src}" download class="p-2 hover:text-emerald-400 transition" title="Ýükle (Download)">
+              <i data-lucide="download" class="w-4 h-4"></i>
+            </a>
+          </div>
+        \`;
+        container.appendChild(item);
+      });
+      lucide.createIcons();
     }
 
-    // Oflaýn rejim (PWA)
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js').catch(err => console.log(err));
+    // Aýdymy Goýbermek
+    function playSong(index) {
+      currentIndex = index;
+      const song = playlist[currentIndex];
+      audio.src = song.src;
+      document.getElementById("playerTitle").innerText = song.title;
+      document.getElementById("playerArtist").innerText = song.artist;
+      audio.play();
+      updatePlayButton(true);
     }
+
+    function togglePlay() {
+      if (!audio.src) {
+        playSong(0);
+        return;
+      }
+      if (audio.paused) {
+        audio.play();
+        updatePlayButton(true);
+      } else {
+        audio.pause();
+        updatePlayButton(false);
+      }
+    }
+
+    function updatePlayButton(isPlaying) {
+      playIcon.setAttribute("data-lucide", isPlaying ? "pause" : "play");
+      lucide.createIcons();
+    }
+
+    function nextSong() {
+      currentIndex = (currentIndex + 1) % playlist.length;
+      playSong(currentIndex);
+    }
+
+    function prevSong() {
+      currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+      playSong(currentIndex);
+    }
+
+    // Wagt Çyzygy (Timeline) Sazlamak
+    audio.ontimeupdate = () => {
+      if (audio.duration) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        seekSlider.value = progress;
+        currentTimeText.innerText = formatTime(audio.currentTime);
+        totalDurationText.innerText = formatTime(audio.duration);
+      }
+    };
+
+    function seekSong() {
+      if (audio.duration) {
+        audio.currentTime = (seekSlider.value / 100) * audio.duration;
+      }
+    }
+
+    function changeVolume() {
+      audio.volume = document.getElementById("volumeSlider").value;
+    }
+
+    function formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return \`\${m}:\${s < 10 ? '0' : ''}\${s}\`;
+    }
+
+    // Gözleg Funksiýasy
+    function filterSongs() {
+      const q = document.getElementById("searchInput").value.toLowerCase();
+      const filtered = playlist.filter(s => s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q));
+      renderSongs(filtered);
+      document.getElementById("songCountText").innerText = filtered.length + " aýdym";
+    }
+
+    // Başlangyçda Aýdymlary Ýükle
+    renderSongs(playlist);
+    lucide.createIcons();
   </script>
 </body>
 </html>
