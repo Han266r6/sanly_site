@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="tk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Aýdym.tm Dolandyryş</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="bg-neutral-950 text-neutral-100 font-sans antialiased min-h-screen">
+
+  <!-- 1. Parol Bilen Giriş Penjiresi (Login Screen) -->
+  <div id="loginSection" class="min-h-screen flex items-center justify-center p-4">
+    <div class="bg-neutral-900 border border-neutral-800 p-8 rounded-2xl max-w-sm w-full space-y-5 shadow-2xl">
+      <div class="text-center space-y-1">
+        <div class="w-12 h-12 rounded-xl bg-emerald-600 text-white flex items-center justify-center mx-auto mb-3">
+          <i data-lucide="shield-check" class="w-6 h-6"></i>
+        </div>
+        <h2 class="text-xl font-bold text-white">Admin Girelgesi</h2>
+        <p class="text-xs text-neutral-400">Saýty dolandyrmak üçin parolyňyzy giriziň</p>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-semibold text-neutral-300 mb-1">Dolandyryjy Paroly:</label>
+          <input type="password" id="adminPassInput" placeholder="Paroly ýazyň..." class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+        </div>
+        <button onclick="checkAdminLogin()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 font-bold rounded-lg text-xs transition">
+          Giriş Etmek
+        </button>
+        <p id="errorMsg" class="text-xs text-red-400 text-center hidden">Parol ýalňyş! Täzeden synanyşyň.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Esasy Dolandyryş Paneli (Admin Dashboard) -->
+  <div id="dashboardSection" class="hidden">
+    <!-- Ýokarky Dolandyryş Paneli -->
+    <header class="bg-neutral-900 border-b border-neutral-800 px-6 py-4 flex items-center justify-between sticky top-0 z-50">
+      <div class="flex items-center gap-3">
+        <span class="text-lg font-bold text-white">Aýdym.tm <span class="text-emerald-400 text-xs px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20">Admin</span></span>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="index.html" target="_blank" class="text-xs text-neutral-400 hover:text-white flex items-center gap-1">
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+          Saýty Gör
+        </a>
+        <button onclick="adminLogout()" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-lg text-xs font-semibold flex items-center gap-1">
+          <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+          Çykmak
+        </button>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
+
+      <!-- 1. Täze Aýdym Goşmak Formasy -->
+      <section class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+        <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+          <i data-lucide="plus-circle" class="w-5 h-5 text-emerald-400"></i>
+          Täze Aýdym Goşmak
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
+          <div>
+            <label class="block font-semibold text-neutral-300 mb-1">Aýdymyň Ady:</label>
+            <input type="text" id="songTitle" placeholder="Meselem: Ýyldyzym" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-neutral-300 mb-1">Aýdymçynyň Ady:</label>
+            <input type="text" id="songArtist" placeholder="Meselem: Mähri Pirgulyýewa" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-neutral-300 mb-1">Uzynlygy (Minut:Sekunt):</label>
+            <input type="text" id="songDuration" placeholder="3:45" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-neutral-300 mb-1">Audio MP3 Salgysy (Link):</label>
+            <input type="text" id="songSrc" placeholder="https://.../aydym.mp3" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
+          </div>
+        </div>
+
+        <div class="mt-4 flex justify-end">
+          <button onclick="addSong()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs flex items-center gap-2">
+            <i data-lucide="plus" class="w-4 h-4"></i>
+            Aýdymlaryň Sanawyna Goş
+          </button>
+        </div>
+      </section>
+
+      <!-- 2. Mahabat & Esasy Banneri Üýtgetmek -->
+      <section class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+        <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+          <i data-lucide="megaphone" class="w-5 h-5 text-emerald-400"></i>
+          Esasy Banneri & Hepdäniň Aýdymyny Üýtgetmek
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+          <div>
+            <label class="block font-semibold text-neutral-300 mb-1">Banner Başlygy (Aýdym & Aýdymçy):</label>
+            <input type="text" id="bannerTitle" value="Mähri Pirgulyýewa — Ýyldyzym" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
+          </div>
+          <div>
+            <label class="block font-semibold text-neutral-300 mb-1">Banner Düşündirişi (Tekst):</label>
+            <input type="text" id="bannerDesc" value="Täze 2026 estrada aýdymlaryny ýokary hilde diňläň!" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
+          </div>
+        </div>
+        <div class="mt-3 flex justify-end">
+          <button onclick="saveBanner()" class="px-4 py-2 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg text-xs font-semibold">
+            Banneri Ýatda Sakla
+          </button>
+        </div>
+      </section>
+
+      <!-- 3. Bar Bolan Aýdymlary Dolandyrmak (Aýyrmak / Pozmak) -->
+      <section class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-base font-bold text-white flex items-center gap-2">
+            <i data-lucide="list-music" class="w-5 h-5 text-emerald-400"></i>
+            Bar Bolan Aýdymlar Sanawy
+          </h3>
+          <span id="adminSongCount" class="text-xs text-neutral-400">0 aýdym</span>
+        </div>
+
+        <div class="divide-y divide-neutral-800 border border-neutral-800 rounded-xl overflow-hidden" id="adminSongList">
+          <!-- Aýdymlar şu ýerde çykar -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Başlangyç Parol: admin123
+    const REAL_PASS = "admin123";
+
+    // Aýdymlar sanawyny ýatda saklamak (LocalStorage arkaly)
+    let currentSongs = JSON.parse(localStorage.getItem("mySongs")) || [
+      { title: "Ýyldyzym", artist: "Mähri Pirgulyýewa", duration: "3:42", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
+      { title: "Gara Gözler", artist: "Söhbet Jumaýew", duration: "4:15", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" }
+    ];
+
+    // Giriş Barlagy
+    function checkAdminLogin() {
+      const pass = document.getElementById("adminPassInput").value;
+      if (pass === REAL_PASS) {
+        document.getElementById("loginSection").classList.add("hidden");
+        document.getElementById("dashboardSection").classList.remove("hidden");
+        renderAdminSongs();
+      } else {
+        document.getElementById("errorMsg").classList.remove("hidden");
+      }
+    }
+
+    function adminLogout() {
+      document.getElementById("loginSection").classList.remove("hidden");
+      document.getElementById("dashboardSection").classList.add("hidden");
+      document.getElementById("adminPassInput").value = "";
+    }
+
+    // Aýdymlary Ekrana Çykarmak
+    function renderAdminSongs() {
+      const list = document.getElementById("adminSongList");
+      list.innerHTML = "";
+
+      currentSongs.forEach((song, idx) => {
+        const item = document.createElement("div");
+        item.className = "p-3.5 flex items-center justify-between hover:bg-neutral-800/40 text-xs";
+        item.innerHTML = \`
+          <div class="flex items-center gap-3">
+            <span class="text-neutral-500 font-mono w-5">\${idx + 1}</span>
+            <div>
+              <h4 class="font-bold text-white">\${song.title}</h4>
+              <p class="text-neutral-400 text-[11px]">\${song.artist} · \${song.duration}</p>
+            </div>
+          </div>
+          <button onclick="deleteSong(\${idx})" class="p-2 text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition" title="Aýyrmak">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+        \`;
+        list.appendChild(item);
+      });
+
+      document.getElementById("adminSongCount").innerText = currentSongs.length + " aýdym bar";
+      lucide.createIcons();
+    }
+
+    // Täze Aýdym Goşmak
+    function addSong() {
+      const title = document.getElementById("songTitle").value.trim();
+      const artist = document.getElementById("songArtist").value.trim();
+      const duration = document.getElementById("songDuration").value.trim() || "3:30";
+      const src = document.getElementById("songSrc").value.trim() || "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+
+      if (!title || !artist) {
+        alert("Aýdymyň we aýdymçynyň adyny hökman ýazyň!");
+        return;
+      }
+
+      currentSongs.push({ title, artist, duration, src });
+      localStorage.setItem("mySongs", JSON.stringify(currentSongs));
+      renderAdminSongs();
+
+      // Formany arassalamak
+      document.getElementById("songTitle").value = "";
+      document.getElementById("songArtist").value = "";
+      document.getElementById("songDuration").value = "";
+      document.getElementById("songSrc").value = "";
+      alert("Aýdym üstünlikli goşuldy!");
+    }
+
+    // Aýdym Pozmak
+    function deleteSong(index) {
+      if (confirm("Bu aýdymy aýyrmak isleýärsiňizmi?")) {
+        currentSongs.splice(index, 1);
+        localStorage.setItem("mySongs", JSON.stringify(currentSongs));
+        renderAdminSongs();
+      }
+    }
+
+    function saveBanner() {
+      const bTitle = document.getElementById("bannerTitle").value;
+      const bDesc = document.getElementById("bannerDesc").value;
+      localStorage.setItem("bannerTitle", bTitle);
+      localStorage.setItem("bannerDesc", bDesc);
+      alert("Banner maglumatlary ýatda saklandy!");
+    }
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>
