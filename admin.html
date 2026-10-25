@@ -52,13 +52,34 @@
     </header>
 
     <main class="max-w-6xl mx-auto px-4 py-8 space-y-8">
-      <!-- Täze Aýdym Goşmak -->
-      <section class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 shadow-xl">
-        <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+
+      <!-- Täze Aýdym Goşmak (Faýl Saýlaýjy Bilen) -->
+      <section class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 shadow-xl space-y-5">
+        <h3 class="text-base font-bold text-white flex items-center gap-2">
           <i data-lucide="cloud-upload" class="w-5 h-5 text-emerald-400"></i>
-          Bütin Dünýä Üçin Täze Aýdym Goşmak
+          Täze Aýdym Goşmak
         </h3>
 
+        <!-- Aňsat Usul: Telefondan / Kompýuterden MP3 Saýlamak -->
+        <div class="bg-neutral-800/60 border border-dashed border-neutral-700 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0">
+              <i data-lucide="file-audio" class="w-5 h-5"></i>
+            </div>
+            <div>
+              <h4 class="text-xs font-bold text-white">Telefonyňyzdan / Kompýuteriňizden MP3 Saýlaň:</h4>
+              <p class="text-[11px] text-neutral-400">Faýly saýlasaňyz, ady we wagty awtomatiki doldurylar!</p>
+            </div>
+          </div>
+
+          <label class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold cursor-pointer shrink-0 transition flex items-center gap-1.5">
+            <i data-lucide="folder" class="w-3.5 h-3.5"></i>
+            Faýl Saýlaň
+            <input type="file" id="localFileInput" accept="audio/mp3,audio/*" onchange="handleFileSelect(event)" class="hidden">
+          </label>
+        </div>
+
+        <!-- Maglumat Formasy -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
           <div>
             <label class="block font-semibold text-neutral-300 mb-1">Aýdymyň Ady:</label>
@@ -73,25 +94,25 @@
             <input type="text" id="songDuration" placeholder="3:40" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
           </div>
           <div>
-            <label class="block font-semibold text-neutral-300 mb-1">Audio MP3 Linki:</label>
-            <input type="text" id="songSrc" placeholder="https://.../aydym.mp3" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
+            <label class="block font-semibold text-neutral-300 mb-1">Audio MP3 Linki / Ady:</label>
+            <input type="text" id="songSrc" placeholder="music/aydym1.mp3 ýa-da https://..." class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
           </div>
         </div>
 
-        <div class="mt-4 flex justify-end">
-          <button onclick="addGlobalSong()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs flex items-center gap-2 shadow-lg shadow-emerald-600/30">
+        <div class="flex justify-end pt-2">
+          <button onclick="addGlobalSong()" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-xs flex items-center gap-2 shadow-lg shadow-emerald-600/30">
             <i data-lucide="check-circle" class="w-4 h-4"></i>
-            Dünýä Boýunça Ýaýrat & Goş
+            Aýdymlaryň Sanawyna Goş
           </button>
         </div>
       </section>
 
-      <!-- Bar Bolan Aýdymlary Pozmak / Dolandyrmak -->
+      <!-- Bar Bolan Aýdymlary Dolandyrmak -->
       <section class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-base font-bold text-white flex items-center gap-2">
             <i data-lucide="list-music" class="w-5 h-5 text-emerald-400"></i>
-            Bütin Dünýäde Görünýän Aýdymlar Sanawy
+            Bar Bolan Aýdymlar Sanawy
           </h3>
           <span id="adminSongCount" class="text-xs text-neutral-400">0 aýdym</span>
         </div>
@@ -165,14 +186,52 @@
       lucide.createIcons();
     }
 
+    // Telefondan / Kompýuterden Faýl Saýlananda Awtomatiki Okamak
+    function handleFileSelect(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      // Faýlyň adyndan Aýdymçyny we Aýdymy aýyrmak (mysal: "Mahri - Yyldyzym.mp3")
+      let cleanName = file.name.replace(/\.[^/.]+$/, "");
+      if (cleanName.includes("-")) {
+        const parts = cleanName.split("-");
+        document.getElementById("songArtist").value = parts[0].trim();
+        document.getElementById("songTitle").value = parts[1].trim();
+      } else {
+        document.getElementById("songTitle").value = cleanName;
+        document.getElementById("songArtist").value = "Türkmen Aýdymçysy";
+      }
+
+      // Audio wagtyny hasaplamak
+      const tempAudio = new Audio();
+      tempAudio.src = URL.createObjectURL(file);
+      tempAudio.onloadedmetadata = () => {
+        const m = Math.floor(tempAudio.duration / 60);
+        const s = Math.floor(tempAudio.duration % 60);
+        document.getElementById("songDuration").value = `${m}:${s < 10 ? '0' : ''}${s}`;
+      };
+
+      // Faýly göni ýatda saklamak üçin url döretmek
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        document.getElementById("songSrc").value = event.target.result;
+        alert("Aýdym telefonyňyzdan saýlandy! Indi aşakdaky «Aýdymlaryň Sanawyna Goş» düwmesine basyň.");
+      };
+      reader.readAsDataURL(file);
+    }
+
     function addGlobalSong() {
       const title = document.getElementById("songTitle").value.trim();
       const artist = document.getElementById("songArtist").value.trim();
       const duration = document.getElementById("songDuration").value.trim() || "3:30";
-      const src = document.getElementById("songSrc").value.trim() || "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3";
+      const src = document.getElementById("songSrc").value.trim();
 
       if (!title || !artist) {
         alert("Aýdymyň we aýdymçynyň adyny ýazyň!");
+        return;
+      }
+      if (!src) {
+        alert("Aýdymyň MP3 faýlyny saýlaň ýa-da linkini ýazyň!");
         return;
       }
 
@@ -184,11 +243,11 @@
       document.getElementById("songArtist").value = "";
       document.getElementById("songDuration").value = "";
       document.getElementById("songSrc").value = "";
-      alert("Täze aýdym goşuldy we bütin saýtda ýaýradyldy!");
+      alert("Täze aýdym üstünlikli goşuldy!");
     }
 
     function deleteGlobalSong(index) {
-      if (confirm("Bu aýdymy bütin saýt boýunça aýyrmak isleýärsiňizmi?")) {
+      if (confirm("Bu aýdymy sanawdan aýyrmak isleýärsiňizmi?")) {
         currentSongs.splice(index, 1);
         localStorage.setItem(CLOUD_STORAGE_KEY, JSON.stringify(currentSongs));
         renderAdminSongs();
