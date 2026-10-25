@@ -3,385 +3,312 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aýdym.tm — Türkmen Aýdymlary Onlaýn</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <title>Sanly Aýdym — Türkmen Aýdym Portaly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    input[type=range] { accent-color: #10b981; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: #0b0f19; color: #f3f4f6; min-height: 100vh; padding-bottom: 120px; }
+    
+    .navbar { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: #111827; border-bottom: 1px solid #1f2937; position: sticky; top: 0; z-index: 100; }
+    .logo { font-size: 20px; font-weight: 800; color: #10b981; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
+    .btn-admin { background: #1f2937; color: #9ca3af; text-decoration: none; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; border: 1px solid #374151; }
+    .btn-admin:hover { color: #fff; border-color: #10b981; }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 20px 16px; }
+    .hero { background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%); border-radius: 16px; padding: 24px; margin-bottom: 24px; border: 1px solid #04785744; }
+    .hero h1 { font-size: 24px; font-weight: 800; margin-bottom: 6px; color: #fff; }
+    .hero p { color: #a7f3d0; font-size: 14px; line-height: 1.4; }
+
+    .section-title { font-size: 18px; font-weight: 700; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+    .status-badge { font-size: 12px; background: #10b98122; color: #34d399; padding: 4px 10px; border-radius: 20px; border: 1px solid #10b98144; }
+
+    .songs-table { display: flex; flex-direction: column; gap: 8px; }
+    .song-row { display: flex; align-items: center; justify-content: space-between; background: #111827; padding: 12px 14px; border-radius: 10px; border: 1px solid #1f2937; transition: 0.2s; cursor: pointer; }
+    .song-row:hover { background: #1f2937; border-color: #374151; }
+    .song-row.playing { border-color: #10b981; background: #064e3b22; }
+    
+    .song-left { display: flex; align-items: center; gap: 12px; flex: 1; overflow: hidden; }
+    .play-icon-btn { width: 38px; height: 38px; border-radius: 50%; background: #10b981; color: #000; border: none; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; flex-shrink: 0; }
+    .song-meta { overflow: hidden; }
+    .song-meta h4 { font-size: 14px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .song-meta span { font-size: 12px; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+
+    .song-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .btn-download { background: #1f2937; color: #38bdf8; border: 1px solid #38bdf844; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-download:hover { background: #38bdf8; color: #000; }
+
+    /* PLEÝER */
+    .player-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #111827f2; backdrop-filter: blur(12px); border-top: 1px solid #1f2937; padding: 12px 16px; z-index: 200; }
+    .player-inner { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
+    .player-controls { display: flex; align-items: center; justify-content: space-between; }
+    .np-title { font-size: 13px; font-weight: 700; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+    .np-artist { font-size: 11px; color: #9ca3af; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 140px; }
+
+    .center-buttons { display: flex; align-items: center; gap: 14px; }
+    .btn-ctrl { background: transparent; border: none; color: #9ca3af; font-size: 18px; cursor: pointer; }
+    .btn-ctrl:hover { color: #fff; }
+    .btn-play-main { width: 42px; height: 42px; border-radius: 50%; background: #10b981; color: #000; border: none; font-size: 18px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+    .progress-wrap { display: flex; align-items: center; gap: 10px; width: 100%; }
+    .time-text { font-size: 11px; color: #6b7280; font-family: monospace; min-width: 32px; }
+    .progress-bar-bg { flex: 1; height: 6px; background: #374151; border-radius: 3px; position: relative; cursor: pointer; }
+    .progress-bar-fill { height: 100%; background: #10b981; border-radius: 3px; width: 0%; pointer-events: none; }
   </style>
 </head>
-<body class="bg-neutral-950 text-neutral-100 font-sans pb-28 antialiased selection:bg-emerald-500 selection:text-white">
+<body>
 
-  <!-- Ýokarky Menýu -->
-  <header class="bg-neutral-900/90 backdrop-blur-md border-b border-neutral-800 sticky top-0 z-40">
-    <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
-      <div class="flex items-center gap-2.5">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-900/30">
-          <i data-lucide="music" class="w-5 h-5 text-white"></i>
-        </div>
-        <span class="text-xl font-extrabold tracking-tight text-white">Aýdym<span class="text-emerald-400">.tm</span></span>
-      </div>
-
-      <!-- Gözleg Meýdançasy -->
-      <div class="flex-1 max-w-md relative hidden sm:block">
-        <i data-lucide="search" class="w-4 h-4 text-neutral-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
-        <input 
-          type="text" 
-          id="searchInput" 
-          oninput="filterSongs()" 
-          placeholder="Aýdym ýa-da aýdymçy gözläň..." 
-          class="w-full bg-neutral-800/90 border border-neutral-700/80 rounded-full pl-10 pr-4 py-2 text-xs sm:text-sm text-white placeholder-neutral-500 focus:outline-none focus:border-emerald-500 transition"
-        >
-      </div>
-
-      <!-- Ulanyjy Hasaby -->
-      <div class="flex items-center gap-3">
-        <div id="userLoggedSection" class="hidden flex items-center gap-2">
-          <span id="userNameBadge" class="text-xs font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1.5 rounded-full"></span>
-          <button onclick="logoutUser()" class="text-xs text-neutral-400 hover:text-white p-1" title="Çykmak">
-            <i data-lucide="log-out" class="w-4 h-4"></i>
-          </button>
-        </div>
-
-        <button id="authBtn" onclick="openAuthModal()" class="px-4 py-2 text-xs font-semibold rounded-full bg-emerald-600 hover:bg-emerald-500 text-white flex items-center gap-1.5 transition shadow-sm">
-          <i data-lucide="user" class="w-3.5 h-3.5"></i>
-          Agza Bolmak / Giriş
-        </button>
-      </div>
+  <nav class="navbar">
+    <a href="index.html" class="logo">🎵 Sanly Aýdym</a>
+    <div class="nav-actions">
+      <a href="admin.html" class="btn-admin">⚙️ Admin Paneli</a>
     </div>
-  </header>
+  </nav>
 
-  <main class="max-w-6xl mx-auto px-4 py-8 space-y-10">
-
-    <!-- Esasy Hepdäniň Aýdymy Banneri -->
-    <div class="relative rounded-2xl overflow-hidden bg-gradient-to-r from-emerald-900 via-neutral-900 to-neutral-900 p-6 sm:p-10 border border-neutral-800 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
-      <div class="space-y-3 max-w-lg text-center sm:text-left">
-        <span class="text-xs uppercase font-bold tracking-wider text-emerald-400">Hepdäniň Iň Köp Diňlenen Aýdymy</span>
-        <h1 id="heroBannerTitle" class="text-2xl sm:text-4xl font-extrabold text-white leading-tight">Mähri Pirgulyýewa — Ýyldyzym</h1>
-        <p id="heroBannerDesc" class="text-neutral-300 text-xs sm:text-sm">Täze 2026 estrada aýdymlaryny ýokary hilde, onlaýn we mugt diňläň!</p>
-        <button onclick="playSong(0)" class="px-6 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-neutral-950 font-bold rounded-full text-xs sm:text-sm transition flex items-center gap-2 mx-auto sm:mx-0 shadow-lg shadow-emerald-500/20">
-          <i data-lucide="play" class="w-4 h-4 fill-current"></i>
-          Şu Wagt Diňle
-        </button>
-      </div>
-      <div class="w-32 h-32 sm:w-44 sm:h-44 rounded-2xl bg-neutral-800 border border-neutral-700 flex items-center justify-center shrink-0 shadow-inner">
-        <i data-lucide="disc" class="w-16 h-16 text-emerald-400 animate-spin" style="animation-duration: 8s;"></i>
-      </div>
+  <div class="container">
+    <div class="hero">
+      <h1>Türkmenistan Aýdym Portaly</h1>
+      <p>Aýdymlary dünýäniň ähli ýerinden ýokary tizlikde diňläň we göni telefonyňyza ýükläp alyň.</p>
     </div>
 
-    <!-- Aýdymlaryň Sanawy -->
-    <section>
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
-          <i data-lucide="flame" class="w-5 h-5 text-emerald-400"></i>
-          Täze & Meşhur Aýdymlar
-        </h2>
-        <span class="text-xs text-neutral-400" id="songCountText">Ýüklenýär...</span>
-      </div>
+    <div class="section-title">
+      <span>🔥 Aýdymlar Sanawy</span>
+      <span id="statusBadge" class="status-badge">GitHub-dan aýdymlar barlanýar...</span>
+    </div>
 
-      <div class="bg-neutral-900/60 border border-neutral-800/80 rounded-2xl overflow-hidden divide-y divide-neutral-800/60" id="songsContainer">
-        <!-- Aýdymlar çykar -->
-      </div>
-    </section>
-  </main>
+    <div id="songsList" class="songs-table">
+      <div style="text-align: center; color: #9ca3af; padding: 30px;">Aýdymlar ýüklenýär, garaşyň...</div>
+    </div>
+  </div>
 
-  <!-- Aşakdaky Kemsiz Audio Pleýer -->
-  <div class="fixed bottom-0 left-0 right-0 bg-neutral-900/95 backdrop-blur-lg border-t border-neutral-800 px-4 py-3 z-50 shadow-2xl">
-    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
-      
-      <!-- Çep tarap: Aýdym ady -->
-      <div class="flex items-center gap-3 w-full sm:w-1/4">
-        <div class="w-12 h-12 rounded-xl bg-neutral-800 flex items-center justify-center shrink-0 border border-neutral-700">
-          <i data-lucide="music-2" class="w-6 h-6 text-emerald-400"></i>
-        </div>
-        <div class="truncate">
-          <h4 id="playerTitle" class="text-xs sm:text-sm font-bold text-white truncate">Aýdym saýlaň</h4>
-          <p id="playerArtist" class="text-[11px] text-neutral-400 truncate">Aýdymçy</p>
-        </div>
-      </div>
-
-      <!-- Orta: Düwmeler & Sürgiç -->
-      <div class="flex flex-col items-center gap-1.5 w-full sm:w-2/4">
-        <div class="flex items-center gap-4">
-          <button onclick="prevSong()" class="text-neutral-400 hover:text-white transition">
-            <i data-lucide="skip-back" class="w-5 h-5"></i>
-          </button>
-          <!-- Esasy Play/Pause Düwmesi -->
-          <button id="mainPlayBtn" onclick="togglePlay()" class="w-11 h-11 rounded-full bg-emerald-500 hover:bg-emerald-400 text-neutral-950 flex items-center justify-center transition shadow-lg shadow-emerald-500/25">
-            <i data-lucide="play" id="mainPlayIcon" class="w-5 h-5 fill-current"></i>
-          </button>
-          <button onclick="nextSong()" class="text-neutral-400 hover:text-white transition">
-            <i data-lucide="skip-forward" class="w-5 h-5"></i>
-          </button>
+  <!-- AŞAKDYKY PLEÝER -->
+  <div class="player-bar">
+    <div class="player-inner">
+      <div class="player-controls">
+        <div>
+          <div class="np-title" id="npTitle">Aýdym saýlaň</div>
+          <div class="np-artist" id="npArtist">—</div>
         </div>
 
-        <div class="w-full flex items-center gap-2 text-[10px] text-neutral-400 font-mono">
-          <span id="currentTime">0:00</span>
-          <input type="range" id="seekSlider" min="0" max="100" value="0" oninput="seekSong()" class="w-full h-1 bg-neutral-700 rounded-lg cursor-pointer">
-          <span id="totalDuration">0:00</span>
+        <div class="center-buttons">
+          <button class="btn-ctrl" onclick="playPrev()">⏮</button>
+          <button class="btn-play-main" id="mainPlayBtn" onclick="togglePlayPause()">▶</button>
+          <button class="btn-ctrl" onclick="playNext()">⏭</button>
+        </div>
+
+        <div>
+          <button class="btn-download" onclick="downloadCurrentSong()">📥 Ýükläp al</button>
         </div>
       </div>
 
-      <!-- Sag tarap: Göni Ýüklemek (Direct Download) & Ses -->
-      <div class="hidden sm:flex items-center justify-end gap-3 w-1/4">
-        <button onclick="downloadCurrentSong()" class="p-2 text-neutral-400 hover:text-emerald-400 transition" title="Şu aýdymy göni telefonyňa ýükle">
-          <i data-lucide="download" class="w-4 h-4"></i>
-        </button>
-        <i data-lucide="volume-2" class="w-4 h-4 text-neutral-400"></i>
-        <input type="range" id="volumeSlider" min="0" max="1" step="0.05" value="0.8" oninput="changeVolume()" class="w-20 h-1 bg-neutral-700 rounded-lg cursor-pointer">
+      <div class="progress-wrap">
+        <span class="time-text" id="currentTime">00:00</span>
+        <div class="progress-bar-bg" id="progressBarBg" onclick="seekAudio(event)">
+          <div class="progress-bar-fill" id="progressBarFill"></div>
+        </div>
+        <span class="time-text" id="totalDuration">00:00</span>
       </div>
     </div>
   </div>
 
-  <!-- Registrasiýa Modaly -->
-  <div id="authModal" class="fixed inset-0 bg-neutral-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-neutral-900 border border-neutral-800 rounded-2xl max-w-sm w-full p-6 space-y-4 shadow-2xl">
-      <div class="flex items-center justify-between">
-        <h3 class="text-base font-bold text-white">Agza Bolmak / Giriş</h3>
-        <button onclick="closeAuthModal()" class="text-neutral-400 hover:text-white">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <div class="space-y-3 text-xs">
-        <div>
-          <label class="block text-neutral-300 font-semibold mb-1">Adyňyz:</label>
-          <input type="text" id="regName" placeholder="Meselem: Batyr" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
-        </div>
-        <div>
-          <label class="block text-neutral-300 font-semibold mb-1">Telefon ýa-da E-mail:</label>
-          <input type="text" id="regContact" placeholder="+993 65 ... ýa-da email" class="w-full bg-neutral-800 border border-neutral-700 rounded-lg p-2.5 text-white">
-        </div>
-        <button onclick="saveUserRegister()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 font-bold rounded-lg text-white transition">
-          Hasap Döretmek
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <audio id="audioElement" preload="metadata"></audio>
+  <audio id="globalAudio"></audio>
 
   <script>
-    const CLOUD_STORAGE_KEY = "aydym_global_v2";
+    const GITHUB_REPO = "Han266r6/sanly_site";
+    let songs = [];
+    let currentIndex = -1;
+    const audio = document.getElementById('globalAudio');
 
-    const defaultSongs = [
-      { id: 1, title: "Ýyldyzym", artist: "Mähri Pirgulyýewa", duration: "3:42", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" },
-      { id: 2, title: "Gara Gözler", artist: "Söhbet Jumaýew", duration: "4:15", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" },
-      { id: 3, title: "Gel Gözelim", artist: "Merdan Nurgylyjow", duration: "3:10", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" },
-      { id: 4, title: "Janym Eje", artist: "Selbi Tuwakgylyjowa", duration: "3:55", src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3" }
-    ];
+    // GITHUB-DAN AÝDYMLARY AWTOMATIKI TAPÝAN FUNKSIÝA
+    async function fetchGitHubSongs() {
+      const statusBadge = document.getElementById('statusBadge');
+      const loadedSongs = [];
 
-    let playlist = [];
-    let currentIndex = 0;
-    const audio = document.getElementById("audioElement");
-    const seekSlider = document.getElementById("seekSlider");
-    const currentTimeText = document.getElementById("currentTime");
-    const totalDurationText = document.getElementById("totalDuration");
+      try {
+        // 1. GitHub-yň 'music' papkasyny barlaýarys
+        const res = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/music?t=` + Date.now());
+        if (res.ok) {
+          const files = await res.json();
+          files.forEach((file, index) => {
+            if (file.name.toLowerCase().endsWith('.mp3') || file.name.toLowerCase().endsWith('.m4a') || file.name.toLowerCase().endsWith('.wav')) {
+              // Adyny we aýdymçysyny awtomatiki aýyrmak: "Aýdymçy - Aýdym.mp3"
+              let cleanName = file.name.replace(/\.[^/.]+$/, "");
+              let parts = cleanName.split(' - ');
+              let artist = parts.length > 1 ? parts[0].trim() : "Türkmen Aýdymçy";
+              let title = parts.length > 1 ? parts[1].trim() : cleanName.trim();
 
-    function loadGlobalSongs() {
-      const saved = localStorage.getItem(CLOUD_STORAGE_KEY);
-      playlist = saved ? JSON.parse(saved) : defaultSongs;
-      renderSongs(playlist);
-      document.getElementById("songCountText").innerText = playlist.length + " aýdym bar";
+              // jsDelivr arkaly bütin dünýä üçin çäksiz tizlikli audio link
+              const cdnUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_REPO}@main/music/${encodeURIComponent(file.name)}`;
+
+              loadedSongs.push({
+                id: 'gh_' + index,
+                title: title,
+                artist: artist,
+                url: cdnUrl,
+                fileName: file.name
+              });
+            }
+          });
+        }
+      } catch (err) {
+        console.warn('GitHub music papkasy okalyp bilinmedi:', err);
+      }
+
+      // 2. Eger GitHub-yň esasy katalogyna (root) hem aýdym atylan bolsa, ony hem barlamak
+      try {
+        const rootRes = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents?t=` + Date.now());
+        if (rootRes.ok) {
+          const rootFiles = await rootRes.json();
+          rootFiles.forEach((file, index) => {
+            if (file.name.toLowerCase().endsWith('.mp3')) {
+              let cleanName = file.name.replace(/\.[^/.]+$/, "");
+              let parts = cleanName.split(' - ');
+              let artist = parts.length > 1 ? parts[0].trim() : "Aýdymçy";
+              let title = parts.length > 1 ? parts[1].trim() : cleanName.trim();
+              const cdnUrl = `https://cdn.jsdelivr.net/gh/${GITHUB_REPO}@main/${encodeURIComponent(file.name)}`;
+
+              // Gaýtalanmaýan bolsa goşýarys
+              if (!loadedSongs.some(s => s.fileName === file.name)) {
+                loadedSongs.push({
+                  id: 'root_' + index,
+                  title: title,
+                  artist: artist,
+                  url: cdnUrl,
+                  fileName: file.name
+                });
+              }
+            }
+          });
+        }
+      } catch (e) {}
+
+      // 3. Eger GitHub-da aýdym entek az bolsa, standart synag aýdymlaryny hem goşýarys
+      if (loadedSongs.length === 0) {
+        loadedSongs.push(
+          { id: 1, title: "Bad Times", artist: "Imael Angel", url: `https://cdn.jsdelivr.net/gh/${GITHUB_REPO}@main/bad_times.mp3`, fileName: "bad_times.mp3" },
+          { id: 2, title: "Gözleriň", artist: "Mekan Ataýew", url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", fileName: "gozlerin.mp3" }
+        );
+      }
+
+      songs = loadedSongs;
+      statusBadge.innerText = `✅ ${songs.length} sany aýdym taýyn`;
+      renderSongs();
     }
 
-    function renderSongs(list) {
-      const container = document.getElementById("songsContainer");
-      container.innerHTML = "";
+    function renderSongs() {
+      const container = document.getElementById('songsList');
+      container.innerHTML = '';
 
-      list.forEach((song, idx) => {
-        const isCurrent = (idx === currentIndex && !audio.paused && audio.src);
-        const item = document.createElement("div");
-        item.className = `flex items-center justify-between p-3.5 hover:bg-neutral-800/50 transition cursor-pointer group ${isCurrent ? 'bg-emerald-950/30 border-l-2 border-emerald-500' : ''}`;
-        item.innerHTML = `
-          <div class="flex items-center gap-3.5">
-            <button onclick="event.stopPropagation(); playSong(${idx})" class="w-9 h-9 rounded-full ${isCurrent ? 'bg-emerald-500 text-neutral-950' : 'bg-neutral-800 group-hover:bg-emerald-500 group-hover:text-neutral-950'} text-white flex items-center justify-center transition shadow-sm">
-              <i data-lucide="${isCurrent ? 'pause' : 'play'}" class="w-4 h-4 fill-current"></i>
-            </button>
-            <div>
-              <h4 class="text-xs sm:text-sm font-bold ${isCurrent ? 'text-emerald-400' : 'text-white'} group-hover:text-emerald-400 transition">${song.title}</h4>
-              <p class="text-[11px] text-neutral-400">${song.artist}</p>
+      songs.forEach((song, index) => {
+        const row = document.createElement('div');
+        row.className = `song-row ${currentIndex === index ? 'playing' : ''}`;
+        const isCurrentPlaying = (currentIndex === index && !audio.paused);
+        const icon = isCurrentPlaying ? '⏸' : '▶';
+
+        row.innerHTML = `
+          <div class="song-left" onclick="playSongAtIndex(${index})">
+            <button class="play-icon-btn">${icon}</button>
+            <div class="song-meta">
+              <h4>${song.title}</h4>
+              <span>${song.artist}</span>
             </div>
           </div>
-          <div class="flex items-center gap-3 text-xs text-neutral-400">
-            <span class="font-mono">${song.duration}</span>
-            <button onclick="event.stopPropagation(); directDownload('${song.src}', '${song.artist} - ${song.title}')" class="p-2 hover:text-emerald-400 transition" title="Göni ýükle">
-              <i data-lucide="download" class="w-4 h-4"></i>
-            </button>
+          <div class="song-right">
+            <button class="btn-download" onclick="downloadSong(event, ${index})">📥 Ýükläp al</button>
           </div>
         `;
-        item.onclick = () => playSong(idx);
-        container.appendChild(item);
+        container.appendChild(row);
       });
-      lucide.createIcons();
     }
 
-    // Play / Pause Sazlamasy (Doly Düzeldildi)
-    function playSong(index) {
-      if (currentIndex === index && audio.src) {
-        togglePlay();
+    function playSongAtIndex(index) {
+      if (index < 0 || index >= songs.length) return;
+      if (currentIndex === index) {
+        togglePlayPause();
         return;
       }
+
       currentIndex = index;
-      const song = playlist[currentIndex];
-      audio.src = song.src;
-      document.getElementById("playerTitle").innerText = song.title;
-      document.getElementById("playerArtist").innerText = song.artist;
-      audio.play().then(() => {
-        updateAllPlayIcons(true);
-      }).catch(e => console.log(e));
+      const song = songs[index];
+      document.getElementById('npTitle').innerText = song.title;
+      document.getElementById('npArtist').innerText = song.artist;
+
+      audio.src = song.url;
+      audio.play().catch(e => console.log('Autoplay play blocked:', e));
+      document.getElementById('mainPlayBtn').innerText = '⏸';
+      renderSongs();
     }
 
-    function togglePlay() {
-      if (!audio.src) {
-        playSong(0);
+    function togglePlayPause() {
+      if (currentIndex === -1) {
+        playSongAtIndex(0);
         return;
       }
       if (audio.paused) {
-        audio.play().then(() => updateAllPlayIcons(true));
+        audio.play();
+        document.getElementById('mainPlayBtn').innerText = '⏸';
       } else {
         audio.pause();
-        updateAllPlayIcons(false);
+        document.getElementById('mainPlayBtn').innerText = '▶';
       }
+      renderSongs();
     }
 
-    function updateAllPlayIcons(isPlaying) {
-      // Esasy aşakdaky pleýer düwmesini täzelär
-      const mainBtn = document.getElementById("mainPlayBtn");
-      mainBtn.innerHTML = `<i data-lucide="${isPlaying ? 'pause' : 'play'}" class="w-5 h-5 fill-current"></i>`;
-      renderSongs(playlist);
-      lucide.createIcons();
+    function playNext() {
+      if (songs.length === 0) return;
+      playSongAtIndex((currentIndex + 1) % songs.length);
     }
 
-    function nextSong() {
-      currentIndex = (currentIndex + 1) % playlist.length;
-      playSong(currentIndex);
+    function playPrev() {
+      if (songs.length === 0) return;
+      playSongAtIndex((currentIndex - 1 + songs.length) % songs.length);
     }
 
-    function prevSong() {
-      currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
-      playSong(currentIndex);
-    }
+    audio.addEventListener('timeupdate', () => {
+      if (!audio.duration) return;
+      const progress = (audio.currentTime / audio.duration) * 100;
+      document.getElementById('progressBarFill').style.width = `${progress}%`;
+      document.getElementById('currentTime').innerText = formatTime(audio.currentTime);
+      document.getElementById('totalDuration').innerText = formatTime(audio.duration);
+    });
 
-    audio.onended = () => { nextSong(); };
+    audio.addEventListener('ended', playNext);
 
-    audio.ontimeupdate = () => {
+    function seekAudio(e) {
+      const rect = document.getElementById('progressBarBg').getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
       if (audio.duration) {
-        seekSlider.value = (audio.currentTime / audio.duration) * 100;
-        currentTimeText.innerText = formatTime(audio.currentTime);
-        totalDurationText.innerText = formatTime(audio.duration);
+        audio.currentTime = (clickX / rect.width) * audio.duration;
       }
-    };
-
-    function seekSong() {
-      if (audio.duration) {
-        audio.currentTime = (seekSlider.value / 100) * audio.duration;
-      }
-    }
-
-    function changeVolume() {
-      audio.volume = document.getElementById("volumeSlider").value;
     }
 
     function formatTime(sec) {
+      if (isNaN(sec)) return "00:00";
       const m = Math.floor(sec / 60);
       const s = Math.floor(sec % 60);
-      return `${m}:${s < 10 ? '0' : ''}${s}`;
+      return `${m < 10 ? '0' : ''}${m}:${s < 10 ? '0' : ''}${s}`;
     }
 
-    // ===============================================
-    // GÖNI ŞOL SAHYPADAN YNAMDAR ÝÜKLEMEK (DIRECT DOWNLOAD)
-    // ===============================================
-    function directDownload(url, filename) {
-      // 1-nji Usul: Blob bilen göni telefonyň içine ýüklemek
-      fetch(url)
-        .then(res => {
-          if (!res.ok) throw new Error('Network error');
-          return res.blob();
-        })
-        .then(blob => {
-          const blobUrl = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.style.display = 'none';
-          a.href = blobUrl;
-          a.download = `${filename}.mp3`;
-          document.body.appendChild(a);
-          a.click();
-          setTimeout(() => {
-            window.URL.revokeObjectURL(blobUrl);
-            document.body.removeChild(a);
-          }, 200);
-        })
-        .catch(() => {
-          // 2-nji Usul: Eger daşary serwer bolsa, arkaýyn göni baglanyşyk arkaly ýükleýär
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = `${filename}.mp3`;
-          a.target = '_self';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        });
+    function downloadSong(e, index) {
+      e.stopPropagation();
+      const song = songs[index];
+      const a = document.createElement('a');
+      a.href = song.url;
+      a.download = `${song.artist} - ${song.title}.mp3`;
+      a.target = '_blank';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     }
 
     function downloadCurrentSong() {
-      if (playlist[currentIndex]) {
-        const s = playlist[currentIndex];
-        directDownload(s.src, `${s.artist} - ${s.title}`);
-      }
+      if (currentIndex === -1) return alert('Aýdym saýlaň!');
+      downloadSong(new Event('click'), currentIndex);
     }
 
-    function filterSongs() {
-      const q = document.getElementById("searchInput").value.toLowerCase();
-      const filtered = playlist.filter(s => s.title.toLowerCase().includes(q) || s.artist.toLowerCase().includes(q));
-      renderSongs(filtered);
-      document.getElementById("songCountText").innerText = filtered.length + " aýdym";
-    }
-
-    function openAuthModal() { document.getElementById("authModal").classList.remove("hidden"); }
-    function closeAuthModal() { document.getElementById("authModal").classList.add("hidden"); }
-
-    function saveUserRegister() {
-      const name = document.getElementById("regName").value.trim();
-      const contact = document.getElementById("regContact").value.trim();
-      if (!name) { alert("Adyňyzy ýazyň!"); return; }
-
-      const user = { name, contact };
-      localStorage.setItem("aydym_user", JSON.stringify(user));
-      checkUserAuth();
-      closeAuthModal();
-      alert(`Salam ${name}! Hasabyňyz üstünlikli açyldy.`);
-    }
-
-    function checkUserAuth() {
-      const u = JSON.parse(localStorage.getItem("aydym_user"));
-      if (u && u.name) {
-        document.getElementById("authBtn").classList.add("hidden");
-        document.getElementById("userLoggedSection").classList.remove("hidden");
-        document.getElementById("userNameBadge").innerText = "Salam, " + u.name;
-      } else {
-        document.getElementById("authBtn").classList.remove("hidden");
-        document.getElementById("userLoggedSection").classList.add("hidden");
-      }
-    }
-
-    function logoutUser() {
-      localStorage.removeItem("aydym_user");
-      checkUserAuth();
-    }
-
-    // Gizlin Admin Düwmesi: Klawiaturada Ctrl + Shift + A
-    document.addEventListener("keydown", (e) => {
-      if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') {
-        window.location.href = "admin.html";
-      }
-    });
-
-    // Admin panelde täze aýdym goşulsa, sahypany täzeläp okar
-    window.addEventListener("storage", () => { loadGlobalSongs(); });
-
-    loadGlobalSongs();
-    checkUserAuth();
-    lucide.createIcons();
+    window.onload = fetchGitHubSongs;
   </script>
 </body>
 </html>
