@@ -3,79 +3,94 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Şahsy Admin Panel — Aýdym.com</title>
+  <title>Admin Dolandyryş Paneli — Ösüşe barýan ýol</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-main: #0e1118;
-      --bg-card: #141824;
-      --bg-card-inner: #0b0e15;
-      --border: #232b3e;
-      --text: #ffffff;
+      --bg-base: #090c13;
+      --bg-surface: #101522;
+      --bg-surface-elevated: #161c2d;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f8fafc;
       --text-sub: #94a3b8;
-      --accent: #10b981;
-      --accent-hover: #059669;
+      --brand: #10b981;
+      --brand-hover: #059669;
+      --brand-glow: rgba(16, 185, 129, 0.2);
     }
 
     [data-theme="light"] {
-      --bg-main: #f8fafc;
-      --bg-card: #ffffff;
-      --bg-card-inner: #f1f5f9;
-      --border: #e2e8f0;
+      --bg-base: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-elevated: #f1f5f9;
+      --border: rgba(0, 0, 0, 0.08);
       --text: #0f172a;
       --text-sub: #64748b;
-      --accent: #059669;
-      --accent-hover: #047857;
+      --brand: #059669;
+      --brand-hover: #047857;
+      --brand-glow: rgba(5, 150, 105, 0.15);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.15s, border 0.15s; }
-    body { background-color: var(--bg-main); color: var(--text); padding: 24px 16px; min-height: 100vh; }
-    .container { max-width: 950px; margin: 0 auto; }
+    body { background-color: var(--bg-base); color: var(--text); padding: 24px 20px; min-height: 100vh; }
+    .container { max-width: 980px; margin: 0 auto; }
 
+    .icon { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; display: inline-block; vertical-align: middle; flex-shrink: 0; }
+    .icon-sm { width: 14px; height: 14px; }
+
+    /* PAROL LOCK */
+    .lock-screen { min-height: 80vh; display: flex; align-items: center; justify-content: center; }
+    .lock-card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 18px; padding: 36px 32px; width: 100%; max-width: 420px; text-align: center; box-shadow: 0 16px 40px rgba(0,0,0,0.3); }
+    .lock-badge { width: 48px; height: 48px; border-radius: 50%; background: var(--brand-glow); color: var(--brand); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; }
+    .lock-title { font-size: 20px; font-weight: 800; margin-bottom: 8px; color: var(--text); }
+    .lock-desc { font-size: 13px; color: var(--text-sub); margin-bottom: 24px; line-height: 1.5; }
+    .lock-input { width: 100%; padding: 12px 14px; background: var(--bg-surface-elevated); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 14px; outline: none; margin-bottom: 16px; text-align: center; letter-spacing: 2px; }
+    .lock-input:focus { border-color: var(--brand); }
+    .btn-lock-submit { width: 100%; background: var(--brand); color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 700; font-size: 14px; cursor: pointer; transition: 0.15s; }
+    .btn-lock-submit:hover { background: var(--brand-hover); }
+
+    /* DASHBOARD */
+    .admin-panel { display: none; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-    .header-left { display: flex; align-items: center; gap: 12px; }
-    .header h1 { font-size: 22px; font-weight: 800; color: var(--accent); }
+    .header-brand { display: flex; align-items: center; gap: 12px; }
+    .logo-badge { width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, var(--brand), #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; }
+    .header-title { font-size: 20px; font-weight: 800; color: var(--text); }
+    
     .header-actions { display: flex; align-items: center; gap: 10px; }
-    .btn-theme { width: 38px; height: 38px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); display: flex; align-items: center; justify-content: center; cursor: pointer; }
-    .btn-back { background: var(--bg-card); color: var(--text); border: 1px solid var(--border); text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; }
-    .btn-back:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-site-link { background: var(--bg-surface); color: var(--text); border: 1px solid var(--border); text-decoration: none; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6px; }
+    .btn-site-link:hover { border-color: var(--brand); color: var(--brand); }
+    .btn-logout { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 8px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; }
 
-    .tabs-nav { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; overflow-x: auto; }
-    .tab-btn { background: transparent; border: none; padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 700; color: var(--text-sub); cursor: pointer; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-    .tab-btn:hover { color: var(--text); background: var(--bg-card); }
-    .tab-btn.active { background: var(--accent); color: #000; }
+    /* TABLAR */
+    .tab-bar { display: flex; gap: 8px; margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    .tab-item { background: transparent; border: none; padding: 10px 18px; border-radius: 10px; font-size: 14px; font-weight: 700; color: var(--text-sub); cursor: pointer; display: flex; align-items: center; gap: 8px; transition: 0.15s; }
+    .tab-item:hover { color: var(--text); background: var(--bg-surface); }
+    .tab-item.active { background: var(--brand); color: #fff; }
 
-    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
-    .card h2 { font-size: 18px; font-weight: 800; margin-bottom: 14px; color: var(--text); display: flex; align-items: center; gap: 8px; }
+    .card { background: var(--bg-surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+    .card-title { font-size: 17px; font-weight: 800; margin-bottom: 16px; color: var(--text); display: flex; align-items: center; gap: 10px; }
 
-    .help-banner { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 14px 18px; margin-bottom: 20px; font-size: 13px; line-height: 1.6; color: var(--accent); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .form-col { display: flex; flex-direction: column; gap: 6px; }
+    .form-col.full { grid-column: 1 / -1; }
+    .form-label { font-size: 12.5px; font-weight: 700; color: var(--text-sub); }
+    .form-input, .form-textarea { padding: 12px 14px; background: var(--bg-surface-elevated); border: 1px solid var(--border); border-radius: 10px; color: var(--text); font-size: 13.5px; outline: none; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--brand); }
+    .form-textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
 
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    .form-group.full { grid-column: 1 / -1; }
-    .form-group label { font-size: 13px; font-weight: 700; color: var(--text-sub); }
-    .form-group input, .form-group select { padding: 12px; background: var(--bg-card-inner); border: 1px solid var(--border); border-radius: 8px; color: var(--text); font-size: 14px; outline: none; }
-    .form-group input:focus, .form-group select:focus { border-color: var(--accent); }
+    .btn-submit { background: var(--brand); color: #fff; border: none; padding: 13px 20px; border-radius: 10px; font-weight: 800; font-size: 14px; cursor: pointer; width: 100%; transition: all 0.15s; }
+    .btn-submit:hover { background: var(--brand-hover); }
 
-    .btn-submit { background: var(--accent); color: #000; border: none; padding: 14px 20px; border-radius: 8px; font-weight: 800; font-size: 15px; cursor: pointer; width: 100%; transition: 0.15s; }
-    .btn-submit:hover { background: var(--accent-hover); }
-
-    .gh-upload-box { display: flex; align-items: center; justify-content: space-between; background: var(--bg-card-inner); border: 1px dashed var(--border); padding: 16px; border-radius: 10px; margin-top: 10px; }
-    .btn-gh-link { background: #1f2937; color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
-    .btn-gh-link:hover { background: var(--accent); color: #000; }
-
-    .items-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
-    .list-item { display: flex; align-items: center; justify-content: space-between; background: var(--bg-card-inner); border: 1px solid var(--border); padding: 12px 16px; border-radius: 10px; }
-    .item-left { display: flex; align-items: center; gap: 12px; }
-    .item-avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
-    .item-title { font-weight: 700; font-size: 14px; color: var(--text); }
-    .item-sub { font-size: 12px; color: var(--text-sub); }
-    .tag-badge { font-size: 11px; padding: 2px 8px; border-radius: 12px; background: rgba(16,185,129,0.15); color: var(--accent); border: 1px solid rgba(16,185,129,0.3); }
-
+    .article-item-row { display: flex; align-items: center; justify-content: space-between; background: var(--bg-surface-elevated); border: 1px solid var(--border); padding: 14px 18px; border-radius: 12px; margin-bottom: 10px; }
+    .row-left { display: flex; align-items: center; gap: 14px; }
+    .row-thumb { width: 50px; height: 50px; border-radius: 8px; object-fit: cover; }
+    .row-title { font-size: 14px; font-weight: 700; color: var(--text); }
+    .row-meta { font-size: 12px; color: var(--text-sub); margin-top: 3px; }
     .btn-del { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer; }
     .btn-del:hover { background: #ef4444; color: #fff; }
+
+    .toast-box { position: fixed; bottom: 24px; right: 24px; background: var(--brand); color: #fff; padding: 12px 20px; border-radius: 10px; font-weight: 700; font-size: 13px; box-shadow: 0 8px 24px var(--brand-glow); display: none; z-index: 400; }
 
     @media (max-width: 650px) {
       .form-grid { grid-template-columns: 1fr; }
@@ -84,268 +99,265 @@
 </head>
 <body>
 
-  <div class="container">
+  <!-- GORAG (PAROL GİRİZILMELI) -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-card">
+      <div class="lock-badge">
+        <svg class="icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      </div>
+      <h2 class="lock-title">Admin Dolandyryş Paneli</h2>
+      <p class="lock-desc">Diňe saýtyň admini üçin goralan bölüm. Dowam etmek üçin şahsy parolyňyzy giriziň:</p>
+      <input type="password" class="lock-input" id="adminPasswordInput" placeholder="Paroly giriziň" autofocus>
+      <button class="btn-lock-submit" onclick="verifyAdminPassword()">Giriş Etmek</button>
+    </div>
+  </div>
+
+  <!-- DOLANDYRYŞ PANELI -->
+  <div class="container admin-panel" id="adminDashboard">
     <header class="header">
-      <div class="header-left">
-        <h1>⚙️ Şahsy Admin Paneli</h1>
+      <div class="header-brand">
+        <div class="logo-badge">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+        </div>
+        <div class="header-title">Ösüşe barýan ýol — Redaksiýa Paneli</div>
       </div>
       <div class="header-actions">
-        <button class="btn-theme" id="themeBtn" onclick="toggleTheme()" title="Režimi çalyş">🌙</button>
-        <a href="index.html" class="btn-back">← Saýta Gaýtmak</a>
+        <a href="index.html" class="btn-site-link">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          Saýta Gaýt
+        </a>
+        <button class="btn-logout" onclick="logoutAdmin()">Çykmak</button>
       </div>
     </header>
 
-    <!-- TABLAR -->
-    <div class="tabs-nav">
-      <button class="tab-btn active" onclick="showTab('songsTab')">🎵 Aýdymlar & Tertip</button>
-      <button class="tab-btn" onclick="showTab('artistsTab')">👤 Aýdymçylar (Artists)</button>
-      <button class="tab-btn" onclick="showTab('albumsTab')">💿 Albomlar & Pleýlistler</button>
-      <button class="tab-btn" onclick="showTab('githubTab')">📂 GitHub music/ Papkasy</button>
+    <div class="tab-bar">
+      <button class="tab-item active" onclick="switchAdminTab('tabAddArticle')">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+        Täze Makala Goşmak
+      </button>
+      <button class="tab-item" onclick="switchAdminTab('tabAds')">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        Mahabat & Bildirişler
+      </button>
+      <button class="tab-item" onclick="switchAdminTab('tabManage')">
+        <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+        Bar Bolan Makalalar
+      </button>
     </div>
 
-    <!-- 1. AÝDYMLAR WE TERTIP -->
-    <div id="songsTab" class="tab-content">
+    <!-- 1. TÄZE MAKALA -->
+    <div id="tabAddArticle" class="tab-pane">
       <div class="card">
-        <h2>➕ Aýdymy Tertipläp Goşmak</h2>
-        <div class="help-banner">
-          💡 Bu ýerde aýdymy haýsy <b>Aýdymça</b>, haýsy <b>Alboma</b> we haýsy <b>Pleýliste</b> degişlidigini saýlap bilersiňiz. Şonda baş sahypada hemme aýdym tertipli, aýratyn durar!
-        </div>
-
-        <form id="songForm">
+        <div class="card-title">Täze Makala ýa-da Habar Döretmek</div>
+        <form id="newArticleForm">
           <div class="form-grid">
-            <div class="form-group">
-              <label>Aýdymyň ady *</label>
-              <input type="text" id="trackTitle" placeholder="Mysal: Bad Times" required>
+            <div class="form-col full">
+              <label class="form-label">Makalanyň Sözbaşysy *</label>
+              <input type="text" class="form-input" id="inpArtTitle" placeholder="Mysal: Sanly ulgamyň ösüşi we täze sepgitler" required>
             </div>
-            <div class="form-group">
-              <label>Aýdymçyny saýlaň *</label>
-              <select id="trackArtistSelect" required>
-                <option value="Imael Angel">Imael Angel</option>
-                <option value="Jelil Nurberdiýew">Jelil Nurberdiýew</option>
-                <option value="Mekan Ataýew">Mekan Ataýew</option>
-                <option value="Maral Durdyýewa">Maral Durdyýewa</option>
-                <option value="Blok3">Blok3</option>
-                <option value="Nazir Habibow">Nazir Habibow</option>
+            <div class="form-col">
+              <label class="form-label">Kategoriýasy *</label>
+              <select class="form-input" id="inpArtCat" required>
+                <option value="Ösüş & Tehnologiýa">Ösüş & Tehnologiýa</option>
+                <option value="Biznes & Ykdysadyýet">Biznes & Ykdysadyýet</option>
+                <option value="Bildirişler & Mahabat">Bildirişler & Mahabat</option>
+                <option value="Ylym & Bilim">Ylym & Bilim</option>
               </select>
             </div>
-            <div class="form-group">
-              <label>Degişli Albom / Pleýlist</label>
-              <select id="trackAlbumSelect">
-                <option value="Daşary ýurt aýdymlary">Daşary ýurt aýdymlary</option>
-                <option value="Türkmen Toý Aýdymlary">Türkmen Toý Aýdymlary</option>
-                <option value="Retro Söýgi Aýdymlary">Retro Söýgi Aýdymlary</option>
-                <option value="Rahatlyk & Dynç alyş">Rahatlyk & Dynç alyş</option>
-              </select>
+            <div class="form-col">
+              <label class="form-label">Awtoryň Ady *</label>
+              <input type="text" class="form-input" id="inpArtAuthor" placeholder="Mysal: Merdan Myradow" required>
             </div>
-            <div class="form-group">
-              <label>Audio Faýl Ady (GitHub-daky) *</label>
-              <input type="text" id="trackFileName" placeholder="Mysal: Imael Angel - Bad Times - ECHO.mp3" required>
+            <div class="form-col full">
+              <label class="form-label">Surat URL (Esasy Foto) *</label>
+              <input type="url" class="form-input" id="inpArtImg" value="https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&auto=format&fit=crop" required>
+            </div>
+            <div class="form-col full">
+              <label class="form-label">Gysgaça Mazmuny (Snippet) *</label>
+              <input type="text" class="form-input" id="inpArtSnippet" placeholder="Makalanyň esasy mazmunyny beýan edýän 1-2 sözlem..." required>
+            </div>
+            <div class="form-col full">
+              <label class="form-label">Makalanyň Doly Teksti *</label>
+              <textarea class="form-textarea" id="inpArtContent" placeholder="Makalanyň doly tekstini bu ýere ýazyň..." required></textarea>
             </div>
           </div>
-
-          <button type="submit" class="btn-submit">＋ Aýdymlaryň Sanawyna Goş</button>
+          <button type="submit" class="btn-submit">Makalany Çap Etmek (Saýtda Peýda Bolar)</button>
         </form>
-      </div>
-
-      <div class="card">
-        <h2>📋 Tertiplenen Aýdymlar Sanawy</h2>
-        <div id="songsListContainer" class="items-list"></div>
       </div>
     </div>
 
-    <!-- 2. AÝDYMÇYLAR -->
-    <div id="artistsTab" class="tab-content" style="display: none;">
+    <!-- 2. MAHABAT -->
+    <div id="tabAds" class="tab-pane" style="display: none;">
       <div class="card">
-        <h2>👤 Täze Aýdymçy Goşmak</h2>
-        <form id="artistForm">
+        <div class="card-title">Baş Sahypadaky Mahabat / Bildiriş Banneri</div>
+        <form id="adsForm">
           <div class="form-grid">
-            <div class="form-group">
-              <label>Aýdymçynyň doly ady *</label>
-              <input type="text" id="artistNameInput" placeholder="Mysal: Jelil Nurberdiýew" required>
+            <div class="form-col full">
+              <label class="form-label">Mahabat / Bildiriş Başlygy *</label>
+              <input type="text" class="form-input" id="inpAdTitle" placeholder="Mysal: Kärhanaňyz üçin sanly mahabat hyzmatlary" required>
             </div>
-            <div class="form-group">
-              <label>Surat (Avatar) URL *</label>
-              <input type="url" id="artistImgInput" placeholder="https://..." value="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" required>
+            <div class="form-col full">
+              <label class="form-label">Gysgaça Düşündiriş *</label>
+              <input type="text" class="form-input" id="inpAdSub" placeholder="Mysal: Web-sahypa, SEO we elektron söwda platformalary elýeterli bahadan." required>
             </div>
           </div>
-          <button type="submit" class="btn-submit">＋ Aýdymçy Goş</button>
+          <button type="submit" class="btn-submit">Mahabat Bannerini Täzelemek</button>
         </form>
-      </div>
-
-      <div class="card">
-        <h2>👥 Bar Bolan Aýdymçylar (Tegelek Awatarly)</h2>
-        <div id="artistsListContainer" class="items-list"></div>
       </div>
     </div>
 
-    <!-- 3. ALBOMAR & PLEÝLISTLER -->
-    <div id="albumsTab" class="tab-content" style="display: none;">
+    <!-- 3. DOLANDYRYS -->
+    <div id="tabManage" class="tab-pane" style="display: none;">
       <div class="card">
-        <h2>💿 Täze Albom ýa-da Pleýlist Döretmek</h2>
-        <form id="albumForm">
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Albom / Pleýlist Ady *</label>
-              <input type="text" id="albumTitleInput" placeholder="Mysal: Tomus Hitleri 2026" required>
-            </div>
-            <div class="form-group">
-              <label>Gysgaça Düşündiriş</label>
-              <input type="text" id="albumSubInput" placeholder="Mysal: Iň täze toý aýdymlary">
-            </div>
-            <div class="form-group full">
-              <label>Albom Daşlygy (Cover Art URL)</label>
-              <input type="url" id="albumCoverInput" value="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=300&h=300&fit=crop">
-            </div>
-          </div>
-          <button type="submit" class="btn-submit">＋ Albom Döret</button>
-        </form>
-      </div>
-
-      <div class="card">
-        <h2>🗂 Häzirki Albomlar & Pleýlistler</h2>
-        <div id="albumsListContainer" class="items-list"></div>
-      </div>
-    </div>
-
-    <!-- 4. GITHUB BÖLÜMI -->
-    <div id="githubTab" class="tab-content" style="display: none;">
-      <div class="card">
-        <h2>📂 GitHub music/ Papkasy Bilen Birikme</h2>
-        <p style="font-size: 14px; color: var(--text-sub); line-height: 1.6; margin-bottom: 14px;">
-          Siziň GitHub repozitoriýaňyzdaky <code>music/</code> papkasy döredildi. Täze aýdymlary kompýuteriňizden ýa-da telefonyňyzdan gönümel şol papka taşlap bilersiňiz:
-        </p>
-
-        <div class="gh-upload-box">
-          <div>
-            <div style="font-weight: 700;">📂 GitHub-yň music/ papkasyny açmak</div>
-            <div style="font-size: 12px; color: var(--text-sub);">Faýllary göni şu salgynyň içine «Upload files» arkaly ýükläň</div>
-          </div>
-          <a href="https://github.com/Han266r6/sanly_site/tree/main/music" target="_blank" class="btn-gh-link">
-            GitHub-da Aç ➔
-          </a>
-        </div>
+        <div class="card-title">Bar Bolan Ähli Makalalar (<span id="totalArtCount">0</span>)</div>
+        <div id="manageArticlesContainer"></div>
       </div>
     </div>
 
   </div>
 
-  <script>
-    const GITHUB_REPO = "Han266r6/sanly_site";
+  <div class="toast-box" id="toastMsg">Habar</div>
 
-    function showTab(tabId) {
-      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  <script>
+    const ADMIN_PASS = "admin2026";
+    let portalData = null;
+
+    function verifyAdminPassword() {
+      const val = document.getElementById('adminPasswordInput').value.trim();
+      if (val === ADMIN_PASS) {
+        sessionStorage.setItem('osuse_admin_auth', 'true');
+        showDashboard();
+      } else {
+        alert('Parol nädogry! Täzeden synanyşyň.');
+      }
+    }
+
+    function checkAuth() {
+      if (sessionStorage.getItem('osuse_admin_auth') === 'true') {
+        showDashboard();
+      }
+    }
+
+    function showDashboard() {
+      document.getElementById('lockScreen').style.display = 'none';
+      document.getElementById('adminDashboard').style.display = 'block';
+      loadAdminData();
+    }
+
+    function logoutAdmin() {
+      sessionStorage.removeItem('osuse_admin_auth');
+      window.location.reload();
+    }
+
+    function switchAdminTab(tabId) {
+      document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
+      document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
       document.getElementById(tabId).style.display = 'block';
       event.currentTarget.classList.add('active');
     }
 
-    function toggleTheme() {
-      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
-      const target = cur === 'dark' ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', target);
-      localStorage.setItem('aydym_theme', target);
-      document.getElementById('themeBtn').innerText = target === 'dark' ? '🌙' : '☀️';
+    function showToast(text) {
+      const t = document.getElementById('toastMsg');
+      t.innerText = text;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3000);
     }
 
-    let adminSongs = [
-      { id: 1, title: "Bad Times - ECHO", artist: "Imael Angel", album: "Daşary ýurt aýdymlary", file: "Imael Angel - Bad Times - ECHO.mp3" },
-      { id: 2, title: "Gözleriň", artist: "Mekan Ataýew", album: "Retro Söýgi Aýdymlary", file: "SoundHelix-Song-1.mp3" },
-      { id: 3, title: "Bir Aý", artist: "Jelil Nurberdiýew", album: "Türkmen Toý Aýdymlary", file: "SoundHelix-Song-3.mp3" }
-    ];
+    function loadAdminData() {
+      const raw = localStorage.getItem('osuse_baran_yol_data');
+      if (raw) {
+        portalData = JSON.parse(raw);
+      } else {
+        portalData = { articles: [], adBanner: {} };
+      }
+      renderManageList();
 
-    function renderAdminSongs() {
-      const container = document.getElementById('songsListContainer');
-      container.innerHTML = '';
-      adminSongs.forEach((s, idx) => {
-        const item = document.createElement('div');
-        item.className = 'list-item';
-        item.innerHTML = `
-          <div class="item-left">
-            <span style="font-size: 20px;">🎵</span>
-            <div>
-              <div class="item-title">${s.title}</div>
-              <div class="item-sub">${s.artist} • <span class="tag-badge">${s.album}</span></div>
-            </div>
-          </div>
-          <button class="btn-del" onclick="deleteSong(${idx})">Aýyr ✕</button>
-        `;
-        container.appendChild(item);
-      });
-    }
-
-    document.getElementById('songForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const title = document.getElementById('trackTitle').value.trim();
-      const artist = document.getElementById('trackArtistSelect').value;
-      const album = document.getElementById('trackAlbumSelect').value;
-      const file = document.getElementById('trackFileName').value.trim();
-
-      adminSongs.unshift({ id: Date.now(), title, artist, album, file });
-      renderAdminSongs();
-      alert(`«${title}» aýdymy üstünlikli tertiplendi we goşuldy!`);
-      document.getElementById('trackTitle').value = '';
-      document.getElementById('trackFileName').value = '';
-    });
-
-    function deleteSong(idx) {
-      if (confirm('Aýyrmak isleýärsiňizmi?')) {
-        adminSongs.splice(idx, 1);
-        renderAdminSongs();
+      if (portalData.adBanner) {
+        document.getElementById('inpAdTitle').value = portalData.adBanner.title || '';
+        document.getElementById('inpAdSub').value = portalData.adBanner.sub || '';
       }
     }
 
-    let adminArtists = [
-      { name: "Jelil Nurberdiýew", img: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop" },
-      { name: "Imael Angel", img: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop" },
-      { name: "Mekan Ataýew", img: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop" },
-      { name: "Maral Durdyýewa", img: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop" },
-      { name: "Blok3", img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&h=200&fit=crop" }
-    ];
-
-    function renderAdminArtists() {
-      const container = document.getElementById('artistsListContainer');
+    function renderManageList() {
+      const container = document.getElementById('manageArticlesContainer');
       container.innerHTML = '';
-      adminArtists.forEach((a, idx) => {
-        const item = document.createElement('div');
-        item.className = 'list-item';
-        item.innerHTML = `
-          <div class="item-left">
-            <img src="${a.img}" class="item-avatar" alt="${a.name}">
+      const list = portalData.articles || [];
+      document.getElementById('totalArtCount').innerText = list.length;
+
+      if (list.length === 0) {
+        container.innerHTML = '<div style="color: var(--text-sub); padding: 20px;">Häzirlikçe makala ýok.</div>';
+        return;
+      }
+
+      list.forEach((a, idx) => {
+        const row = document.createElement('div');
+        row.className = 'article-item-row';
+        row.innerHTML = `
+          <div class="row-left">
+            <img src="${a.cover}" class="row-thumb" alt="thumb">
             <div>
-              <div class="item-title">${a.name}</div>
-              <div class="item-sub">Tegelek awatarly aýdymçy</div>
+              <div class="row-title">${a.title}</div>
+              <div class="row-meta">${a.category} • ${a.date} • Awtory: ${a.author}</div>
             </div>
           </div>
-          <button class="btn-del" onclick="deleteArtist(${idx})">Aýyr ✕</button>
+          <button class="btn-del" onclick="deleteArticle(${idx})">Pozmak ✕</button>
         `;
-        container.appendChild(item);
+        container.appendChild(row);
       });
     }
 
-    document.getElementById('artistForm').addEventListener('submit', (e) => {
+    document.getElementById('newArticleForm').addEventListener('submit', (e) => {
       e.preventDefault();
-      const name = document.getElementById('artistNameInput').value.trim();
-      const img = document.getElementById('artistImgInput').value.trim();
-      adminArtists.unshift({ name, img });
-      renderAdminArtists();
-      alert(`«${name}» aýdymçysy sanawa goşuldy!`);
-      document.getElementById('artistNameInput').value = '';
+      const title = document.getElementById('inpArtTitle').value.trim();
+      const category = document.getElementById('inpArtCat').value;
+      const author = document.getElementById('inpArtAuthor').value.trim();
+      const cover = document.getElementById('inpArtImg').value.trim();
+      const snippet = document.getElementById('inpArtSnippet').value.trim();
+      const content = document.getElementById('inpArtContent').value.trim();
+
+      const newArt = {
+        id: 'art_' + Date.now(),
+        title,
+        category,
+        author,
+        date: new Date().toLocaleDateString('tk-TM', { day: 'numeric', month: 'long', year: 'numeric' }),
+        readTime: "3 min okalýar",
+        cover,
+        snippet,
+        content,
+        likes: 0,
+        comments: []
+      };
+
+      if (!portalData.articles) portalData.articles = [];
+      portalData.articles.unshift(newArt);
+      localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
+
+      showToast(`«${title}» makalasy üstünlikli çap edildi!`);
+      document.getElementById('newArticleForm').reset();
+      renderManageList();
     });
 
-    function deleteArtist(idx) {
-      if (confirm('Aýyrmak isleýärsiňizmi?')) {
-        adminArtists.splice(idx, 1);
-        renderAdminArtists();
+    document.getElementById('adsForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('inpAdTitle').value.trim();
+      const sub = document.getElementById('inpAdSub').value.trim();
+
+      portalData.adBanner = { title, sub, link: "#articlesGrid" };
+      localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
+      showToast('Mahabat banneri täzelendi!');
+    });
+
+    function deleteArticle(idx) {
+      if (confirm('Hakykatdan hem bu makalany saýtdan aýyrmak isleýärsiňizmi?')) {
+        portalData.articles.splice(idx, 1);
+        localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
+        renderManageList();
+        showToast('Makala pozuldy.');
       }
     }
 
-    window.onload = () => {
-      const saved = localStorage.getItem('aydym_theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', saved);
-      document.getElementById('themeBtn').innerText = saved === 'dark' ? '🌙' : '☀️';
-      renderAdminSongs();
-      renderAdminArtists();
-    };
+    window.onload = checkAuth;
   </script>
 </body>
 </html>
