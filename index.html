@@ -99,13 +99,17 @@
 
     /* HEADER RIGHT ACTIONS */
     .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .search-box-pill { position: relative; width: 200px; }
+    .search-box-pill { position: relative; width: 190px; }
     .search-icon-pos { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-dim); pointer-events: none; }
     .search-inp { width: 100%; padding: 8px 12px 8px 34px; background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 20px; color: var(--text-main); font-size: 12.5px; outline: none; }
     .search-inp:focus { border-color: var(--neon-emerald); box-shadow: 0 0 12px rgba(16, 185, 129, 0.25); }
 
     .btn-theme-switch { width: 36px; height: 36px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-hairline); color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
     .btn-theme-switch:hover { color: var(--text-main); border-color: var(--neon-emerald); transform: rotate(15deg); }
+
+    /* ADMIN PANEL ÇALT DÜWME */
+    .btn-admin-quick { width: 36px; height: 36px; border-radius: 50%; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--border-accent); color: var(--neon-emerald); display: flex; align-items: center; justify-content: center; text-decoration: none; flex-shrink: 0; transition: 0.15s; }
+    .btn-admin-quick:hover { background: var(--neon-emerald); color: #fff; }
 
     .btn-auth-user { background: linear-gradient(135deg, var(--neon-emerald), #059669); color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 8px 15px; border-radius: 20px; font-size: 12.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: var(--glow-emerald); white-space: nowrap; flex-shrink: 0; }
     .btn-auth-user:hover { transform: translateY(-1px); filter: brightness(1.1); }
@@ -135,7 +139,7 @@
     .hero-lead { font-size: 14.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 22px; }
     .hero-author-row { display: flex; align-items: center; gap: 12px; font-size: 12.5px; color: var(--text-dim); border-top: 1px solid var(--border-hairline); padding-top: 16px; flex-wrap: wrap; }
 
-    /* MAHABAT / SPONSORED BANNER (NEON ACCENT) */
+    /* MAHABAT / SPONSORED BANNER */
     .ad-spotlight { background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%); border: 1px solid rgba(16, 185, 129, 0.28); border-radius: 16px; padding: 20px 24px; margin-bottom: 34px; display: flex; align-items: center; justify-content: space-between; gap: 16px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.15); width: 100%; }
     .ad-spotlight::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, var(--neon-emerald), var(--neon-cyan)); box-shadow: 0 0 12px var(--neon-emerald); }
     .ad-left { display: flex; align-items: center; gap: 16px; }
@@ -150,7 +154,7 @@
     .content-heading-title { font-size: clamp(18px, 3vw, 22px); font-weight: 800; color: var(--text-main); letter-spacing: -0.4px; }
     .content-counter-badge { font-size: 11.5px; font-weight: 700; color: var(--neon-emerald); background: rgba(16, 185, 129, 0.12); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.3); white-space: nowrap; }
 
-    /* MAKALALAR GRID - FULLY RESPONSIVE FOR ALL SCREEN SIZES */
+    /* MAKALALAR GRID */
     .articles-feed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 24px; margin-bottom: 44px; width: 100%; }
     .post-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: var(--glow-card); position: relative; width: 100%; }
     .post-card:hover { transform: translateY(-4px); border-color: var(--border-accent); box-shadow: 0 16px 36px -8px rgba(0,0,0,0.5); }
@@ -180,7 +184,7 @@
     .footer-admin-btn { font-size: 12px; color: var(--text-dim); text-decoration: none; padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border-hairline); display: flex; align-items: center; gap: 6px; transition: 0.15s; }
     .footer-admin-btn:hover { color: var(--neon-emerald); border-color: var(--neon-emerald); background: rgba(16, 185, 129, 0.08); }
 
-    /* MODAL: READER ARTICLE - FULL WORDPAD FORMATTING SUPPORT */
+    /* MODAL: READER ARTICLE */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(14px); display: none; align-items: center; justify-content: center; z-index: 500; padding: 16px; width: 100%; height: 100%; overflow-y: auto; }
     .article-modal-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 20px; width: 100%; max-width: 820px; max-height: 92vh; overflow-y: auto; padding: 34px 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.7); position: relative; -webkit-overflow-scrolling: touch; }
     .btn-dismiss-modal { position: absolute; top: 16px; right: 16px; background: var(--bg-card); border: 1px solid var(--border-hairline); color: var(--text-muted); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; z-index: 10; }
@@ -235,7 +239,7 @@
 
     .toast-box { position: fixed; bottom: 20px; right: 20px; left: 20px; max-width: 360px; margin: 0 auto; background: var(--neon-emerald); color: #fff; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 13px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); display: none; z-index: 999; text-align: center; }
 
-    /* TELEFON WE PLANŞET ADAPTASIÝASY (RESPONSIVE BREAKPOINTS) */
+    /* TELEFON WE PLANŞET ADAPTASIÝASY */
     @media (max-width: 900px) {
       .hero-editorial { grid-template-columns: 1fr; }
       .hero-art-side { min-height: 240px; }
@@ -302,7 +306,7 @@
         <button class="nav-tab-btn" onclick="switchCategory('Ylym & Bilim')">Ylym</button>
       </nav>
 
-      <!-- SAG TARAP: GÖZLEG, REŽIM, PROFIL -->
+      <!-- SAG TARAP: GÖZLEG, REŽIM, ADMIN, PROFIL -->
       <div class="header-right">
         <div class="search-box-pill">
           <svg class="icon icon-sm search-icon-pos" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -314,10 +318,15 @@
           <svg class="icon" id="themeSwitchSvg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </button>
 
-        <!-- ULANYJY HASABY (DINE REGISTRASIYA / PROFIL) -->
+        <!-- ADMIN PANEL ÇALT DÜWME -->
+        <a href="admin.html" class="btn-admin-quick" title="Admin Paneline Giriş">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        </a>
+
+        <!-- ULANYJY HASABY -->
         <button class="btn-auth-user" id="authUserBtn" onclick="openAuthModal()">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          <span id="authUserText">Giriş / Hasap</span>
+          <span id="authUserText">Giriş</span>
         </button>
       </div>
     </div>
@@ -440,6 +449,9 @@
   <div class="toast-box" id="toastMsg">Habar</div>
 
   <script>
+    // GLOBAL BULUT BAZASYNYŇ SALGYSY
+    const CLOUD_DB_URL = "https://kvdb.io/TV4MuAePqsBzBcFp1mz8Wh/portal_data";
+
     // STANDART BAŞLANGYÇ PORTAL BAZASY
     const BASE_DATA = {
       articles: [
@@ -453,8 +465,8 @@
           cover: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop",
           snippet: "Sanly tehnologiýalar döwlet we jemgyýetçilik hyzmatlaryny tizleşdirmekde esasy güýje öwrülýär. Ýurdumyzda döredilýän täze maglumat ulgamlary barada seljerme.",
           content: `<p>Sanly ykdysadyýet häzirki wagtda ähli pudaklaryň netijeliligini ýokarlandyrmagyň iň möhüm guralydyr. Ýurdumyzda kabul edilen döwlet maksatnamalary esasynda elektron resminama dolanyşygy, onlaýn töleg platformalary we sanly hyzmatlar yzygiderli kämilleşdirilýär. 🚀</p><h2>Esasy Ösüş Ädimleri</h2><p>Ösüşiň täze tapgyrynda emeli aň, bulut tehnologiýalary we ýaş programmaçylaryň innowasion başlangyçlary aýratyn orun tutýar. Täze döredilýän startaplar diňe bir içerki bazarda däl, eýsem sebit derejesinde hem uly bäsdeşlige ukyply bolmagy maksat edinýär. 💡</p><blockquote>«Innowasiýa we sanlylaşdyrmak — geljege tarap ynamly gadamdyr!»</blockquote><ul><li>Elektron hyzmatlaryň bir bitewi portaly</li><li>Töleg tizliginiň we howpsuzlygynyň kepilligi</li><li>Ýaş programmaçylaryň startap merkezleri</li></ul>`,
-          views: 1380,
-          likes: 92,
+          views: 1420,
+          likes: 98,
           comments: [
             { author: "Döwlet B.", date: "Şu gün", text: "Örän manyly we geljege gönükdirilen makala bolupdyr!" },
             { author: "Şirin K.", date: "Düýn", text: "Sanly ulgamyň ösmegi ýaş hünärmenler üçin uly itergi berýär." }
@@ -470,8 +482,8 @@
           cover: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&auto=format&fit=crop",
           snippet: "Täze işe başlaýan telekeçiler üçin maliýe dolandyryşy, müşderi ynamyny gazanmak we bazarda durnukly orun eýelemegiň amaly maslahatlary.",
           content: `<p>Telekeçilikde üstünlik diňe bir gowy ideýa däl, eýsem dogry dolandyryş we maliýe tertibine baglydyr. 📈</p><h2>5 Altyn Düzgün:</h2><ol><li><b>Müşderini diňlemek</b> we olaryň talaplaryna görä hyzmatlary çeýe uýgunlaşdyrmak.</li><li><b>Pul akymyny berk hasaba almak</b> we artykmaç çykdaýjylardan gaça durmak. 💼</li><li><b>Sanly mahabaty</b> we sosial torlary maksatlaýyn peýdalanmak.</li><li><b>Toparyň hünär derejesini</b> yzygiderli ýokarlandyrmak.</li><li><b>Hil kepilligini</b> hemişe ileri tutmak. ⭐</li></ol>`,
-          views: 940,
-          likes: 64,
+          views: 980,
+          likes: 68,
           comments: [
             { author: "Batyr H.", date: "29 Okt", text: "Maliýe tertibi boýunça berlen maslahatlar gaty wajyp." }
           ]
@@ -486,8 +498,8 @@
           cover: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1000&auto=format&fit=crop",
           snippet: "Kärhanaňyzyň we dükanyňyzyň satuwyny internet arkaly artdyrmak isleýärsiňizmi? Döwrebap web-sahypalaryň dizaýny we SEO hyzmatlary.",
           content: `<p>Döwrebap biznes üçin sanly şahsyýet hökmany şertdir! 🌐 Biznes sahypalary, onlaýn dükanyň programma üpjünçiligi we professional mahabat hyzmatlary amatly bahalar bilen hödürlenýär. 🚀</p><p>Habarlaşmak üçin: <b>info@osush.tm</b></p>`,
-          views: 710,
-          likes: 38,
+          views: 740,
+          likes: 42,
           comments: []
         }
       ],
@@ -512,20 +524,38 @@
       document.getElementById('scrollProgress').style.width = scrolled + '%';
     });
 
-    // DATA LOADING
-    function loadPlatformData() {
+    // GLOBAL DATA LOADING
+    async function loadPlatformData() {
       const stored = localStorage.getItem('osuse_baran_yol_data');
       if (stored) {
         try {
           portalData = JSON.parse(stored);
+          renderUI();
         } catch (e) {
           portalData = BASE_DATA;
         }
       } else {
         portalData = BASE_DATA;
-        localStorage.setItem('osuse_baran_yol_data', JSON.stringify(BASE_DATA));
+        renderUI();
       }
 
+      // Fetch fresh global data from the cloud
+      try {
+        const res = await fetch(CLOUD_DB_URL);
+        if (res.ok) {
+          const cloudData = await res.json();
+          if (cloudData && Array.isArray(cloudData.articles)) {
+            portalData = cloudData;
+            localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
+            renderUI();
+          }
+        }
+      } catch (err) {
+        console.log('Online cloud fetch fallback to local cache.');
+      }
+    }
+
+    function renderUI() {
       if (portalData.breakingTicker) {
         document.getElementById('liveTickerText').innerHTML = `<b>Täze Başlangyç:</b> ${portalData.breakingTicker}`;
       }
@@ -592,7 +622,7 @@
               <span>•</span>
               <span>${hero.date}</span>
               <span>•</span>
-              <span>👁 ${hero.views || 1380} okaldy</span>
+              <span>👁 ${hero.views || 1420} okaldy</span>
             </div>
           </div>
         </div>
@@ -659,7 +689,6 @@
     function switchCategory(cat) {
       selectedCat = cat;
       
-      // Update desktop buttons
       document.querySelectorAll('.nav-tab-btn').forEach(btn => {
         if (btn.innerText.includes(cat) || (cat === 'all' && btn.innerText.includes('Ähli'))) {
           btn.classList.add('active');
@@ -668,7 +697,6 @@
         }
       });
 
-      // Update mobile buttons
       document.querySelectorAll('.mob-cat-pill').forEach(btn => {
         if (btn.innerText.includes(cat) || (cat === 'all' && btn.innerText.includes('Ähli'))) {
           btn.classList.add('active');
@@ -683,6 +711,16 @@
 
     function filterArticles(val) {
       renderFeedArticles();
+    }
+
+    async function syncToCloudSilently() {
+      try {
+        await fetch(CLOUD_DB_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(portalData)
+        });
+      } catch (e) {}
     }
 
     function likeArticleAction(e, artId) {
@@ -702,6 +740,7 @@
       localStorage.setItem('osuse_likes', JSON.stringify(userLikesArray));
       localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
       renderFeedArticles();
+      syncToCloudSilently();
     }
 
     // ARTICLE READER MODAL (FULL WORDPAD HTML RENDERING)
@@ -712,6 +751,7 @@
       activeReadingId = artId;
       art.views = (art.views || 0) + 1;
       localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
+      syncToCloudSilently();
 
       document.getElementById('readerCat').innerText = art.category;
       document.getElementById('readerTitle').innerText = art.title;
@@ -720,7 +760,6 @@
       document.getElementById('readerReadTime').innerText = art.readTime || '4 min okalýar';
       document.getElementById('readerHeroImg').src = art.cover;
       
-      // Render full HTML from rich editor
       document.getElementById('readerArticleContent').innerHTML = art.content;
 
       renderCommentsStream(art.comments || []);
@@ -770,7 +809,7 @@
       });
     }
 
-    function submitArticleComment() {
+    async function submitArticleComment() {
       const input = document.getElementById('readerCommentInput');
       const val = input.value.trim();
       if (!val) return;
@@ -794,6 +833,7 @@
         renderCommentsStream(art.comments);
         renderFeedArticles();
         showToast('Teswiriňiz üstünlikli galdyryldy!');
+        await syncToCloudSilently();
       }
     }
 
@@ -843,7 +883,7 @@
       if (userProfile) {
         label.innerText = userProfile.name.split(' ')[0];
       } else {
-        label.innerText = 'Giriş / Hasap';
+        label.innerText = 'Giriş';
       }
     }
 
