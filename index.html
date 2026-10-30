@@ -2,307 +2,446 @@
 <html lang="tk" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ösüşe barýan ýol — Makalalar, Habarlar we Mahabat Portaly</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Ösüşe barýan ýol — Sanly Maglumat, Analitika we Mahabat Portaly</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-base: #090c13;
-      --bg-surface: #101522;
-      --bg-surface-elevated: #161c2d;
-      --border-subtle: rgba(255, 255, 255, 0.08);
-      --border-hover: rgba(16, 185, 129, 0.4);
-      --text-primary: #f8fafc;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --brand: #10b981;
-      --brand-hover: #059669;
-      --brand-glow: rgba(16, 185, 129, 0.2);
-      --card-radius: 16px;
-      --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.2);
-      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.4);
+      --bg-base: #06090e;
+      --bg-surface: #0b111a;
+      --bg-card: #101726;
+      --bg-card-hover: #152035;
+      --border-hairline: rgba(255, 255, 255, 0.08);
+      --border-accent: rgba(16, 185, 129, 0.35);
+      --border-accent-cyan: rgba(6, 182, 212, 0.35);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --neon-emerald: #10b981;
+      --neon-cyan: #06b6d4;
+      --neon-amber: #f59e0b;
+      --neon-red: #ef4444;
+      --glow-emerald: 0 0 24px rgba(16, 185, 129, 0.25);
+      --glow-cyan: 0 0 24px rgba(6, 182, 212, 0.25);
+      --glow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+      --glow-header: 0 4px 20px rgba(0, 0, 0, 0.5);
+      --ticker-bg: #080c14;
+      --orb-opacity: 0.12;
     }
 
     [data-theme="light"] {
-      --bg-base: #f8fafc;
+      --bg-base: #f4f6fa;
       --bg-surface: #ffffff;
-      --bg-surface-elevated: #f1f5f9;
-      --border-subtle: rgba(0, 0, 0, 0.08);
-      --border-hover: rgba(5, 150, 105, 0.4);
-      --text-primary: #0f172a;
-      --text-secondary: #475569;
-      --text-muted: #94a3b8;
-      --brand: #059669;
-      --brand-hover: #047857;
-      --brand-glow: rgba(5, 150, 105, 0.15);
-      --shadow-sm: 0 4px 16px rgba(0, 0, 0, 0.06);
-      --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.12);
+      --bg-card: #ffffff;
+      --bg-card-hover: #f8fafc;
+      --border-hairline: rgba(0, 0, 0, 0.08);
+      --border-accent: rgba(5, 150, 105, 0.4);
+      --border-accent-cyan: rgba(2, 132, 199, 0.4);
+      --text-main: #090d16;
+      --text-muted: #475569;
+      --text-dim: #94a3b8;
+      --neon-emerald: #059669;
+      --neon-cyan: #0284c7;
+      --neon-amber: #d97706;
+      --neon-red: #dc2626;
+      --glow-emerald: 0 0 20px rgba(5, 150, 105, 0.16);
+      --glow-cyan: 0 0 20px rgba(2, 132, 199, 0.16);
+      --glow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+      --glow-header: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --ticker-bg: #e6ebf2;
+      --orb-opacity: 0.06;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background 0.15s, border 0.15s, color 0.15s; }
-    body { background-color: var(--bg-base); color: var(--text-primary); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.22s ease, border-color 0.22s ease, color 0.15s ease, box-shadow 0.22s ease; }
+    html, body { width: 100%; max-width: 100%; overflow-x: hidden; position: relative; }
+    body { background-color: var(--bg-base); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; -webkit-font-smoothing: antialiased; }
+
+    /* AMBIENT BACKGROUND NEON LIGHT GLOWS */
+    .ambient-glow-orb-1 { position: fixed; top: -120px; left: 10%; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, var(--neon-emerald), transparent 70%); filter: blur(120px); opacity: var(--orb-opacity); pointer-events: none; z-index: 0; }
+    .ambient-glow-orb-2 { position: fixed; top: 40%; right: -100px; width: 450px; height: 450px; border-radius: 50%; background: radial-gradient(circle, var(--neon-cyan), transparent 70%); filter: blur(120px); opacity: var(--orb-opacity); pointer-events: none; z-index: 0; }
+
+    /* OKAMA DEREJESI (READING PROGRESS BAR) */
+    #scrollProgress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--neon-emerald), var(--neon-cyan)); width: 0%; z-index: 1000; box-shadow: 0 0 12px var(--neon-emerald); }
 
     .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+    .font-cinzel { font-family: 'Cinzel', serif; letter-spacing: 0.5px; }
 
     .icon { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; display: inline-block; vertical-align: middle; flex-shrink: 0; }
-    .icon-sm { width: 15px; height: 15px; }
+    .icon-sm { width: 14px; height: 14px; }
+    .icon-xs { width: 12px; height: 12px; }
 
-    /* HEADER */
-    .site-header { position: sticky; top: 0; z-index: 100; background: var(--bg-surface); border-bottom: 1px solid var(--border-subtle); backdrop-filter: blur(20px); }
-    .header-inner { max-width: 1240px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    /* GYŞGYN HABAR LENTASY (LIVE TICKER) */
+    .ticker-bar { background: var(--ticker-bg); border-bottom: 1px solid var(--border-hairline); padding: 7px 18px; font-size: 12.5px; display: flex; align-items: center; gap: 12px; overflow: hidden; position: relative; z-index: 95; width: 100%; }
+    .ticker-badge { background: linear-gradient(135deg, #ef4444, #b91c1c); color: #fff; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.6px; display: flex; align-items: center; gap: 5px; flex-shrink: 0; box-shadow: 0 0 12px rgba(239, 68, 68, 0.45); }
+    .ticker-beacon { width: 6px; height: 6px; border-radius: 50%; background: #fff; animation: beaconPulse 1.2s infinite; }
+    @keyframes beaconPulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.2; transform: scale(0.7); } }
+    .ticker-text { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted); font-weight: 500; min-width: 0; flex: 1; }
+    .ticker-text b { color: var(--text-main); font-weight: 700; }
+
+    /* SITE HEADER */
+    .site-header { position: sticky; top: 0; z-index: 90; background: rgba(11, 17, 26, 0.9); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border-hairline); box-shadow: var(--glow-header); width: 100%; }
+    [data-theme="light"] .site-header { background: rgba(255, 255, 255, 0.92); }
+    .header-inner { max-width: 1280px; margin: 0 auto; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 14px; width: 100%; }
     
-    .brand-wrap { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-primary); }
-    .brand-logo-mark { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--brand), #0284c7); display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 4px 14px var(--brand-glow); }
-    .brand-title { font-size: 19px; font-weight: 800; letter-spacing: -0.4px; }
-    .brand-badge { font-size: 10px; text-transform: uppercase; background: var(--brand-glow); color: var(--brand); font-weight: 700; padding: 2px 6px; border-radius: 6px; letter-spacing: 0.5px; }
+    .brand-group { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text-main); flex-shrink: 0; }
+    .brand-symbol { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #064e3b 0%, #0f172a 100%); border: 1px solid var(--border-accent); display: flex; align-items: center; justify-content: center; color: var(--neon-emerald); box-shadow: var(--glow-emerald); position: relative; overflow: hidden; flex-shrink: 0; }
+    .brand-symbol::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(16,185,129,0.5), transparent 70%); }
+    .brand-title { font-size: 19px; font-weight: 800; letter-spacing: -0.4px; line-height: 1.2; }
+    .brand-sub { font-size: 10.5px; text-transform: uppercase; color: var(--neon-emerald); font-weight: 700; letter-spacing: 0.8px; }
 
-    .nav-categories { display: flex; align-items: center; gap: 6px; }
-    .cat-btn { background: transparent; border: none; padding: 8px 14px; border-radius: 20px; font-size: 13.5px; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: 0.15s; }
-    .cat-btn:hover { color: var(--text-primary); background: var(--bg-surface-elevated); }
-    .cat-btn.active { color: #fff; background: var(--brand); box-shadow: 0 2px 10px var(--brand-glow); }
+    /* DESKTOP NAV TABS */
+    .nav-tabs { display: flex; align-items: center; gap: 4px; }
+    .nav-tab-btn { background: transparent; border: 1px solid transparent; padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; white-space: nowrap; }
+    .nav-tab-btn:hover { color: var(--text-main); background: var(--bg-card); border-color: var(--border-hairline); }
+    .nav-tab-btn.active { color: #fff; background: var(--neon-emerald); border-color: var(--neon-emerald); box-shadow: 0 0 16px var(--glow-emerald); }
 
-    .header-actions { display: flex; align-items: center; gap: 12px; }
-    .search-input-wrap { position: relative; width: 220px; }
-    .search-icon-pos { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
-    .search-field { width: 100%; padding: 8px 12px 8px 36px; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 20px; color: var(--text-primary); font-size: 13px; outline: none; }
-    .search-field:focus { border-color: var(--brand); }
+    /* HEADER RIGHT ACTIONS */
+    .header-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+    .search-box-pill { position: relative; width: 200px; }
+    .search-icon-pos { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-dim); pointer-events: none; }
+    .search-inp { width: 100%; padding: 8px 12px 8px 34px; background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 20px; color: var(--text-main); font-size: 12.5px; outline: none; }
+    .search-inp:focus { border-color: var(--neon-emerald); box-shadow: 0 0 12px rgba(16, 185, 129, 0.25); }
 
-    .btn-icon-toggle { width: 38px; height: 38px; border-radius: 50%; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); color: var(--text-secondary); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; }
-    .btn-icon-toggle:hover { color: var(--text-primary); border-color: var(--brand); }
+    .btn-theme-switch { width: 36px; height: 36px; border-radius: 50%; background: var(--bg-card); border: 1px solid var(--border-hairline); color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
+    .btn-theme-switch:hover { color: var(--text-main); border-color: var(--neon-emerald); transform: rotate(15deg); }
 
-    .btn-user-auth { background: var(--brand); color: #fff; border: none; padding: 8px 18px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: 0.15s; box-shadow: 0 4px 12px var(--brand-glow); }
-    .btn-user-auth:hover { background: var(--brand-hover); }
+    .btn-auth-user { background: linear-gradient(135deg, var(--neon-emerald), #059669); color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 8px 15px; border-radius: 20px; font-size: 12.5px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; box-shadow: var(--glow-emerald); white-space: nowrap; flex-shrink: 0; }
+    .btn-auth-user:hover { transform: translateY(-1px); filter: brightness(1.1); }
 
-    /* LAYOUT */
-    .app-container { max-width: 1240px; margin: 0 auto; padding: 24px; width: 100%; flex: 1; }
+    /* MOBILE HORIZONTAL CATEGORY BAR */
+    .mobile-category-bar { display: none; padding: 10px 16px; background: var(--bg-surface); border-bottom: 1px solid var(--border-hairline); overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; gap: 8px; width: 100%; }
+    .mobile-category-bar::-webkit-scrollbar { display: none; }
+    .mob-cat-pill { background: var(--bg-card); border: 1px solid var(--border-hairline); padding: 6px 14px; border-radius: 16px; font-size: 12px; font-weight: 600; color: var(--text-muted); cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+    .mob-cat-pill.active { background: var(--neon-emerald); color: #fff; border-color: var(--neon-emerald); }
 
-    /* HERO FEATURED POST */
-    .featured-hero { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 28px; background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--card-radius); overflow: hidden; margin-bottom: 36px; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow-sm); }
-    .featured-hero:hover { border-color: var(--border-hover); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-    .hero-img-box { position: relative; min-height: 340px; }
-    .hero-img { width: 100%; height: 100%; object-fit: cover; }
-    .hero-content { padding: 36px 32px; display: flex; flex-direction: column; justify-content: center; }
-    .hero-cat-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--brand); letter-spacing: 1px; margin-bottom: 12px; }
-    .hero-heading { font-size: 30px; font-weight: 700; line-height: 1.25; margin-bottom: 14px; color: var(--text-primary); }
-    .hero-desc { font-size: 14.5px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px; }
-    .post-meta-row { display: flex; align-items: center; gap: 14px; font-size: 12.5px; color: var(--text-muted); }
+    /* ESASY MAZMUN MEÝDANY */
+    .app-viewport { max-width: 1280px; margin: 0 auto; padding: 24px 18px 50px 18px; width: 100%; flex: 1; position: relative; z-index: 10; }
 
-    /* MAHABAT WE BILDIRISLER SECTION */
-    .ads-banner-strip { background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(2, 132, 199, 0.08) 100%); border: 1px dashed var(--border-hover); border-radius: var(--card-radius); padding: 20px 24px; margin-bottom: 36px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .ads-left { display: flex; align-items: center; gap: 16px; }
-    .ads-badge { background: #f59e0b; color: #000; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 6px; text-transform: uppercase; }
-    .ads-text-title { font-size: 15px; font-weight: 700; color: var(--text-primary); }
-    .ads-text-sub { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
-    .btn-ads-action { background: var(--bg-surface); color: var(--text-primary); border: 1px solid var(--border-subtle); padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: 0.15s; }
-    .btn-ads-action:hover { border-color: var(--brand); color: var(--brand); }
-
-    /* SECTION TITLE */
-    .section-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--border-subtle); }
-    .section-title { font-size: 21px; font-weight: 800; color: var(--text-primary); letter-spacing: -0.3px; }
-    .section-counter { font-size: 12px; color: var(--brand); font-weight: 600; background: var(--brand-glow); padding: 3px 10px; border-radius: 12px; }
-
-    /* ARTICLES GRID */
-    .articles-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 24px; margin-bottom: 48px; }
-    .article-card { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--card-radius); overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: all 0.2s ease; box-shadow: var(--shadow-sm); }
-    .article-card:hover { transform: translateY(-4px); border-color: var(--border-hover); box-shadow: var(--shadow-lg); }
+    /* REALISTIC AGRAS HERO POST */
+    .hero-editorial { display: grid; grid-template-columns: 1.25fr 0.85fr; gap: 28px; background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 20px; overflow: hidden; margin-bottom: 34px; cursor: pointer; position: relative; box-shadow: var(--glow-card); width: 100%; }
+    .hero-editorial::before { content: ''; position: absolute; inset: 0; border-radius: 20px; padding: 1px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.4), transparent 60%); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
+    .hero-editorial:hover { transform: translateY(-3px); box-shadow: 0 20px 48px -12px rgba(0,0,0,0.6); }
     
-    .card-thumb-wrap { width: 100%; height: 200px; position: relative; overflow: hidden; background: var(--bg-surface-elevated); }
-    .card-thumb { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
-    .article-card:hover .card-thumb { transform: scale(1.05); }
-    .card-cat-badge { position: absolute; top: 12px; left: 12px; background: rgba(16, 21, 34, 0.85); backdrop-filter: blur(8px); border: 1px solid var(--border-subtle); color: var(--text-primary); font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 8px; }
+    .hero-art-side { position: relative; min-height: 380px; overflow: hidden; background: #000; width: 100%; }
+    .hero-art-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); filter: brightness(0.92); }
+    .hero-editorial:hover .hero-art-img { transform: scale(1.04); filter: brightness(1); }
+    .hero-cat-tag { position: absolute; top: 14px; left: 14px; background: rgba(6, 9, 14, 0.88); backdrop-filter: blur(12px); border: 1px solid rgba(16, 185, 129, 0.4); color: var(--neon-emerald); font-size: 10.5px; font-weight: 800; padding: 4px 10px; border-radius: 7px; text-transform: uppercase; letter-spacing: 0.8px; }
 
-    .card-body { padding: 20px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .card-title { font-size: 17px; font-weight: 700; color: var(--text-primary); line-height: 1.35; margin-bottom: 10px; }
-    .card-snippet { font-size: 13.5px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 18px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    
-    .card-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-subtle); padding-top: 14px; font-size: 12px; color: var(--text-muted); }
-    .card-stats { display: flex; align-items: center; gap: 12px; }
-    .stat-item { display: flex; align-items: center; gap: 4px; }
-    .stat-item.active { color: #ef4444; }
+    .hero-text-side { padding: 34px 30px; display: flex; flex-direction: column; justify-content: center; }
+    .hero-read-indicator { font-size: 11px; text-transform: uppercase; color: var(--text-dim); font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .hero-title { font-size: clamp(20px, 3.5vw, 30px); font-weight: 700; line-height: 1.28; margin-bottom: 14px; color: var(--text-main); word-break: break-word; }
+    .hero-lead { font-size: 14.5px; color: var(--text-muted); line-height: 1.6; margin-bottom: 22px; }
+    .hero-author-row { display: flex; align-items: center; gap: 12px; font-size: 12.5px; color: var(--text-dim); border-top: 1px solid var(--border-hairline); padding-top: 16px; flex-wrap: wrap; }
+
+    /* MAHABAT / SPONSORED BANNER (NEON ACCENT) */
+    .ad-spotlight { background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(6, 182, 212, 0.08) 100%); border: 1px solid rgba(16, 185, 129, 0.28); border-radius: 16px; padding: 20px 24px; margin-bottom: 34px; display: flex; align-items: center; justify-content: space-between; gap: 16px; position: relative; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.15); width: 100%; }
+    .ad-spotlight::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, var(--neon-emerald), var(--neon-cyan)); box-shadow: 0 0 12px var(--neon-emerald); }
+    .ad-left { display: flex; align-items: center; gap: 16px; }
+    .ad-pill { background: linear-gradient(135deg, var(--neon-amber), #b45309); color: #000; font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0; }
+    .ad-heading { font-size: 15px; font-weight: 700; color: var(--text-main); }
+    .ad-sub { font-size: 13px; color: var(--text-muted); margin-top: 3px; }
+    .btn-ad-cta { background: var(--bg-surface); color: var(--neon-emerald); border: 1px solid var(--border-accent); padding: 8px 18px; border-radius: 10px; font-size: 12.5px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: all 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .btn-ad-cta:hover { background: var(--neon-emerald); color: #fff; box-shadow: var(--glow-emerald); }
+
+    /* KONTENT BÖLÜM BAŞLYGY */
+    .content-heading-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; padding-bottom: 12px; border-bottom: 1px solid var(--border-hairline); gap: 12px; }
+    .content-heading-title { font-size: clamp(18px, 3vw, 22px); font-weight: 800; color: var(--text-main); letter-spacing: -0.4px; }
+    .content-counter-badge { font-size: 11.5px; font-weight: 700; color: var(--neon-emerald); background: rgba(16, 185, 129, 0.12); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(16, 185, 129, 0.3); white-space: nowrap; }
+
+    /* MAKALALAR GRID - FULLY RESPONSIVE FOR ALL SCREEN SIZES */
+    .articles-feed-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 24px; margin-bottom: 44px; width: 100%; }
+    .post-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: var(--glow-card); position: relative; width: 100%; }
+    .post-card:hover { transform: translateY(-4px); border-color: var(--border-accent); box-shadow: 0 16px 36px -8px rgba(0,0,0,0.5); }
+
+    .card-photo-box { width: 100%; height: 200px; position: relative; overflow: hidden; background: #000; }
+    .card-photo-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; filter: brightness(0.95); }
+    .post-card:hover .card-photo-img { transform: scale(1.06); filter: brightness(1.02); }
+    .card-category-floating { position: absolute; top: 12px; left: 12px; background: rgba(6, 9, 14, 0.88); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.12); color: #fff; font-size: 10.5px; font-weight: 700; padding: 3px 9px; border-radius: 6px; }
+
+    .card-inner-body { padding: 20px 18px; flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+    .card-post-title { font-size: 17px; font-weight: 700; color: var(--text-main); line-height: 1.38; margin-bottom: 10px; word-break: break-word; }
+    .card-post-snippet { font-size: 13px; color: var(--text-muted); line-height: 1.55; margin-bottom: 18px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+    .card-meta-bottom { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-hairline); padding-top: 12px; font-size: 11.5px; color: var(--text-dim); }
+    .card-social-actions { display: flex; align-items: center; gap: 14px; }
+    .btn-stat-like { display: flex; align-items: center; gap: 5px; cursor: pointer; transition: 0.15s; }
+    .btn-stat-like:hover { color: var(--neon-red); }
+    .btn-stat-like.liked { color: var(--neon-red); font-weight: 700; }
+    .btn-stat-like.liked .icon { fill: var(--neon-red); stroke: var(--neon-red); animation: heartPop 0.3s ease; }
+    @keyframes heartPop { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
+    .stat-comments { display: flex; align-items: center; gap: 5px; }
 
     /* FOOTER */
-    .site-footer { background: var(--bg-surface); border-top: 1px solid var(--border-subtle); padding: 32px 24px; margin-top: auto; }
-    .footer-inner { max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
-    .footer-copy { font-size: 13px; color: var(--text-muted); }
-    .footer-admin-link { font-size: 12px; color: var(--text-muted); text-decoration: none; padding: 6px 12px; border-radius: 6px; border: 1px solid var(--border-subtle); transition: 0.15s; }
-    .footer-admin-link:hover { color: var(--brand); border-color: var(--brand); }
+    .site-bottom-footer { background: var(--bg-surface); border-top: 1px solid var(--border-hairline); padding: 30px 20px; margin-top: auto; position: relative; z-index: 10; width: 100%; }
+    .footer-container { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+    .footer-brand-meta { font-size: 12.5px; color: var(--text-dim); }
+    .footer-admin-btn { font-size: 12px; color: var(--text-dim); text-decoration: none; padding: 7px 14px; border-radius: 8px; border: 1px solid var(--border-hairline); display: flex; align-items: center; gap: 6px; transition: 0.15s; }
+    .footer-admin-btn:hover { color: var(--neon-emerald); border-color: var(--neon-emerald); background: rgba(16, 185, 129, 0.08); }
 
-    /* READ ARTICLE MODAL */
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); display: none; align-items: center; justify-content: center; z-index: 200; padding: 20px; }
-    .reader-modal { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 20px; width: 100%; max-width: 760px; max-height: 90vh; overflow-y: auto; padding: 36px; box-shadow: var(--shadow-lg); position: relative; }
-    .btn-close-modal { position: absolute; top: 20px; right: 20px; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); color: var(--text-secondary); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; }
-    .btn-close-modal:hover { color: var(--text-primary); border-color: var(--brand); }
+    /* MODAL: READER ARTICLE - FULL WORDPAD FORMATTING SUPPORT */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(14px); display: none; align-items: center; justify-content: center; z-index: 500; padding: 16px; width: 100%; height: 100%; overflow-y: auto; }
+    .article-modal-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 20px; width: 100%; max-width: 820px; max-height: 92vh; overflow-y: auto; padding: 34px 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.7); position: relative; -webkit-overflow-scrolling: touch; }
+    .btn-dismiss-modal { position: absolute; top: 16px; right: 16px; background: var(--bg-card); border: 1px solid var(--border-hairline); color: var(--text-muted); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.15s; z-index: 10; }
+    .btn-dismiss-modal:hover { color: #fff; border-color: var(--neon-emerald); }
+
+    .reader-cat-tag { font-size: 11px; text-transform: uppercase; font-weight: 800; color: var(--neon-emerald); letter-spacing: 1px; margin-bottom: 8px; }
+    .reader-headline { font-size: clamp(22px, 4vw, 32px); font-weight: 700; line-height: 1.25; margin-bottom: 14px; color: var(--text-main); word-break: break-word; }
+    .reader-meta-bar { display: flex; align-items: center; justify-content: space-between; font-size: 12.5px; color: var(--text-dim); padding-bottom: 18px; border-bottom: 1px solid var(--border-hairline); margin-bottom: 24px; flex-wrap: wrap; gap: 10px; }
+    .reader-meta-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .btn-share-article { background: var(--bg-card); border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 5px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px; transition: 0.15s; }
+    .btn-share-article:hover { color: var(--neon-cyan); border-color: var(--neon-cyan); }
+
+    .reader-main-art { width: 100%; max-height: 400px; object-fit: cover; border-radius: 14px; margin-bottom: 24px; box-shadow: var(--glow-card); }
     
-    .reader-cat { font-size: 11px; text-transform: uppercase; font-weight: 700; color: var(--brand); letter-spacing: 1px; margin-bottom: 8px; }
-    .reader-title { font-size: 28px; font-weight: 800; line-height: 1.3; margin-bottom: 14px; color: var(--text-primary); }
-    .reader-meta { display: flex; align-items: center; gap: 16px; font-size: 13px; color: var(--text-muted); padding-bottom: 20px; border-bottom: 1px solid var(--border-subtle); margin-bottom: 24px; }
-    .reader-img { width: 100%; max-height: 380px; object-fit: cover; border-radius: 12px; margin-bottom: 24px; }
-    .reader-body { font-size: 16px; line-height: 1.75; color: var(--text-secondary); white-space: pre-line; margin-bottom: 32px; }
+    /* RICH FORMATTED PROSE DISPLAY */
+    .reader-prose { font-size: 16px; line-height: 1.8; color: var(--text-muted); margin-bottom: 34px; word-break: break-word; }
+    .reader-prose p { margin-bottom: 14px; }
+    .reader-prose h2 { font-size: 22px; font-weight: 800; color: var(--neon-emerald); margin: 20px 0 10px 0; }
+    .reader-prose h3 { font-size: 18px; font-weight: 700; color: var(--neon-cyan); margin: 16px 0 8px 0; }
+    .reader-prose b, .reader-prose strong { color: var(--text-main); font-weight: 700; }
+    .reader-prose blockquote { border-left: 3px solid var(--neon-emerald); background: rgba(16, 185, 129, 0.05); padding: 12px 16px; border-radius: 0 10px 10px 0; margin: 16px 0; font-style: italic; color: var(--text-main); }
+    .reader-prose ul, .reader-prose ol { padding-left: 24px; margin-bottom: 16px; }
+    .reader-prose li { margin-bottom: 6px; }
+    .reader-prose a { color: var(--neon-cyan); text-decoration: underline; font-weight: 600; }
 
-    /* COMMENTS SECTION */
-    .comments-wrap { border-top: 1px solid var(--border-subtle); padding-top: 24px; }
-    .comments-title { font-size: 18px; font-weight: 700; margin-bottom: 16px; color: var(--text-primary); }
-    .comment-form { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
-    .comment-input { width: 100%; padding: 12px 14px; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 10px; color: var(--text-primary); font-size: 14px; outline: none; }
-    .comment-input:focus { border-color: var(--brand); }
-    .btn-submit-comment { align-self: flex-end; background: var(--brand); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
-    .comments-list { display: flex; flex-direction: column; gap: 12px; }
-    .comment-card { background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); padding: 12px 16px; border-radius: 10px; }
-    .comment-author { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
-    .comment-text { font-size: 13.5px; color: var(--text-secondary); line-height: 1.4; }
+    /* TESWIRLER BÖLÜMI */
+    .discussion-wrap { border-top: 1px solid var(--border-hairline); padding-top: 24px; }
+    .discussion-title { font-size: 18px; font-weight: 800; margin-bottom: 16px; color: var(--text-main); }
+    .comment-entry-box { display: flex; flex-direction: column; gap: 10px; margin-bottom: 22px; }
+    .comment-text-field { width: 100%; padding: 12px 14px; background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; color: var(--text-main); font-size: 13.5px; outline: none; }
+    .comment-text-field:focus { border-color: var(--neon-emerald); box-shadow: 0 0 10px rgba(16, 185, 129, 0.25); }
+    .btn-send-comment { align-self: flex-end; background: var(--neon-emerald); color: #fff; border: none; padding: 9px 20px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; transition: 0.15s; }
+    .btn-send-comment:hover { filter: brightness(1.1); transform: translateY(-1px); }
 
-    /* USER AUTH MODAL */
-    .auth-modal-box { background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: 18px; width: 100%; max-width: 400px; padding: 28px; box-shadow: var(--shadow-lg); position: relative; }
-    .auth-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--text-primary); }
-    .auth-desc { font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; }
-    .auth-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-    .auth-label { font-size: 12.5px; font-weight: 600; color: var(--text-secondary); }
-    .auth-field { padding: 10px 14px; background: var(--bg-surface-elevated); border: 1px solid var(--border-subtle); border-radius: 8px; color: var(--text-primary); font-size: 14px; outline: none; }
-    .auth-field:focus { border-color: var(--brand); }
-    .btn-auth-submit { width: 100%; background: var(--brand); color: #fff; border: none; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+    .comments-stream { display: flex; flex-direction: column; gap: 12px; }
+    .comment-bubble { background: var(--bg-card); border: 1px solid var(--border-hairline); padding: 12px 16px; border-radius: 12px; display: flex; gap: 12px; }
+    .comment-avatar { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, var(--neon-emerald), #0284c7); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11.5px; font-weight: 800; flex-shrink: 0; }
+    .comment-content { flex: 1; min-width: 0; }
+    .bubble-author { font-size: 13px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+    .bubble-author small { font-size: 10.5px; color: var(--text-dim); font-weight: 400; }
+    .bubble-text { font-size: 13px; color: var(--text-muted); line-height: 1.5; word-break: break-word; }
 
+    /* MODAL: AUTH */
+    .auth-card-modal { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 20px; width: 100%; max-width: 400px; padding: 28px 22px; box-shadow: 0 24px 60px rgba(0,0,0,0.6); position: relative; }
+    .auth-main-title { font-size: 20px; font-weight: 800; margin-bottom: 6px; color: var(--text-main); }
+    .auth-sub-desc { font-size: 12.5px; color: var(--text-dim); margin-bottom: 20px; line-height: 1.5; }
+    .auth-field-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+    .auth-input-title { font-size: 12px; font-weight: 700; color: var(--text-muted); }
+    .auth-input-element { padding: 11px 14px; background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 10px; color: var(--text-main); font-size: 13.5px; outline: none; width: 100%; }
+    .auth-input-element:focus { border-color: var(--neon-emerald); }
+    .btn-execute-auth { width: 100%; background: var(--neon-emerald); color: #fff; border: none; padding: 12px; border-radius: 10px; font-size: 13.5px; font-weight: 700; cursor: pointer; margin-top: 8px; transition: 0.15s; }
+
+    .toast-box { position: fixed; bottom: 20px; right: 20px; left: 20px; max-width: 360px; margin: 0 auto; background: var(--neon-emerald); color: #fff; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 13px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); display: none; z-index: 999; text-align: center; }
+
+    /* TELEFON WE PLANŞET ADAPTASIÝASY (RESPONSIVE BREAKPOINTS) */
     @media (max-width: 900px) {
-      .featured-hero { grid-template-columns: 1fr; }
-      .hero-img-box { min-height: 220px; }
-      .nav-categories { display: none; }
-      .search-input-wrap { width: 160px; }
+      .hero-editorial { grid-template-columns: 1fr; }
+      .hero-art-side { min-height: 240px; }
+      .nav-tabs { display: none; }
+      .mobile-category-bar { display: flex; }
+      .search-box-pill { width: 130px; }
+      .brand-sub { display: none; }
+      .header-inner { padding: 10px 14px; }
+      .app-viewport { padding: 16px 14px 40px 14px; }
+    }
+
+    @media (max-width: 600px) {
+      .ad-spotlight { flex-direction: column; align-items: flex-start; }
+      .btn-ad-cta { width: 100%; text-align: center; }
+      .search-box-pill { display: none; }
+      .article-modal-card { padding: 24px 16px; border-radius: 16px; }
+      .hero-text-side { padding: 22px 18px; }
+      .articles-feed-grid { grid-template-columns: 1fr; gap: 18px; }
+      .card-photo-box { height: 180px; }
+      .footer-container { flex-direction: column; text-align: center; gap: 12px; }
+      .footer-admin-btn { margin: 0 auto; }
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER -->
+  <!-- AMBIENT GLOWS -->
+  <div class="ambient-glow-orb-1"></div>
+  <div class="ambient-glow-orb-2"></div>
+
+  <!-- OKAMA PROGRESS BAR -->
+  <div id="scrollProgress"></div>
+
+  <!-- GYŞGYN HABAR LENTASY -->
+  <div class="ticker-bar">
+    <div class="ticker-badge">
+      <span class="ticker-beacon"></span>
+      <span>Gyzgyn Habar</span>
+    </div>
+    <div class="ticker-text" id="liveTickerText">
+      <b>Täze Sanly Başlangyç:</b> Türkmenistanda innowasiýa we tehnologiýa taslamalaryny goldamak boýunça giň gerimli meýilnama kabul edildi.
+    </div>
+  </div>
+
+  <!-- SITE HEADER -->
   <header class="site-header">
     <div class="header-inner">
-      <a href="index.html" class="brand-wrap">
-        <div class="brand-logo-mark">
+      <a href="index.html" class="brand-group">
+        <div class="brand-symbol">
           <svg class="icon" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg>
         </div>
         <div>
-          <div class="brand-title">Ösüşe barýan ýol</div>
-          <span class="brand-badge">Maglumat & Mahabat Portaly</span>
+          <div class="brand-title font-cinzel">Ösüşe barýan ýol</div>
+          <div class="brand-sub">Sanly Maglumat & Analitika</div>
         </div>
       </a>
 
-      <nav class="nav-categories">
-        <button class="cat-btn active" onclick="switchCategory('all')">Ählisi</button>
-        <button class="cat-btn" onclick="switchCategory('Ösüş & Tehnologiýa')">Tehnologiýa</button>
-        <button class="cat-btn" onclick="switchCategory('Biznes & Ykdysadyýet')">Biznes</button>
-        <button class="cat-btn" onclick="switchCategory('Bildirişler & Mahabat')">Mahabat</button>
+      <!-- DESKTOP KATEGORIÝALAR -->
+      <nav class="nav-tabs">
+        <button class="nav-tab-btn active" onclick="switchCategory('all')">Ähli Makalalar</button>
+        <button class="nav-tab-btn" onclick="switchCategory('Ösüş & Tehnologiýa')">Tehnologiýa</button>
+        <button class="nav-tab-btn" onclick="switchCategory('Biznes & Ykdysadyýet')">Biznes</button>
+        <button class="nav-tab-btn" onclick="switchCategory('Bildirişler & Mahabat')">Mahabat & Bildiriş</button>
+        <button class="nav-tab-btn" onclick="switchCategory('Ylym & Bilim')">Ylym</button>
       </nav>
 
-      <div class="header-actions">
-        <div class="search-input-wrap">
+      <!-- SAG TARAP: GÖZLEG, REŽIM, PROFIL -->
+      <div class="header-right">
+        <div class="search-box-pill">
           <svg class="icon icon-sm search-icon-pos" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" class="search-field" id="searchBar" placeholder="Gözleg..." oninput="handleSearch(this.value)">
+          <input type="text" class="search-inp" id="searchField" placeholder="Gözleg..." oninput="filterArticles(this.value)">
         </div>
 
-        <button class="btn-icon-toggle" id="themeBtn" onclick="toggleTheme()" title="Režimi çalyş">
-          <svg class="icon" id="themeSvg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <!-- DARK / LIGHT THEME TOGGLE -->
+        <button class="btn-theme-switch" id="themeSwitchBtn" onclick="togglePlatformTheme()" title="Gije / Gündiz tema">
+          <svg class="icon" id="themeSwitchSvg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
         </button>
 
-        <button class="btn-user-auth" id="userAuthBtn" onclick="openAuthModal()">
+        <!-- ULANYJY HASABY (DINE REGISTRASIYA / PROFIL) -->
+        <button class="btn-auth-user" id="authUserBtn" onclick="openAuthModal()">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          <span id="userAuthLabel">Giriş / Hasap</span>
+          <span id="authUserText">Giriş / Hasap</span>
         </button>
       </div>
     </div>
   </header>
 
-  <main class="app-container">
+  <!-- MOBILE SWIPEABLE CATEGORY BAR -->
+  <div class="mobile-category-bar">
+    <button class="mob-cat-pill active" onclick="switchCategory('all')">Ählisi</button>
+    <button class="mob-cat-pill" onclick="switchCategory('Ösüş & Tehnologiýa')">Tehnologiýa</button>
+    <button class="mob-cat-pill" onclick="switchCategory('Biznes & Ykdysadyýet')">Biznes</button>
+    <button class="mob-cat-pill" onclick="switchCategory('Bildirişler & Mahabat')">Mahabat & Bildiriş</button>
+    <button class="mob-cat-pill" onclick="switchCategory('Ylym & Bilim')">Ylym</button>
+  </div>
 
-    <div id="featuredHeroContainer"></div>
+  <!-- ESASY MAZMUN -->
+  <main class="app-viewport">
 
-    <div class="ads-banner-strip" id="adsStrip">
-      <div class="ads-left">
-        <span class="ads-badge">Möhüm Bildiriş</span>
+    <!-- 1. EDITORIAL REALISTIC HERO ARTICLE -->
+    <div id="heroSpotlightContainer"></div>
+
+    <!-- 2. MAHABAT & BILDIRIŞ SPOTLIGHT -->
+    <div class="ad-spotlight" id="adBannerBox">
+      <div class="ad-left">
+        <span class="ad-pill">Mahabat</span>
         <div>
-          <div class="ads-text-title" id="adTitleText">Sanly Ulgamda Täze Mümkinçilikler Açylýar</div>
-          <div class="ads-text-sub" id="adSubText">Ýurdumyzyň ýaş programmaçylary we telekeçileri üçin döwrebap innowasiýa taslamalary.</div>
+          <div class="ad-heading" id="adSpotlightHeading">Kärhanaňyz Üçin Ýokary Tizlikli Sanly Çözgütler</div>
+          <div class="ad-sub" id="adSpotlightSub">Web-sahypalaryň döredilmegi, elektron resminama ulgamy we professional IT hyzmatlary.</div>
         </div>
       </div>
-      <a href="#articlesList" class="btn-ads-action" id="adBtnLink">Doly Okaň ➔</a>
+      <a href="#articlesFeedBlock" class="btn-ad-cta" id="adSpotlightBtn">Doly Okaň ➔</a>
     </div>
 
-    <div class="section-bar">
-      <h2 class="section-title" id="currentSectionTitle">Iň Soňky Makalalar we Habarlar</h2>
-      <span class="section-counter" id="articlesCountBadge">Ýüklenýär...</span>
+    <!-- 3. MAKALALAR SANAWY -->
+    <div class="content-heading-bar" id="articlesFeedBlock">
+      <h2 class="content-heading-title" id="feedSectionHeading">Soňky Analitiki Makalalar</h2>
+      <span class="content-counter-badge" id="feedCounterBadge">Ýüklenýär...</span>
     </div>
 
-    <div class="articles-grid" id="articlesGrid"></div>
+    <div class="articles-feed-grid" id="feedGrid"></div>
 
   </main>
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <div class="footer-copy">
+  <!-- FOOTER -->
+  <footer class="site-bottom-footer">
+    <div class="footer-container">
+      <div class="footer-brand-meta">
         © 2026 <b>«Ösüşe barýan ýol»</b> — Sanly Maglumat, Analitika we Mahabat Portaly. Ähli hukuklar goralan.
       </div>
-      <a href="admin.html" class="footer-admin-link" title="Redaktoryň Şahsy Dolandyryş Paneli">
+      <!-- ADMIN SALGYSY -->
+      <a href="admin.html" class="footer-admin-btn" title="Redaktoryň Şahsy Dolandyryş Paneli">
         <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-        Admin Girişi
+        <span>Admin Paneli</span>
       </a>
     </div>
   </footer>
 
-  <!-- DOLY OKAMAK WE TESWIRLER MODAL -->
-  <div class="modal-backdrop" id="readerModal">
-    <div class="reader-modal">
-      <button class="btn-close-modal" onclick="closeReaderModal()">✕</button>
-      <div class="reader-cat" id="modalCat">Kategoriýa</div>
-      <h1 class="reader-title font-serif" id="modalTitle">Sözbaşy</h1>
-      <div class="reader-meta">
-        <span id="modalAuthor">Awtory: Redaksiýa</span>
-        <span>•</span>
-        <span id="modalDate">Sene</span>
-        <span>•</span>
-        <span id="modalReadTime">5 min</span>
-      </div>
-      <img src="" id="modalImg" class="reader-img" alt="cover">
-      <div class="reader-body" id="modalContent"></div>
-
-      <div class="comments-wrap">
-        <div class="comments-title">Teswirler (<span id="modalCommentsCount">0</span>)</div>
-        <div class="comment-form">
-          <input type="text" class="comment-input" id="commentTextInput" placeholder="Pikiriňizi ýazyň...">
-          <button class="btn-submit-comment" onclick="postComment()">Teswir galdyr</button>
+  <!-- MODAL: READER ARTICLE -->
+  <div class="modal-overlay" id="readerModal">
+    <div class="article-modal-card">
+      <button class="btn-dismiss-modal" onclick="closeReaderModal()">✕</button>
+      <div class="reader-cat-tag" id="readerCat">Kategoriýa</div>
+      <h1 class="reader-headline font-serif" id="readerTitle">Sözbaşy</h1>
+      <div class="reader-meta-bar">
+        <div class="reader-meta-left">
+          <span id="readerAuthor">Awtory: Redaksiýa</span>
+          <span>•</span>
+          <span id="readerDate">Sene</span>
+          <span>•</span>
+          <span id="readerReadTime">4 min</span>
         </div>
-        <div class="comments-list" id="modalCommentsList"></div>
+        <button class="btn-share-article" onclick="shareCurrentArticle()">
+          <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+          Paýlaşmak
+        </button>
       </div>
-    </div>
-  </div>
-
-  <!-- HASAP / REGISTRASIÝA MODAL -->
-  <div class="modal-backdrop" id="authModal">
-    <div class="auth-modal-box">
-      <button class="btn-close-modal" onclick="closeAuthModal()">✕</button>
-      <h3 class="auth-title" id="authHeaderTitle">Ulanyjy Girişi</h3>
-      <p class="auth-desc" id="authHeaderDesc">Makalalara teswir galdyrmak we halanlaryňyzy ýatda saklamak üçin hasabyňyza giriň:</p>
+      <img src="" id="readerHeroImg" class="reader-main-art" alt="cover">
       
-      <div id="authFormArea">
-        <div class="auth-group">
-          <label class="auth-label">Adyňyz / Familiýaňyz *</label>
-          <input type="text" class="auth-field" id="userDisplayNameInput" placeholder="Mysal: Merdan Amanow" required>
-        </div>
-        <div class="auth-group">
-          <label class="auth-label">E-poçta ýa-da Telefon</label>
-          <input type="text" class="auth-field" id="userContactInput" placeholder="+993 65 ... ýa-da email">
-        </div>
-        <button class="btn-auth-submit" onclick="saveUserSession()">Giriş Etmek / Hasap Açmak</button>
-      </div>
+      <!-- WORDPAD HTML CONTENT RENDERING AREA -->
+      <div class="reader-prose" id="readerArticleContent"></div>
 
-      <div id="userProfileArea" style="display: none;">
-        <div style="font-size: 15px; font-weight: 700; margin-bottom: 6px;" id="profileNameDisplay">Ulanyjy</div>
-        <div style="font-size: 13px; color: var(--text-secondary); margin-bottom: 20px;">Siz ulgama üstünlikli birikdiňiz.</div>
-        <button class="btn-auth-submit" style="background: #ef4444;" onclick="logoutUserSession()">Ulgamdan Çykmak</button>
+      <!-- TESWIRLER BÖLÜMI -->
+      <div class="discussion-wrap">
+        <div class="discussion-title">Teswirler (<span id="readerCommentsCount">0</span>)</div>
+        <div class="comment-entry-box">
+          <input type="text" class="comment-text-field" id="readerCommentInput" placeholder="Makala boýunça pikiriňizi ýazyň..." onkeydown="if(event.key==='Enter') submitArticleComment()">
+          <button class="btn-send-comment" onclick="submitArticleComment()">Teswir galdyr</button>
+        </div>
+        <div class="comments-stream" id="readerCommentsStream"></div>
       </div>
     </div>
   </div>
+
+  <!-- MODAL: AUTH -->
+  <div class="modal-overlay" id="authModal">
+    <div class="auth-card-modal">
+      <button class="btn-dismiss-modal" onclick="closeAuthModal()">✕</button>
+      <h3 class="auth-main-title" id="authTitle">Ulanyjy Girişi</h3>
+      <p class="auth-sub-desc" id="authSubtitle">Makalalary halamak we teswir galdyrmak üçin şahsy hasabyňyza giriň:</p>
+      
+      <div id="authInputsArea">
+        <div class="auth-field-group">
+          <label class="auth-input-title">Adyňyz we Familiýaňyz *</label>
+          <input type="text" class="auth-input-element" id="authNameInput" placeholder="Mysal: Merdan Amanow" required>
+        </div>
+        <div class="auth-field-group">
+          <label class="auth-input-title">E-poçta ýa-da Telefon belgiňiz</label>
+          <input type="text" class="auth-input-element" id="authContactInput" placeholder="+993 65 ... ýa-da poçta">
+        </div>
+        <button class="btn-execute-auth" onclick="saveUserIdentity()">Hasaby Tassyklamak</button>
+      </div>
+
+      <div id="authProfileArea" style="display: none;">
+        <div style="font-size: 16px; font-weight: 800; margin-bottom: 6px;" id="authProfileName">Ulanyjy</div>
+        <div style="font-size: 13px; color: var(--text-dim); margin-bottom: 24px;">Siz ulgama şahsy profiliňiz bilen birikdiňiz.</div>
+        <button class="btn-execute-auth" style="background: var(--neon-red);" onclick="terminateUserIdentity()">Hasapdan Çykmak</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-box" id="toastMsg">Habar</div>
 
   <script>
-    const DEFAULT_PORTAL_DATA = {
+    // STANDART BAŞLANGYÇ PORTAL BAZASY
+    const BASE_DATA = {
       articles: [
         {
           id: 'art_1',
@@ -311,13 +450,14 @@
           author: "Merdan Myradow",
           date: "30 Oktýabr 2026",
           readTime: "4 min okalýar",
-          cover: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=900&auto=format&fit=crop",
+          cover: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop",
           snippet: "Sanly tehnologiýalar döwlet we jemgyýetçilik hyzmatlaryny tizleşdirmekde esasy güýje öwrülýär. Ýurdumyzda döredilýän täze maglumat ulgamlary barada seljerme.",
-          content: `Sanly ykdysadyýet häzirki wagtda ähli pudaklaryň netijeliligini ýokarlandyrmagyň iň möhüm guralydyr. Ýurdumyzda kabul edilen döwlet maksatnamalary esasynda elektron resminama dolanyşygy, onlaýn töleg platformalary we sanly hyzmatlar yzygiderli kämilleşdirilýär.\n\nÖsüşiň täze tapgyrynda emeli aň, bulut tehnologiýalary we ýaş programmaçylaryň innowasion başlangyçlary aýratyn orun tutýar. Täze döredilýän startaplar diňe bir içerki bazarda däl, eýsem sebit derejesinde hem uly bäsdeşlige ukyply bolmagy maksat edinýär.`,
-          likes: 42,
+          content: `<p>Sanly ykdysadyýet häzirki wagtda ähli pudaklaryň netijeliligini ýokarlandyrmagyň iň möhüm guralydyr. Ýurdumyzda kabul edilen döwlet maksatnamalary esasynda elektron resminama dolanyşygy, onlaýn töleg platformalary we sanly hyzmatlar yzygiderli kämilleşdirilýär. 🚀</p><h2>Esasy Ösüş Ädimleri</h2><p>Ösüşiň täze tapgyrynda emeli aň, bulut tehnologiýalary we ýaş programmaçylaryň innowasion başlangyçlary aýratyn orun tutýar. Täze döredilýän startaplar diňe bir içerki bazarda däl, eýsem sebit derejesinde hem uly bäsdeşlige ukyply bolmagy maksat edinýär. 💡</p><blockquote>«Innowasiýa we sanlylaşdyrmak — geljege tarap ynamly gadamdyr!»</blockquote><ul><li>Elektron hyzmatlaryň bir bitewi portaly</li><li>Töleg tizliginiň we howpsuzlygynyň kepilligi</li><li>Ýaş programmaçylaryň startap merkezleri</li></ul>`,
+          views: 1380,
+          likes: 92,
           comments: [
-            { author: "Döwlet B.", text: "Örän peýdaly we wajyp makala bolupdyr!" },
-            { author: "Şirin K.", text: "Sanly ulgamyň ösmegi ýaşlar üçin uly ýollary açýar." }
+            { author: "Döwlet B.", date: "Şu gün", text: "Örän manyly we geljege gönükdirilen makala bolupdyr!" },
+            { author: "Şirin K.", date: "Düýn", text: "Sanly ulgamyň ösmegi ýaş hünärmenler üçin uly itergi berýär." }
           ]
         },
         {
@@ -327,154 +467,186 @@
           author: "Selbi Geldiýewa",
           date: "28 Oktýabr 2026",
           readTime: "3 min okalýar",
-          cover: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=900&auto=format&fit=crop",
+          cover: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&auto=format&fit=crop",
           snippet: "Täze işe başlaýan telekeçiler üçin maliýe dolandyryşy, müşderi ynamyny gazanmak we bazarda durnukly orun eýelemegiň amaly maslahatlary.",
-          content: `Telekeçilikde üstünlik diňe bir gowy ideýa däl, eýsem dogry dolandyryş we maliýe tertibine baglydyr. 1-nji düzgün: Müşderini diňlemek. 2-nji düzgün: Pul akymyny berk gözegçilikde saklamak. 3-nji düzgün: Sanly mahabaty dogry ulanmak.`,
-          likes: 29,
-          comments: []
+          content: `<p>Telekeçilikde üstünlik diňe bir gowy ideýa däl, eýsem dogry dolandyryş we maliýe tertibine baglydyr. 📈</p><h2>5 Altyn Düzgün:</h2><ol><li><b>Müşderini diňlemek</b> we olaryň talaplaryna görä hyzmatlary çeýe uýgunlaşdyrmak.</li><li><b>Pul akymyny berk hasaba almak</b> we artykmaç çykdaýjylardan gaça durmak. 💼</li><li><b>Sanly mahabaty</b> we sosial torlary maksatlaýyn peýdalanmak.</li><li><b>Toparyň hünär derejesini</b> yzygiderli ýokarlandyrmak.</li><li><b>Hil kepilligini</b> hemişe ileri tutmak. ⭐</li></ol>`,
+          views: 940,
+          likes: 64,
+          comments: [
+            { author: "Batyr H.", date: "29 Okt", text: "Maliýe tertibi boýunça berlen maslahatlar gaty wajyp." }
+          ]
         },
         {
           id: 'art_3',
-          title: "Mahabat Bildirişi: IT & Sanly Marketing Hyzmatlary",
+          title: "IT & Sanly Marketing: Kärhanaňyzy Täze Derejä Çykarýan Hyzmatlar",
           category: "Bildirişler & Mahabat",
           author: "Innowasiýa Merkezi",
           date: "25 Oktýabr 2026",
           readTime: "2 min okalýar",
-          cover: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=900&auto=format&fit=crop",
-          snippet: "Kärhanaňyzyň we dükanyňyzyň satuwyny internet arkaly artdyrmak isleýärsiňizmi? Döwrebap web saýtlar we SEO hyzmatlary.",
-          content: `Biznesinizi täze derejä çykaryň! Professional web-sahypalaryň dizaýny, elektron söwda ulgamlary we sosial torlarda ýokary hilli mahabat hyzmatlary elýeterli bahalardan hödürlenýär.\n\nHabarlaşmak üçin: info@osush.tm`,
-          likes: 18,
+          cover: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1000&auto=format&fit=crop",
+          snippet: "Kärhanaňyzyň we dükanyňyzyň satuwyny internet arkaly artdyrmak isleýärsiňizmi? Döwrebap web-sahypalaryň dizaýny we SEO hyzmatlary.",
+          content: `<p>Döwrebap biznes üçin sanly şahsyýet hökmany şertdir! 🌐 Biznes sahypalary, onlaýn dükanyň programma üpjünçiligi we professional mahabat hyzmatlary amatly bahalar bilen hödürlenýär. 🚀</p><p>Habarlaşmak üçin: <b>info@osush.tm</b></p>`,
+          views: 710,
+          likes: 38,
           comments: []
         }
       ],
       adBanner: {
-        title: "Sanly Ulgamda Täze Mümkinçilikler Açylýar",
-        sub: "Ýurdumyzyň ýaş programmaçylary we telekeçileri üçin döwrebap innowasiýa taslamalary.",
-        link: "#articlesGrid"
-      }
+        title: "Kärhanaňyz Üçin Ýokary Tizlikli Sanly Çözgütler",
+        sub: "Web-sahypalaryň döredilmegi, elektron resminama ulgamy we professional IT hyzmatlary.",
+        link: "#articlesFeedBlock"
+      },
+      breakingTicker: "Türkmenistanda innowasiýa we tehnologiýa taslamalaryny goldamak boýunça giň gerimli meýilnama kabul edildi."
     };
 
-    let portalData = DEFAULT_PORTAL_DATA;
-    let currentCategory = 'all';
-    let currentReadingArticleId = null;
-    let currentUser = JSON.parse(localStorage.getItem('osuse_user') || 'null');
-    let userLikedArticles = JSON.parse(localStorage.getItem('osuse_user_likes') || '[]');
+    let portalData = BASE_DATA;
+    let selectedCat = 'all';
+    let activeReadingId = null;
+    let userProfile = JSON.parse(localStorage.getItem('osuse_user') || 'null');
+    let userLikesArray = JSON.parse(localStorage.getItem('osuse_likes') || '[]');
 
-    function loadData() {
+    // SCROLL PROGRESS INDICATOR
+    window.addEventListener('scroll', () => {
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+      document.getElementById('scrollProgress').style.width = scrolled + '%';
+    });
+
+    // DATA LOADING
+    function loadPlatformData() {
       const stored = localStorage.getItem('osuse_baran_yol_data');
       if (stored) {
         try {
           portalData = JSON.parse(stored);
         } catch (e) {
-          portalData = DEFAULT_PORTAL_DATA;
+          portalData = BASE_DATA;
         }
       } else {
-        localStorage.setItem('osuse_baran_yol_data', JSON.stringify(DEFAULT_PORTAL_DATA));
+        portalData = BASE_DATA;
+        localStorage.setItem('osuse_baran_yol_data', JSON.stringify(BASE_DATA));
       }
-      renderHero();
-      renderArticles();
-      updateAuthBtnState();
+
+      if (portalData.breakingTicker) {
+        document.getElementById('liveTickerText').innerHTML = `<b>Täze Başlangyç:</b> ${portalData.breakingTicker}`;
+      }
+
+      if (portalData.adBanner) {
+        if (portalData.adBanner.title) document.getElementById('adSpotlightHeading').innerText = portalData.adBanner.title;
+        if (portalData.adBanner.sub) document.getElementById('adSpotlightSub').innerText = portalData.adBanner.sub;
+        if (portalData.adBanner.link) document.getElementById('adSpotlightBtn').setAttribute('href', portalData.adBanner.link);
+      }
+
+      renderHeroSpotlight();
+      renderFeedArticles();
+      updateAuthBtn();
     }
 
-    function toggleTheme() {
+    // THEME TOGGLE
+    function togglePlatformTheme() {
       const cur = document.documentElement.getAttribute('data-theme') || 'dark';
       const target = cur === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', target);
       localStorage.setItem('osuse_theme', target);
-      updateThemeIcon(target);
+      updateThemeSvg(target);
     }
 
-    function initTheme() {
+    function initThemeEngine() {
       const saved = localStorage.getItem('osuse_theme') || 'dark';
       document.documentElement.setAttribute('data-theme', saved);
-      updateThemeIcon(saved);
+      updateThemeSvg(saved);
     }
 
-    function updateThemeIcon(m) {
-      const svg = document.getElementById('themeSvg');
-      if (m === 'dark') {
+    function updateThemeSvg(theme) {
+      const svg = document.getElementById('themeSwitchSvg');
+      if (theme === 'dark') {
         svg.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
       } else {
         svg.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
       }
     }
 
-    function renderHero() {
-      const container = document.getElementById('featuredHeroContainer');
-      const first = portalData.articles[0];
-      if (!first) {
+    // HERO SPOTLIGHT
+    function renderHeroSpotlight() {
+      const container = document.getElementById('heroSpotlightContainer');
+      const hero = (portalData.articles && portalData.articles.length > 0) ? portalData.articles[0] : null;
+      if (!hero) {
         container.innerHTML = '';
         return;
       }
 
       container.innerHTML = `
-        <div class="featured-hero" onclick="openReader('${first.id}')">
-          <div class="hero-img-box">
-            <img src="${first.cover}" class="hero-img" alt="${first.title}">
+        <div class="hero-editorial" onclick="displayArticleReader('${hero.id}')">
+          <div class="hero-art-side">
+            <img src="${hero.cover}" class="hero-art-img" alt="${hero.title}">
+            <span class="hero-cat-tag">${hero.category}</span>
           </div>
-          <div class="hero-content">
-            <span class="hero-cat-tag">${first.category}</span>
-            <h1 class="hero-heading font-serif">${first.title}</h1>
-            <p class="hero-desc">${first.snippet}</p>
-            <div class="post-meta-row">
-              <span>Awtory: ${first.author}</span>
+          <div class="hero-text-side">
+            <div class="hero-read-indicator">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              <span>${hero.readTime || '4 min okalýar'}</span>
+            </div>
+            <h1 class="hero-title font-serif">${hero.title}</h1>
+            <p class="hero-lead">${hero.snippet}</p>
+            <div class="hero-author-row">
+              <span><b>Awtory:</b> ${hero.author}</span>
               <span>•</span>
-              <span>${first.date}</span>
+              <span>${hero.date}</span>
               <span>•</span>
-              <span>${first.readTime}</span>
+              <span>👁 ${hero.views || 1380} okaldy</span>
             </div>
           </div>
         </div>
       `;
     }
 
-    function renderArticles() {
-      const container = document.getElementById('articlesGrid');
+    // ARTICLES FEED
+    function renderFeedArticles() {
+      const container = document.getElementById('feedGrid');
       container.innerHTML = '';
 
-      let list = portalData.articles;
-      if (currentCategory !== 'all') {
-        list = list.filter(a => a.category.toLowerCase().includes(currentCategory.toLowerCase()));
+      let list = portalData.articles || [];
+      if (selectedCat !== 'all') {
+        list = list.filter(a => a.category && a.category.toLowerCase().includes(selectedCat.toLowerCase()));
       }
 
-      const q = document.getElementById('searchBar').value.trim().toLowerCase();
+      const q = document.getElementById('searchField') ? document.getElementById('searchField').value.trim().toLowerCase() : '';
       if (q) {
-        list = list.filter(a => a.title.toLowerCase().includes(q) || a.snippet.toLowerCase().includes(q));
+        list = list.filter(a => (a.title && a.title.toLowerCase().includes(q)) || (a.snippet && a.snippet.toLowerCase().includes(q)));
       }
 
-      document.getElementById('articlesCountBadge').innerText = `${list.length} makala elýeterli`;
+      document.getElementById('feedCounterBadge').innerText = `${list.length} makala taýyn`;
 
       if (list.length === 0) {
-        container.innerHTML = '<div style="grid-column: 1/-1; padding: 40px; text-align: center; color: var(--text-muted);">Bu kategoriýada makala ýa-da habar tapylmady.</div>';
+        container.innerHTML = '<div style="grid-column: 1/-1; padding: 48px; text-align: center; color: var(--text-dim);">Gözlegiňize gabat gelýän makala ýa-da habar tapylmady.</div>';
         return;
       }
 
       list.forEach(item => {
-        const isLiked = userLikedArticles.includes(item.id);
+        const isLiked = userLikesArray.includes(item.id);
         const card = document.createElement('div');
-        card.className = 'article-card';
-        card.onclick = () => openReader(item.id);
+        card.className = 'post-card';
+        card.onclick = () => displayArticleReader(item.id);
 
         card.innerHTML = `
-          <div class="card-thumb-wrap">
-            <img src="${item.cover}" class="card-thumb" alt="${item.title}">
-            <span class="card-cat-badge">${item.category}</span>
+          <div class="card-photo-box">
+            <img src="${item.cover}" class="card-photo-img" alt="${item.title}">
+            <span class="card-category-floating">${item.category}</span>
           </div>
-          <div class="card-body">
+          <div class="card-inner-body">
             <div>
-              <h3 class="card-title">${item.title}</h3>
-              <p class="card-snippet">${item.snippet}</p>
+              <h3 class="card-post-title">${item.title}</h3>
+              <p class="card-post-snippet">${item.snippet}</p>
             </div>
-            <div class="card-footer">
+            <div class="card-meta-bottom">
               <span>${item.date}</span>
-              <div class="card-stats">
-                <span class="stat-item ${isLiked ? 'active' : ''}" onclick="toggleLike(event, '${item.id}')">
+              <div class="card-social-actions">
+                <span class="btn-stat-like ${isLiked ? 'liked' : ''}" onclick="likeArticleAction(event, '${item.id}')" title="Halamak">
                   <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
-                  ${item.likes || 0}
+                  <span>${item.likes || 0}</span>
                 </span>
-                <span class="stat-item">
+                <span class="stat-comments">
                   <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-                  ${(item.comments || []).length}
+                  <span>${(item.comments || []).length}</span>
                 </span>
               </div>
             </div>
@@ -485,113 +657,159 @@
     }
 
     function switchCategory(cat) {
-      currentCategory = cat;
-      document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-      event.currentTarget.classList.add('active');
-      document.getElementById('currentSectionTitle').innerText = cat === 'all' ? 'Iň Soňky Makalalar we Habarlar' : `${cat} Bölümi`;
-      renderArticles();
+      selectedCat = cat;
+      
+      // Update desktop buttons
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        if (btn.innerText.includes(cat) || (cat === 'all' && btn.innerText.includes('Ähli'))) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      // Update mobile buttons
+      document.querySelectorAll('.mob-cat-pill').forEach(btn => {
+        if (btn.innerText.includes(cat) || (cat === 'all' && btn.innerText.includes('Ähli'))) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+
+      document.getElementById('feedSectionHeading').innerText = cat === 'all' ? 'Soňky Analitiki Makalalar' : `${cat} Bölümi`;
+      renderFeedArticles();
     }
 
-    function handleSearch(val) {
-      renderArticles();
+    function filterArticles(val) {
+      renderFeedArticles();
     }
 
-    function toggleLike(e, articleId) {
+    function likeArticleAction(e, artId) {
       e.stopPropagation();
-      const art = portalData.articles.find(a => a.id === articleId);
+      const art = portalData.articles.find(a => a.id === artId);
       if (!art) return;
 
-      const idx = userLikedArticles.indexOf(articleId);
+      const idx = userLikesArray.indexOf(artId);
       if (idx > -1) {
-        userLikedArticles.splice(idx, 1);
+        userLikesArray.splice(idx, 1);
         art.likes = Math.max(0, (art.likes || 1) - 1);
       } else {
-        userLikedArticles.push(articleId);
+        userLikesArray.push(artId);
         art.likes = (art.likes || 0) + 1;
       }
 
-      localStorage.setItem('osuse_user_likes', JSON.stringify(userLikedArticles));
+      localStorage.setItem('osuse_likes', JSON.stringify(userLikesArray));
       localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
-      renderArticles();
+      renderFeedArticles();
     }
 
-    function openReader(articleId) {
-      const art = portalData.articles.find(a => a.id === articleId);
+    // ARTICLE READER MODAL (FULL WORDPAD HTML RENDERING)
+    function displayArticleReader(artId) {
+      const art = portalData.articles.find(a => a.id === artId);
       if (!art) return;
 
-      currentReadingArticleId = articleId;
-      document.getElementById('modalCat').innerText = art.category;
-      document.getElementById('modalTitle').innerText = art.title;
-      document.getElementById('modalAuthor').innerText = `Awtory: ${art.author}`;
-      document.getElementById('modalDate').innerText = art.date;
-      document.getElementById('modalReadTime').innerText = art.readTime;
-      document.getElementById('modalImg').src = art.cover;
-      document.getElementById('modalContent').innerText = art.content;
+      activeReadingId = artId;
+      art.views = (art.views || 0) + 1;
+      localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
 
-      renderCommentsList(art.comments || []);
+      document.getElementById('readerCat').innerText = art.category;
+      document.getElementById('readerTitle').innerText = art.title;
+      document.getElementById('readerAuthor').innerText = `Awtory: ${art.author}`;
+      document.getElementById('readerDate').innerText = art.date;
+      document.getElementById('readerReadTime').innerText = art.readTime || '4 min okalýar';
+      document.getElementById('readerHeroImg').src = art.cover;
+      
+      // Render full HTML from rich editor
+      document.getElementById('readerArticleContent').innerHTML = art.content;
+
+      renderCommentsStream(art.comments || []);
       document.getElementById('readerModal').style.display = 'flex';
+      document.body.style.overflow = 'hidden';
     }
 
     function closeReaderModal() {
       document.getElementById('readerModal').style.display = 'none';
-      currentReadingArticleId = null;
+      document.body.style.overflow = '';
+      activeReadingId = null;
     }
 
-    function renderCommentsList(comments) {
-      document.getElementById('modalCommentsCount').innerText = comments.length;
-      const container = document.getElementById('modalCommentsList');
-      container.innerHTML = '';
+    function shareCurrentArticle() {
+      const art = portalData.articles.find(a => a.id === activeReadingId);
+      if (art) {
+        navigator.clipboard.writeText(window.location.href);
+        showToast('«' + art.title + '» makalasynyň baglanyşygy nusgalandy!');
+      }
+    }
 
-      if (comments.length === 0) {
-        container.innerHTML = '<div style="color: var(--text-muted); font-size: 13px;">Heniz teswir ýazylmandyr. Ilkinji bolup pikiriňizi galdyryň!</div>';
+    function renderCommentsStream(list) {
+      document.getElementById('readerCommentsCount').innerText = list.length;
+      const box = document.getElementById('readerCommentsStream');
+      box.innerHTML = '';
+
+      if (list.length === 0) {
+        box.innerHTML = '<div style="color: var(--text-dim); font-size: 13px;">Ilkinji bolup bu makala boýunça öz pikiriňizi galdyryň!</div>';
         return;
       }
 
-      comments.forEach(c => {
-        const item = document.createElement('div');
-        item.className = 'comment-card';
-        item.innerHTML = `
-          <div class="comment-author">${c.author}</div>
-          <div class="comment-text">${c.text}</div>
+      list.forEach(c => {
+        const initials = (c.author || 'U').split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase();
+        const row = document.createElement('div');
+        row.className = 'comment-bubble';
+        row.innerHTML = `
+          <div class="comment-avatar">${initials}</div>
+          <div class="comment-content">
+            <div class="bubble-author">
+              <span>${c.author}</span>
+              <small>${c.date || 'Şu gün'}</small>
+            </div>
+            <div class="bubble-text">${c.text}</div>
+          </div>
         `;
-        container.appendChild(item);
+        box.appendChild(row);
       });
     }
 
-    function postComment() {
-      const input = document.getElementById('commentTextInput');
-      const text = input.value.trim();
-      if (!text) return;
+    function submitArticleComment() {
+      const input = document.getElementById('readerCommentInput');
+      const val = input.value.trim();
+      if (!val) return;
 
-      if (!currentUser) {
-        alert('Teswir galdyrmak üçin ilki bilen ulgama Giriş / Hasap açmaly.');
+      if (!userProfile) {
+        alert('Teswir ýazmak üçin ilki bilen şahsy hasabyňyza giriň.');
         openAuthModal();
         return;
       }
 
-      const art = portalData.articles.find(a => a.id === currentReadingArticleId);
+      const art = portalData.articles.find(a => a.id === activeReadingId);
       if (art) {
         if (!art.comments) art.comments = [];
-        art.comments.push({ author: currentUser.name, text: text });
+        art.comments.unshift({
+          author: userProfile.name,
+          date: "Häzir",
+          text: val
+        });
         localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
         input.value = '';
-        renderCommentsList(art.comments);
-        renderArticles();
+        renderCommentsStream(art.comments);
+        renderFeedArticles();
+        showToast('Teswiriňiz üstünlikli galdyryldy!');
       }
     }
 
+    // USER AUTH MODAL
     function openAuthModal() {
-      if (currentUser) {
-        document.getElementById('authHeaderTitle').innerText = 'Şahsy Profilim';
-        document.getElementById('authHeaderDesc').innerText = 'Hasabyňyzyň maglumatlary:';
-        document.getElementById('authFormArea').style.display = 'none';
-        document.getElementById('userProfileArea').style.display = 'block';
-        document.getElementById('profileNameDisplay').innerText = `👤 ${currentUser.name} (${currentUser.contact || 'Ulanyjy'})`;
+      if (userProfile) {
+        document.getElementById('authTitle').innerText = 'Şahsy Hasabyňyz';
+        document.getElementById('authSubtitle').innerText = 'Birikdirilen profil maglumaty:';
+        document.getElementById('authInputsArea').style.display = 'none';
+        document.getElementById('authProfileArea').style.display = 'block';
+        document.getElementById('authProfileName').innerText = `👤 ${userProfile.name} (${userProfile.contact || 'Ulanyjy'})`;
       } else {
-        document.getElementById('authHeaderTitle').innerText = 'Ulanyjy Girişi';
-        document.getElementById('authHeaderDesc').innerText = 'Teswir galdyrmak we makalalary halamak üçin hasabyňyza giriň:';
-        document.getElementById('authFormArea').style.display = 'block';
-        document.getElementById('userProfileArea').style.display = 'none';
+        document.getElementById('authTitle').innerText = 'Ulanyjy Girişi';
+        document.getElementById('authSubtitle').innerText = 'Makalalary halamak we teswir galdyrmak üçin şahsy hasabyňyza giriň:';
+        document.getElementById('authInputsArea').style.display = 'block';
+        document.getElementById('authProfileArea').style.display = 'none';
       }
       document.getElementById('authModal').style.display = 'flex';
     }
@@ -600,36 +818,45 @@
       document.getElementById('authModal').style.display = 'none';
     }
 
-    function saveUserSession() {
-      const name = document.getElementById('userDisplayNameInput').value.trim();
-      const contact = document.getElementById('userContactInput').value.trim();
+    function saveUserIdentity() {
+      const name = document.getElementById('authNameInput').value.trim();
+      const contact = document.getElementById('authContactInput').value.trim();
       if (!name) return alert('Haýyş, adyňyzy giriziň!');
 
-      currentUser = { name, contact, joinedAt: Date.now() };
-      localStorage.setItem('osuse_user', JSON.stringify(currentUser));
-      updateAuthBtnState();
+      userProfile = { name, contact, joined: Date.now() };
+      localStorage.setItem('osuse_user', JSON.stringify(userProfile));
+      updateAuthBtn();
       closeAuthModal();
+      showToast(`Hoş geldiňiz, ${name}!`);
     }
 
-    function logoutUserSession() {
-      currentUser = null;
+    function terminateUserIdentity() {
+      userProfile = null;
       localStorage.removeItem('osuse_user');
-      updateAuthBtnState();
+      updateAuthBtn();
       closeAuthModal();
+      showToast('Hasapdan çykyldy.');
     }
 
-    function updateAuthBtnState() {
-      const label = document.getElementById('userAuthLabel');
-      if (currentUser) {
-        label.innerText = currentUser.name.split(' ')[0];
+    function updateAuthBtn() {
+      const label = document.getElementById('authUserText');
+      if (userProfile) {
+        label.innerText = userProfile.name.split(' ')[0];
       } else {
         label.innerText = 'Giriş / Hasap';
       }
     }
 
+    function showToast(text) {
+      const t = document.getElementById('toastMsg');
+      t.innerText = text;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3200);
+    }
+
     window.onload = () => {
-      initTheme();
-      loadData();
+      initThemeEngine();
+      loadPlatformData();
     };
   </script>
 </body>
