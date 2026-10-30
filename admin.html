@@ -55,7 +55,7 @@
     .icon-sm { width: 14px; height: 14px; }
     .icon-lg { width: 22px; height: 22px; }
 
-    /* PAROL BIRIKDIRMEK GORAGY (PASSWORD LOCK SCREEN) */
+    /* PAROL BIRIKDIRMEK GORAGY */
     .lock-screen { min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 16px; width: 100%; }
     .lock-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 20px; padding: 36px 24px; width: 100%; max-width: 440px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; overflow: hidden; }
     .lock-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--neon-emerald), var(--neon-cyan)); box-shadow: 0 0 12px var(--neon-emerald); }
@@ -73,7 +73,8 @@
     .header-brand { display: flex; align-items: center; gap: 12px; }
     .logo-badge { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #064e3b, #0c1a2e); border: 1px solid var(--border-accent); display: flex; align-items: center; justify-content: center; color: var(--neon-emerald); box-shadow: var(--glow-emerald); flex-shrink: 0; }
     .header-title { font-size: 19px; font-weight: 800; color: var(--text-main); letter-spacing: -0.3px; line-height: 1.2; }
-    .header-sub { font-size: 11px; color: var(--neon-emerald); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; }
+    .header-sub { font-size: 11px; color: var(--neon-emerald); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+    .cloud-sync-badge { background: rgba(16, 185, 129, 0.15); color: var(--neon-emerald); padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 800; border: 1px solid rgba(16, 185, 129, 0.3); }
 
     .header-actions { display: flex; align-items: center; gap: 8px; }
     .btn-theme-switch { width: 36px; height: 36px; border-radius: 50%; background: var(--bg-surface); border: 1px solid var(--border-hairline); color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
@@ -83,7 +84,7 @@
     .btn-logout { background: rgba(239, 68, 68, 0.12); color: var(--neon-red); border: 1px solid rgba(239, 68, 68, 0.3); padding: 7px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: 0.15s; white-space: nowrap; }
     .btn-logout:hover { background: var(--neon-red); color: #fff; }
 
-    /* STATISTIKA BLOKLARY (ANALYTICS) */
+    /* STATISTIKA BLOKLARY */
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
     .stat-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 18px 16px; position: relative; overflow: hidden; box-shadow: var(--glow-card); }
     .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
@@ -172,9 +173,9 @@
     .btn-backup-action { background: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border-hairline); padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 12.5px; cursor: pointer; transition: 0.15s; text-align: center; }
     .btn-backup-action:hover { border-color: var(--neon-emerald); color: var(--neon-emerald); }
 
-    .toast-box { position: fixed; bottom: 20px; right: 20px; left: 20px; max-width: 360px; margin: 0 auto; background: var(--neon-emerald); color: #fff; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 13px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); display: none; z-index: 999; text-align: center; }
+    .toast-box { position: fixed; bottom: 20px; right: 20px; left: 20px; max-width: 420px; margin: 0 auto; background: var(--neon-emerald); color: #fff; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 13px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); display: none; z-index: 999; text-align: center; }
 
-    /* TELEFON WE PLANŞET ADAPTASIÝASY (MOBILE RESPONSIVE BREAKPOINTS) */
+    /* TELEFON WE PLANŞET ADAPTASIÝASY */
     @media (max-width: 820px) {
       .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
       .form-grid { grid-template-columns: 1fr; }
@@ -196,7 +197,7 @@
 </head>
 <body>
 
-  <!-- 1. PAROL GORAGY (PASSWORD LOCK SCREEN) -->
+  <!-- 1. PAROL GORAGY -->
   <div class="lock-screen" id="lockScreen">
     <div class="lock-card">
       <div class="lock-badge">
@@ -219,7 +220,10 @@
         </div>
         <div>
           <div class="header-title">Ösüşe barýan ýol — Redaksiýa Paneli</div>
-          <div class="header-sub">Dolandyryş & Çap Ulgamy</div>
+          <div class="header-sub">
+            <span>Dolandyryş & Çap Ulgamy</span>
+            <span class="cloud-sync-badge">☁ Global Bulut Sinhronizasiýa</span>
+          </div>
         </div>
       </div>
       <div class="header-actions">
@@ -392,7 +396,7 @@
           </div>
           <button type="submit" class="btn-submit" id="btnSubmitArticle">
             <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            <span id="btnSubmitArticleText">Makalany Çap Etmek (Saýtda Peýda Bolar)</span>
+            <span id="btnSubmitArticleText">Makalany Çap Etmek (Bütin Dünýäde Peýda Bolar)</span>
           </button>
         </form>
       </div>
@@ -505,6 +509,9 @@
   <div class="toast-box" id="toastMsg">Habar</div>
 
   <script>
+    // GLOBAL BULUT BAZASYNYŇ SALGYSY
+    const CLOUD_DB_URL = "https://kvdb.io/TV4MuAePqsBzBcFp1mz8Wh/portal_data";
+
     let currentAdminPass = localStorage.getItem('osuse_admin_pass') || "admin2026";
     let portalData = null;
 
@@ -564,7 +571,7 @@
         sessionStorage.setItem('osuse_admin_auth', 'true');
         showDashboard();
       } else {
-        alert('Parol nädogry! Täzeden barlap görüň.');
+        alert('Parol nädogry! Standart parol: admin2026');
       }
     }
 
@@ -596,26 +603,60 @@
       const t = document.getElementById('toastMsg');
       t.innerText = text;
       t.style.display = 'block';
-      setTimeout(() => { t.style.display = 'none'; }, 3200);
+      setTimeout(() => { t.style.display = 'none'; }, 3400);
     }
 
     function setPresetImg(url) {
       document.getElementById('inpArtImg').value = url;
     }
 
+    // GLOBAL CLOUD SAVE & SYNC
+    async function savePortalDataGlobally(message) {
+      localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
+
+      try {
+        await fetch(CLOUD_DB_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(portalData)
+        });
+        showToast(message + ' (☁ Bulutda we ähli telefonlarda derrew täzelendi!)');
+      } catch (err) {
+        showToast(message + ' (Ýerli ýatda saklandy)');
+      }
+    }
+
     // DATA LOADING & STATS
-    function loadAdminData() {
+    async function loadAdminData() {
       const raw = localStorage.getItem('osuse_baran_yol_data');
       if (raw) {
         try {
           portalData = JSON.parse(raw);
-        } catch(e) {
-          portalData = { articles: [], adBanner: {}, breakingTicker: "" };
-        }
-      } else {
-        portalData = { articles: [], adBanner: {}, breakingTicker: "" };
+          populateFieldsAndStats();
+        } catch(e) {}
       }
 
+      try {
+        const res = await fetch(CLOUD_DB_URL);
+        if (res.ok) {
+          const cloudData = await res.json();
+          if (cloudData && Array.isArray(cloudData.articles)) {
+            portalData = cloudData;
+            localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
+            populateFieldsAndStats();
+          }
+        }
+      } catch (e) {
+        console.log('Using local fallback');
+      }
+
+      if (!portalData) {
+        portalData = { articles: [], adBanner: {}, breakingTicker: "" };
+        populateFieldsAndStats();
+      }
+    }
+
+    function populateFieldsAndStats() {
       updateStatsCounters();
       renderManageList();
 
@@ -704,11 +745,10 @@
       document.getElementById('inpArtImg').value = art.cover;
       document.getElementById('inpArtSnippet').value = art.snippet;
       
-      // Load content into rich editor
       document.getElementById('richEditorArea').innerHTML = art.content || '';
 
       document.getElementById('formCardHeader').innerText = 'Makalany Redaktirlemek';
-      document.getElementById('btnSubmitArticleText').innerText = 'Üýtgeşmeleri Ýatda Saklamak';
+      document.getElementById('btnSubmitArticleText').innerText = 'Üýtgeşmeleri Ýatda Saklamak (Bulutda Täzelener)';
       document.getElementById('btnSubmitArticle').classList.add('btn-edit-mode');
 
       switchAdminTab('tabAddArticle');
@@ -721,12 +761,12 @@
       document.getElementById('newArticleForm').reset();
       document.getElementById('richEditorArea').innerHTML = '';
       document.getElementById('formCardHeader').innerText = 'Täze Makala ýa-da Habar Çap Etmek';
-      document.getElementById('btnSubmitArticleText').innerText = 'Makalany Çap Etmek (Saýtda Peýda Bolar)';
+      document.getElementById('btnSubmitArticleText').innerText = 'Makalany Çap Etmek (Bütin Dünýäde Peýda Bolar)';
       document.getElementById('btnSubmitArticle').classList.remove('btn-edit-mode');
     }
 
     // SUBMIT NEW OR EDITED ARTICLE
-    document.getElementById('newArticleForm').addEventListener('submit', (e) => {
+    document.getElementById('newArticleForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const editId = document.getElementById('editingArticleId').value;
       const title = document.getElementById('inpArtTitle').value.trim();
@@ -743,6 +783,7 @@
 
       if (!portalData.articles) portalData.articles = [];
 
+      let msg = "";
       if (editId) {
         const idx = portalData.articles.findIndex(a => a.id === editId);
         if (idx !== -1) {
@@ -752,7 +793,7 @@
           portalData.articles[idx].cover = cover;
           portalData.articles[idx].snippet = snippet;
           portalData.articles[idx].content = content;
-          showToast(`«${title}» makalasy täzelendi!`);
+          msg = `«${title}» makalasy täzelendi!`;
         }
         cancelArticleEdit();
       } else {
@@ -771,45 +812,42 @@
           comments: []
         };
         portalData.articles.unshift(newArt);
-        showToast(`«${title}» makalasy üstünlikli çap edildi!`);
+        msg = `«${title}» makalasy üstünlikli çap edildi!`;
         document.getElementById('newArticleForm').reset();
         document.getElementById('richEditorArea').innerHTML = '';
       }
 
-      localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
+      await savePortalDataGlobally(msg);
       updateStatsCounters();
       renderManageList();
     });
 
     // TICKER FORM
-    document.getElementById('tickerForm').addEventListener('submit', (e) => {
+    document.getElementById('tickerForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const text = document.getElementById('inpTickerText').value.trim();
       portalData.breakingTicker = text;
-      localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
-      showToast('Gyzgyn habar lentasy täzelendi!');
+      await savePortalDataGlobally('Gyzgyn habar lentasy täzelendi!');
     });
 
     // ADS FORM
-    document.getElementById('adsForm').addEventListener('submit', (e) => {
+    document.getElementById('adsForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       const title = document.getElementById('inpAdTitle').value.trim();
       const sub = document.getElementById('inpAdSub').value.trim();
       const link = document.getElementById('inpAdLink').value.trim() || '#articlesFeedBlock';
 
       portalData.adBanner = { title, sub, link };
-      localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
-      showToast('Mahabat spotlight banneri täzelendi!');
+      await savePortalDataGlobally('Mahabat spotlight banneri täzelendi!');
     });
 
     // DELETE ARTICLE
-    function deleteArticle(artId) {
+    async function deleteArticle(artId) {
       if (confirm('Hakykatdan hem bu makalany saýtdan aýyrmak isleýärsiňizmi?')) {
         portalData.articles = portalData.articles.filter(a => a.id !== artId);
-        localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
+        await savePortalDataGlobally('Makala pozuldy.');
         updateStatsCounters();
         renderManageList();
-        showToast('Makala pozuldy.');
       }
     }
 
@@ -848,19 +886,18 @@
       showToast('Ätiýaçlyk JSON faýly ýüklenildi!');
     }
 
-    function importDataBackup(event) {
+    async function importDataBackup(event) {
       const file = event.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = async function(e) {
         try {
           const parsed = JSON.parse(e.target.result);
           if (parsed && Array.isArray(parsed.articles)) {
             portalData = parsed;
-            localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
-            loadAdminData();
-            showToast('Ähli maglumatlar faýldan üstünlikli dikeldildi!');
+            await savePortalDataGlobally('Ähli maglumatlar faýldan dikeldildi!');
+            populateFieldsAndStats();
           } else {
             alert('Ýüklenen faýl nädogry formatda!');
           }
@@ -871,7 +908,7 @@
       reader.readAsText(file);
     }
 
-    function resetPortalToDefault() {
+    async function resetPortalToDefault() {
       if (confirm('Standart başlangyç makalalary we sazlamalary dikeltmek isleýärsiňizmi?')) {
         localStorage.removeItem('osuse_baran_yol_data');
         location.reload();
