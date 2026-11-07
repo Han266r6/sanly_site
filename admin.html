@@ -9,916 +9,604 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-base: #06090e;
-      --bg-surface: #0c121d;
-      --bg-card: #111827;
-      --bg-elevated: #182236;
-      --border-hairline: rgba(255, 255, 255, 0.08);
-      --border-accent: rgba(16, 185, 129, 0.35);
-      --border-accent-cyan: rgba(6, 182, 212, 0.35);
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
-      --neon-emerald: #10b981;
-      --neon-cyan: #06b6d4;
-      --neon-amber: #f59e0b;
-      --neon-red: #ef4444;
-      --glow-emerald: 0 0 24px rgba(16, 185, 129, 0.25);
-      --glow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
+      --bg-base: #070c18; --bg-surface: #0c1527; --bg-card: #101c33; --bg-elevated: #162645;
+      --border-hairline: rgba(255, 255, 255, 0.08); --border-accent: rgba(37, 99, 235, 0.45); --border-cyan: rgba(6, 182, 212, 0.35);
+      --text-main: #f8fafc; --text-muted: #94a3b8; --text-dim: #64748b;
+      --portal-blue: #2563eb; --portal-blue-dark: #1d4ed8; --portal-cyan: #06b6d4; --portal-amber: #f59e0b; --portal-emerald: #10b981; --portal-red: #ef4444;
+      --glow-blue: 0 0 24px rgba(37, 99, 235, 0.3); --glow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.65);
     }
-
     [data-theme="light"] {
-      --bg-base: #f4f6fa;
-      --bg-surface: #ffffff;
-      --bg-card: #ffffff;
-      --bg-elevated: #f1f5f9;
-      --border-hairline: rgba(0, 0, 0, 0.08);
-      --border-accent: rgba(5, 150, 105, 0.4);
-      --border-accent-cyan: rgba(2, 132, 199, 0.4);
-      --text-main: #090d16;
-      --text-muted: #475569;
-      --text-dim: #94a3b8;
-      --neon-emerald: #059669;
-      --neon-cyan: #0284c7;
-      --neon-amber: #d97706;
-      --neon-red: #dc2626;
-      --glow-emerald: 0 0 20px rgba(5, 150, 105, 0.15);
-      --glow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.07);
+      --bg-base: #f4f6fa; --bg-surface: #ffffff; --bg-card: #ffffff; --bg-elevated: #f1f5f9;
+      --border-hairline: rgba(0, 0, 0, 0.08); --border-accent: rgba(37, 99, 235, 0.3); --border-cyan: rgba(2, 132, 199, 0.35);
+      --text-main: #0a0f1d; --text-muted: #475569; --text-dim: #94a3b8;
+      --portal-blue: #1d4ed8; --portal-blue-dark: #1e40af; --portal-cyan: #0284c7; --portal-amber: #d97706; --portal-emerald: #059669; --portal-red: #dc2626;
+      --glow-blue: 0 0 20px rgba(29, 78, 216, 0.15); --glow-card: 0 10px 30px -10px rgba(0, 0, 0, 0.07);
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.2s, border-color 0.2s, color 0.15s; }
     html, body { width: 100%; max-width: 100%; overflow-x: hidden; }
     body { background-color: var(--bg-base); color: var(--text-main); min-height: 100vh; padding: 18px 14px 60px 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
-    .container { max-width: 1080px; margin: 0 auto; width: 100%; }
+    .container { max-width: 1100px; margin: 0 auto; width: 100%; }
+    .icon-sm { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-    .icon { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; display: inline-block; vertical-align: middle; flex-shrink: 0; }
-    .icon-sm { width: 14px; height: 14px; }
-    .icon-lg { width: 22px; height: 22px; }
-
-    /* PAROL BIRIKDIRMEK GORAGY */
+    /* PAROL EKRANY */
     .lock-screen { min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 16px; width: 100%; }
-    .lock-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 20px; padding: 36px 24px; width: 100%; max-width: 440px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); position: relative; overflow: hidden; }
-    .lock-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--neon-emerald), var(--neon-cyan)); box-shadow: 0 0 12px var(--neon-emerald); }
-    .lock-badge { width: 56px; height: 56px; border-radius: 16px; background: rgba(16, 185, 129, 0.12); border: 1px solid var(--border-accent); color: var(--neon-emerald); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; box-shadow: var(--glow-emerald); }
+    .lock-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 20px; padding: 36px 24px; width: 100%; max-width: 440px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6); position: relative; }
+    .lock-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--portal-blue), var(--portal-cyan)); }
+    .lock-badge { width: 56px; height: 56px; border-radius: 16px; background: rgba(37, 99, 235, 0.15); border: 1px solid var(--border-accent); color: var(--portal-cyan); display: flex; align-items: center; justify-content: center; margin: 0 auto 16px auto; font-size: 26px; }
     .lock-title { font-size: 21px; font-weight: 800; margin-bottom: 8px; color: var(--text-main); }
     .lock-desc { font-size: 13.5px; color: var(--text-muted); margin-bottom: 22px; line-height: 1.6; }
     .lock-input { width: 100%; padding: 13px 16px; background: var(--bg-elevated); border: 1px solid var(--border-hairline); border-radius: 12px; color: var(--text-main); font-size: 15px; outline: none; margin-bottom: 16px; text-align: center; letter-spacing: 2px; }
-    .lock-input:focus { border-color: var(--neon-emerald); box-shadow: 0 0 14px rgba(16, 185, 129, 0.25); }
-    .btn-lock-submit { width: 100%; background: linear-gradient(135deg, var(--neon-emerald), #059669); color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 700; font-size: 14.5px; cursor: pointer; transition: 0.15s; box-shadow: var(--glow-emerald); }
-    .btn-lock-submit:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-lock-submit { width: 100%; background: linear-gradient(135deg, var(--portal-blue), var(--portal-blue-dark)); color: #fff; border: none; padding: 13px; border-radius: 12px; font-weight: 700; font-size: 14.5px; cursor: pointer; }
 
-    /* ESASY DOLANDYRYŞ PANELI */
+    /* ESASY DOLANDYRYŞ */
     .admin-panel { display: none; width: 100%; }
     .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border-hairline); gap: 12px; flex-wrap: wrap; }
     .header-brand { display: flex; align-items: center; gap: 12px; }
-    .logo-badge { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg, #064e3b, #0c1a2e); border: 1px solid var(--border-accent); display: flex; align-items: center; justify-content: center; color: var(--neon-emerald); box-shadow: var(--glow-emerald); flex-shrink: 0; }
-    .header-title { font-size: 19px; font-weight: 800; color: var(--text-main); letter-spacing: -0.3px; line-height: 1.2; }
-    .header-sub { font-size: 11px; color: var(--neon-emerald); font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; display: flex; align-items: center; gap: 6px; }
-    .cloud-sync-badge { background: rgba(16, 185, 129, 0.15); color: var(--neon-emerald); padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 800; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .logo-badge { width: 42px; height: 42px; border-radius: 12px; background: linear-gradient(135deg, #1e3a8a, #0b132b); border: 1px solid var(--border-accent); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 20px; flex-shrink: 0; }
+    .header-title { font-size: 19px; font-weight: 800; color: var(--text-main); line-height: 1.2; }
+    .header-sub { font-size: 11px; color: var(--portal-cyan); font-weight: 700; text-transform: uppercase; margin-top: 2px; display: flex; align-items: center; gap: 6px; }
+    .cloud-sync-badge { background: rgba(16, 185, 129, 0.15); color: var(--portal-emerald); padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 800; border: 1px solid rgba(16, 185, 129, 0.3); }
 
-    .header-actions { display: flex; align-items: center; gap: 8px; }
-    .btn-theme-switch { width: 36px; height: 36px; border-radius: 50%; background: var(--bg-surface); border: 1px solid var(--border-hairline); color: var(--text-muted); display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; }
-    .btn-theme-switch:hover { color: var(--text-main); border-color: var(--neon-emerald); }
-    .btn-site-link { background: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border-hairline); text-decoration: none; padding: 7px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 700; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
-    .btn-site-link:hover { border-color: var(--neon-emerald); color: var(--neon-emerald); }
-    .btn-logout { background: rgba(239, 68, 68, 0.12); color: var(--neon-red); border: 1px solid rgba(239, 68, 68, 0.3); padding: 7px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 700; cursor: pointer; transition: 0.15s; white-space: nowrap; }
-    .btn-logout:hover { background: var(--neon-red); color: #fff; }
+    .header-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .btn-tool { background: var(--bg-surface); border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 8px 12px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .btn-view-site { background: linear-gradient(135deg, var(--portal-blue), var(--portal-blue-dark)); color: #fff; border: none; font-weight: 700; text-decoration: none; padding: 8px 14px; border-radius: 10px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; }
 
-    /* STATISTIKA BLOKLARY */
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
-    .stat-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 18px 16px; position: relative; overflow: hidden; box-shadow: var(--glow-card); }
-    .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; }
-    .stat-card.emerald::before { background: var(--neon-emerald); }
-    .stat-card.cyan::before { background: var(--neon-cyan); }
-    .stat-card.amber::before { background: var(--neon-amber); }
-    .stat-card.purple::before { background: #a855f7; }
-    .stat-num { font-size: 24px; font-weight: 800; color: var(--text-main); margin-bottom: 4px; }
-    .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+    /* REAL METRICS */
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 24px; }
+    .metric-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 14px; padding: 16px; display: flex; align-items: center; gap: 14px; box-shadow: var(--glow-card); }
+    .metric-icon-box { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .metric-val { font-size: 22px; font-weight: 800; color: var(--text-main); line-height: 1.1; }
+    .metric-lbl { font-size: 11.5px; color: var(--text-dim); text-transform: uppercase; font-weight: 600; margin-top: 2px; }
 
-    /* TAB MENÝU */
-    .tab-bar { display: flex; gap: 8px; margin-bottom: 22px; border-bottom: 1px solid var(--border-hairline); padding-bottom: 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-    .tab-bar::-webkit-scrollbar { display: none; }
-    .tab-item { background: transparent; border: 1px solid transparent; padding: 9px 16px; border-radius: 12px; font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; gap: 7px; white-space: nowrap; flex-shrink: 0; transition: 0.15s; }
-    .tab-item:hover { color: var(--text-main); background: var(--bg-surface); border-color: var(--border-hairline); }
-    .tab-item.active { background: var(--neon-emerald); color: #fff; border-color: var(--neon-emerald); box-shadow: var(--glow-emerald); }
+    /* FORM */
+    .form-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 22px; margin-bottom: 24px; box-shadow: var(--glow-card); }
+    .form-title { font-size: 17px; font-weight: 800; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border-hairline); padding-bottom: 10px; }
+    .edit-mode-badge { font-size: 11px; background: rgba(245,158,11,0.2); color: var(--portal-amber); border: 1px solid rgba(245,158,11,0.4); padding: 3px 8px; border-radius: 6px; font-weight: 700; display: none; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+    @media (max-width: 768px) { .form-grid { grid-template-columns: 1fr; } }
+    .input-label { font-size: 11.5px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; margin-bottom: 6px; display: block; }
+    .form-control { width: 100%; background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 10px; padding: 10px 14px; color: var(--text-main); font-size: 13.5px; outline: none; }
+    .form-control:focus { border-color: var(--portal-blue); }
 
-    .card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 18px; padding: 24px 20px; margin-bottom: 24px; box-shadow: var(--glow-card); position: relative; width: 100%; }
-    .card-title { font-size: 17px; font-weight: 800; margin-bottom: 16px; color: var(--text-main); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
-    .card-title-left { display: flex; align-items: center; gap: 8px; }
+    .image-presets-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+    .btn-preset { background: var(--bg-elevated); border: 1px solid var(--border-hairline); color: var(--text-muted); font-size: 11px; font-weight: 600; padding: 4px 8px; border-radius: 6px; cursor: pointer; }
 
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px; }
-    .form-col { display: flex; flex-direction: column; gap: 6px; }
-    .form-col.full { grid-column: 1 / -1; }
-    .form-label { font-size: 12.5px; font-weight: 700; color: var(--text-muted); }
-    .form-input, .form-select { width: 100%; padding: 11px 14px; background: var(--bg-elevated); border: 1px solid var(--border-hairline); border-radius: 10px; color: var(--text-main); font-size: 13.5px; outline: none; }
-    .form-input:focus, .form-select:focus { border-color: var(--neon-emerald); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+    /* WORDPAD TOOLBAR */
+    .wordpad-toolbar { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 10px 10px 0 0; padding: 8px 10px; display: flex; align-items: center; gap: 4px; flex-wrap: wrap; border-bottom: none; }
+    .toolbar-btn { background: var(--bg-elevated); border: 1px solid var(--border-hairline); color: var(--text-muted); width: 32px; height: 32px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; cursor: pointer; }
+    .toolbar-btn:hover { color: var(--text-main); border-color: var(--portal-cyan); }
+    .toolbar-sep { width: 1px; height: 20px; background: var(--border-hairline); margin: 0 4px; }
 
-    /* WORDPAD / RICH TEXT EDITOR TOOLBAR */
-    .editor-wrapper { border: 1px solid var(--border-hairline); border-radius: 12px; overflow: hidden; background: var(--bg-elevated); transition: border-color 0.2s; }
-    .editor-wrapper:focus-within { border-color: var(--neon-emerald); box-shadow: 0 0 12px rgba(16, 185, 129, 0.2); }
-    
-    .editor-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; padding: 8px 10px; background: var(--bg-surface); border-bottom: 1px solid var(--border-hairline); }
-    .tool-btn { background: transparent; border: 1px solid transparent; color: var(--text-main); padding: 5px 9px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; min-width: 28px; height: 30px; transition: 0.15s; }
-    .tool-btn:hover { background: var(--bg-elevated); border-color: var(--border-hairline); color: var(--neon-emerald); }
-    .tool-sep { width: 1px; height: 20px; background: var(--border-hairline); margin: 0 4px; }
-    
-    /* EMOJI / STICKER QUICK SELECTOR */
-    .emoji-tray { display: flex; flex-wrap: wrap; gap: 4px; padding: 6px 10px; background: rgba(0, 0, 0, 0.15); border-bottom: 1px solid var(--border-hairline); align-items: center; }
-    .emoji-tag { font-size: 11px; font-weight: 700; color: var(--text-dim); margin-right: 6px; }
-    .emoji-btn { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 6px; padding: 3px 6px; font-size: 15px; cursor: pointer; transition: transform 0.15s; line-height: 1; }
-    .emoji-btn:hover { transform: scale(1.25); border-color: var(--neon-emerald); }
+    /* EMOJI TRAY */
+    .emoji-tray { background: var(--bg-elevated); border: 1px solid var(--border-hairline); border-radius: 8px; padding: 6px 10px; display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin-top: 6px; }
+    .emoji-pill { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 6px; padding: 2px 7px; font-size: 14px; cursor: pointer; }
+    .emoji-pill:hover { transform: scale(1.25); border-color: var(--portal-cyan); }
 
-    .editor-content-area { min-height: 220px; max-height: 450px; overflow-y: auto; padding: 16px; outline: none; font-size: 15px; line-height: 1.7; color: var(--text-main); background: var(--bg-elevated); word-break: break-word; }
-    .editor-content-area:empty::before { content: attr(placeholder); color: var(--text-dim); pointer-events: none; }
-    .editor-content-area h2 { font-size: 20px; font-weight: 800; margin: 16px 0 8px 0; color: var(--neon-emerald); }
-    .editor-content-area h3 { font-size: 17px; font-weight: 700; margin: 14px 0 6px 0; color: var(--neon-cyan); }
-    .editor-content-area p { margin-bottom: 12px; }
-    .editor-content-area blockquote { border-left: 3px solid var(--neon-emerald); padding-left: 12px; color: var(--text-muted); font-style: italic; margin: 12px 0; background: rgba(16, 185, 129, 0.05); padding: 8px 12px; border-radius: 0 8px 8px 0; }
-    .editor-content-area ul, .editor-content-area ol { padding-left: 24px; margin-bottom: 12px; }
-    .editor-content-area li { margin-bottom: 4px; }
-    .editor-content-area a { color: var(--neon-cyan); text-decoration: underline; }
+    .rich-editor-area { min-height: 200px; max-height: 480px; overflow-y: auto; background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 0 0 10px 10px; padding: 14px; color: var(--text-main); font-size: 14px; line-height: 1.6; outline: none; }
+    .rich-editor-area h2 { font-size: 18px; font-weight: 800; color: var(--portal-cyan); margin: 14px 0 6px 0; }
+    .rich-editor-area blockquote { border-left: 3px solid var(--portal-blue); padding: 8px 12px; margin: 10px 0; background: var(--bg-elevated); font-style: italic; }
 
-    /* SURAT PRESET DÜWMELERI */
-    .preset-pill-group { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
-    .preset-btn { background: var(--bg-elevated); border: 1px solid var(--border-hairline); color: var(--text-muted); font-size: 11.5px; font-weight: 600; padding: 4px 10px; border-radius: 6px; cursor: pointer; transition: 0.15s; }
-    .preset-btn:hover { color: var(--neon-emerald); border-color: var(--neon-emerald); }
+    .form-actions-row { display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px; }
+    .btn-submit-post { background: linear-gradient(135deg, var(--portal-blue), var(--portal-blue-dark)); color: #fff; border: none; padding: 11px 24px; border-radius: 10px; font-weight: 700; font-size: 13.5px; cursor: pointer; }
+    .btn-cancel-edit { background: var(--bg-elevated); border: 1px solid var(--border-hairline); color: var(--text-muted); padding: 11px 18px; border-radius: 10px; font-weight: 600; cursor: pointer; display: none; }
 
-    .btn-submit { background: linear-gradient(135deg, var(--neon-emerald), #059669); color: #fff; border: none; padding: 13px 20px; border-radius: 12px; font-weight: 800; font-size: 14.5px; cursor: pointer; width: 100%; transition: all 0.15s; box-shadow: var(--glow-emerald); display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; }
-    .btn-submit:hover { filter: brightness(1.1); transform: translateY(-1px); }
-    .btn-submit.btn-edit-mode { background: linear-gradient(135deg, var(--neon-cyan), #0284c7); }
+    /* ARTICLES LIST */
+    .articles-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 16px; padding: 22px; box-shadow: var(--glow-card); margin-bottom: 24px; }
+    .articles-list { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+    .article-row-item { background: var(--bg-card); border: 1px solid var(--border-hairline); border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+    .article-row-left { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
+    .row-thumb { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+    .row-info { min-width: 0; flex: 1; }
+    .row-title { font-size: 14px; font-weight: 700; color: var(--text-main); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .row-meta { font-size: 11.5px; color: var(--text-dim); display: flex; gap: 10px; flex-wrap: wrap; }
+    .row-cat-pill { font-size: 10px; font-weight: 800; background: rgba(37,99,235,0.15); color: var(--portal-cyan); padding: 2px 6px; border-radius: 4px; text-transform: uppercase; }
+    .btn-action-edit { background: rgba(37,99,235,0.12); border: 1px solid rgba(37,99,235,0.3); color: var(--portal-cyan); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
+    .btn-action-delete { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: var(--portal-red); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; }
 
-    .edit-notice-bar { background: rgba(6, 182, 212, 0.12); border: 1px solid var(--neon-cyan); border-radius: 10px; padding: 10px 14px; margin-bottom: 16px; font-size: 13px; color: var(--neon-cyan); display: none; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-    .btn-cancel-edit { background: transparent; border: none; color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; text-decoration: underline; }
-
-    /* SANAW */
-    .manage-search-bar { width: 100%; padding: 10px 14px; background: var(--bg-elevated); border: 1px solid var(--border-hairline); border-radius: 10px; color: var(--text-main); font-size: 13px; margin-bottom: 16px; outline: none; }
-    .article-item-row { display: flex; align-items: center; justify-content: space-between; background: var(--bg-elevated); border: 1px solid var(--border-hairline); padding: 14px 16px; border-radius: 14px; margin-bottom: 10px; transition: 0.15s; gap: 12px; }
-    .article-item-row:hover { border-color: var(--border-accent); }
-    .row-left { display: flex; align-items: center; gap: 12px; min-width: 0; flex: 1; }
-    .row-thumb { width: 50px; height: 50px; border-radius: 10px; object-fit: cover; flex-shrink: 0; }
-    .row-title { font-size: 13.5px; font-weight: 700; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .row-meta { font-size: 11.5px; color: var(--text-muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .row-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
-    .btn-row-action { background: var(--bg-surface); border: 1px solid var(--border-hairline); padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.15s; display: flex; align-items: center; gap: 4px; white-space: nowrap; }
-    .btn-row-action.edit { color: var(--neon-cyan); border-color: rgba(6, 182, 212, 0.3); }
-    .btn-row-action.edit:hover { background: var(--neon-cyan); color: #fff; }
-    .btn-row-action.del { color: var(--neon-red); border-color: rgba(239, 68, 68, 0.3); }
-    .btn-row-action.del:hover { background: var(--neon-red); color: #fff; }
-
-    /* HOWPSUZLYK WE ÄTIÝAÇLYK */
-    .backup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .backup-box { background: var(--bg-elevated); border: 1px solid var(--border-hairline); border-radius: 14px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
-    .backup-box-title { font-size: 14.5px; font-weight: 700; margin-bottom: 6px; color: var(--text-main); }
-    .backup-box-desc { font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px; line-height: 1.5; }
-    .btn-backup-action { background: var(--bg-surface); color: var(--text-main); border: 1px solid var(--border-hairline); padding: 10px 14px; border-radius: 10px; font-weight: 700; font-size: 12.5px; cursor: pointer; transition: 0.15s; text-align: center; }
-    .btn-backup-action:hover { border-color: var(--neon-emerald); color: var(--neon-emerald); }
-
-    .toast-box { position: fixed; bottom: 20px; right: 20px; left: 20px; max-width: 420px; margin: 0 auto; background: var(--neon-emerald); color: #fff; padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 13px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); display: none; z-index: 999; text-align: center; }
-
-    /* TELEFON WE PLANŞET ADAPTASIÝASY */
-    @media (max-width: 820px) {
-      .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .form-grid { grid-template-columns: 1fr; }
-      .backup-grid { grid-template-columns: 1fr; }
-      .header { flex-direction: column; align-items: flex-start; }
-      .header-actions { width: 100%; justify-content: space-between; margin-top: 6px; }
-    }
-
-    @media (max-width: 500px) {
-      body { padding: 12px 8px 50px 8px; }
-      .card { padding: 18px 14px; border-radius: 14px; }
-      .article-item-row { flex-direction: column; align-items: flex-start; gap: 10px; }
-      .row-actions { width: 100%; justify-content: flex-end; }
-      .row-thumb { width: 44px; height: 44px; }
-      .stat-card { padding: 14px 12px; }
-      .stat-num { font-size: 20px; }
-    }
+    /* MANAGER GRID */
+    .manager-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+    @media (max-width: 768px) { .manager-grid { grid-template-columns: 1fr; } }
+    .manager-card { background: var(--bg-surface); border: 1px solid var(--border-hairline); border-radius: 14px; padding: 18px; box-shadow: var(--glow-card); }
+    .manager-title { font-size: 15px; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .btn-save-mini { background: linear-gradient(135deg, var(--portal-blue), var(--portal-blue-dark)); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; font-size: 12.5px; font-weight: 700; cursor: pointer; margin-top: 10px; }
   </style>
 </head>
 <body>
 
-  <!-- 1. PAROL GORAGY -->
-  <div class="lock-screen" id="lockScreen">
-    <div class="lock-card">
-      <div class="lock-badge">
-        <svg class="icon icon-lg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-      </div>
-      <h2 class="lock-title">Admin Dolandyryş Paneli</h2>
-      <p class="lock-desc">«Ösüşe barýan ýol» portaly üçin şahsy redaktor paneli. Dowam etmek üçin parolyňyzy giriziň:</p>
-      <input type="password" class="lock-input" id="adminPasswordInput" placeholder="Paroly giriziň" autofocus onkeydown="if(event.key==='Enter') verifyAdminPassword()">
-      <button class="btn-lock-submit" onclick="verifyAdminPassword()">Giriş Etmek ➔</button>
-      <div style="font-size: 11.5px; color: var(--text-dim); margin-top: 14px;">Standart parol: <b>admin2026</b> (panelden üýtgedip bolýar)</div>
-    </div>
-  </div>
+  <div class="container">
 
-  <!-- 2. ESASY DOLANDYRYŞ PANELI -->
-  <div class="container admin-panel" id="adminDashboard">
-    <header class="header">
-      <div class="header-brand">
-        <div class="logo-badge">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-        </div>
-        <div>
-          <div class="header-title">Ösüşe barýan ýol — Redaksiýa Paneli</div>
-          <div class="header-sub">
-            <span>Dolandyryş & Çap Ulgamy</span>
-            <span class="cloud-sync-badge">☁ Global Bulut Sinhronizasiýa</span>
-          </div>
-        </div>
-      </div>
-      <div class="header-actions">
-        <!-- THEME SWITCHER -->
-        <button class="btn-theme-switch" id="adminThemeBtn" onclick="toggleAdminTheme()" title="Gije / Gündiz tema">
-          <svg class="icon" id="adminThemeSvg" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-        </button>
-        <a href="index.html" class="btn-site-link">
-          <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-          Saýta Gaýt
-        </a>
-        <button class="btn-logout" onclick="logoutAdmin()">Çykmak</button>
-      </div>
-    </header>
-
-    <!-- LIVE STATISTIKA BLOKLARY -->
-    <div class="stats-grid">
-      <div class="stat-card emerald">
-        <div class="stat-num" id="statArticlesCount">0</div>
-        <div class="stat-label">Jemi Makalalar</div>
-      </div>
-      <div class="stat-card cyan">
-        <div class="stat-num" id="statViewsCount">0</div>
-        <div class="stat-label">Jemi Okalyş</div>
-      </div>
-      <div class="stat-card amber">
-        <div class="stat-num" id="statLikesCount">0</div>
-        <div class="stat-label">Jemi Halanlar (Likes)</div>
-      </div>
-      <div class="stat-card purple">
-        <div class="stat-num" id="statCommentsCount">0</div>
-        <div class="stat-label">Jemi Teswirler</div>
+    <!-- 1. MASTER PASSWORD LOCK SCREEN -->
+    <div class="lock-screen" id="lockScreen">
+      <div class="lock-card">
+        <div class="lock-badge">🔒</div>
+        <h1 class="lock-title">Admin Girelgesi</h1>
+        <p class="lock-desc">Ösüşe barýan ýol portalyny dolandyrmak üçin şahsy admin parolyňyzy giriziň.</p>
+        <input type="password" id="lockInput" class="lock-input" placeholder="Paroly giriziň..." onkeydown="if(event.key==='Enter') verifyAdminPass()">
+        <button class="btn-lock-submit" onclick="verifyAdminPass()">Giriş Etmek</button>
       </div>
     </div>
 
-    <!-- TAB MENÝU -->
-    <div class="tab-bar">
-      <button class="tab-item active" onclick="switchAdminTab('tabAddArticle')">
-        <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-        Makala Çap Etmek & Düzediş
-      </button>
-      <button class="tab-item" onclick="switchAdminTab('tabTicker')">
-        <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-        Gyzgyn Habar Lentasy
-      </button>
-      <button class="tab-item" onclick="switchAdminTab('tabAds')">
-        <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
-        Mahabat & Bildirişler
-      </button>
-      <button class="tab-item" onclick="switchAdminTab('tabManage')">
-        <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
-        Bar Bolan Makalalar
-      </button>
-      <button class="tab-item" onclick="switchAdminTab('tabSettings')">
-        <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-        Howpsuzlyk & Ätiýaçlyk
-      </button>
-    </div>
+    <!-- 2. MAIN ADMIN PANEL -->
+    <div class="admin-panel" id="adminPanel">
 
-    <!-- 1. TÄZE MAKALA GOŞMAK WE DÜZETMEK -->
-    <div id="tabAddArticle" class="tab-pane">
-      <div class="card">
-        <div class="edit-notice-bar" id="editNoticeBar">
-          <span>Siz häzir <b>«<span id="editingArticleTitle">...</span>»</b> makalasyny redaktirleýärsiňiz.</span>
-          <button type="button" class="btn-cancel-edit" onclick="cancelArticleEdit()">Ýatyrmak ✕</button>
-        </div>
-
-        <div class="card-title">
-          <div class="card-title-left">
-            <span id="formCardHeader">Täze Makala ýa-da Habar Çap Etmek</span>
-          </div>
-        </div>
-
-        <form id="newArticleForm">
-          <input type="hidden" id="editingArticleId" value="">
-          <div class="form-grid">
-            <div class="form-col full">
-              <label class="form-label">Makalanyň Sözbaşysy *</label>
-              <input type="text" class="form-input" id="inpArtTitle" placeholder="Mysal: Sanly ulgamyň ösüşi we täze sepgitler" required>
+      <header class="header">
+        <div class="header-brand">
+          <div class="logo-badge">⚡</div>
+          <div>
+            <h1 class="header-title">Admin Dolandyryş Paneli</h1>
+            <div class="header-sub">
+              <span>«Ösüşe barýan ýol»</span>
+              <span class="cloud-sync-badge" id="cloudStatusBadge">● Bulut Baglanyşykly</span>
             </div>
-            <div class="form-col">
-              <label class="form-label">Kategoriýasy *</label>
-              <select class="form-select" id="inpArtCat" required>
-                <option value="Ösüş & Tehnologiýa">Ösüş & Tehnologiýa</option>
-                <option value="Biznes & Ykdysadyýet">Biznes & Ykdysadyýet</option>
-                <option value="Bildirişler & Mahabat">Bildirişler & Mahabat</option>
-                <option value="Ylym & Bilim">Ylym & Bilim</option>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button class="btn-tool" onclick="toggleTheme()"><span id="adminThemeIcon">🌙</span> Tema</button>
+          <button class="btn-tool" onclick="changeAdminPassword()">🔑 Paroly üýtget</button>
+          <button class="btn-tool" onclick="exportDataJson()">💾 Ätiýaçlyk (JSON)</button>
+          <a href="index.html" class="btn-view-site">Saýta Geçmek ↗</a>
+        </div>
+      </header>
+
+      <!-- REAL METRICS CARDS -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-icon-box" style="background:rgba(37,99,235,0.15);color:var(--portal-cyan);">📰</div>
+          <div><div class="metric-val" id="metricArticles">0</div><div class="metric-lbl">Jemi Makala</div></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon-box" style="background:rgba(16,185,129,0.15);color:var(--portal-emerald);">👁️</div>
+          <div><div class="metric-val" id="metricViews">0</div><div class="metric-lbl">Hakyky Okalan</div></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon-box" style="background:rgba(239,68,68,0.15);color:var(--portal-red);">❤️</div>
+          <div><div class="metric-val" id="metricLikes">0</div><div class="metric-lbl">Halananlar</div></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-icon-box" style="background:rgba(245,158,11,0.15);color:var(--portal-amber);">💬</div>
+          <div><div class="metric-val" id="metricComments">0</div><div class="metric-lbl">Teswirler</div></div>
+        </div>
+      </div>
+
+      <!-- FORM -->
+      <div class="form-card">
+        <div class="form-title">
+          <span id="formTitleText">Täze Makala Ýa-da Bildiriş Goşmak</span>
+          <span class="edit-mode-badge" id="editBadge">Üýtgetmek Tertibi</span>
+        </div>
+
+        <form id="articleForm" onsubmit="handleFormSubmit(event)">
+          <input type="hidden" id="editingArticleId">
+
+          <div class="form-grid">
+            <div>
+              <label class="input-label">Makalanyň Ady (Sözbaşy)</label>
+              <input type="text" id="postTitle" class="form-control" placeholder="Meselem: Türkmenistanda sanly ykdysadyýet..." required>
+            </div>
+            <div>
+              <label class="input-label">Bölüm (Kategoriýa)</label>
+              <select id="postCategory" class="form-control">
+                <option value="Syýasat">Syýasat</option>
+                <option value="Ykdysadyýet" selected>Ykdysadyýet</option>
+                <option value="Tehnologiýa">Sanly Dünýä & IT</option>
+                <option value="Jemgyýet">Jemgyýet</option>
+                <option value="Medeniýet">Medeniýet & Miras</option>
+                <option value="Sport">Sport</option>
+                <option value="Bildiriş">Bildiriş & Mahabat</option>
               </select>
             </div>
-            <div class="form-col">
-              <label class="form-label">Awtoryň Ady *</label>
-              <input type="text" class="form-input" id="inpArtAuthor" placeholder="Mysal: Merdan Myradow" required>
+          </div>
+
+          <div class="form-grid">
+            <div>
+              <label class="input-label">Awtory ýa-da Çeşmesi</label>
+              <input type="text" id="postAuthor" class="form-control" placeholder="Meselem: Redaksiýa / Seljerme Bölümi">
             </div>
-            <div class="form-col full">
-              <label class="form-label">Surat URL (Esasy Foto) *</label>
-              <input type="url" class="form-input" id="inpArtImg" value="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop" required>
-              <div class="preset-pill-group">
-                <span style="font-size: 11px; color: var(--text-dim); align-self: center; margin-right: 4px;">Taýyn HD Suratlar:</span>
-                <button type="button" class="preset-btn" onclick="setPresetImg('https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop')">🤖 Tehnologiýa</button>
-                <button type="button" class="preset-btn" onclick="setPresetImg('https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&auto=format&fit=crop')">💼 Biznes</button>
-                <button type="button" class="preset-btn" onclick="setPresetImg('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1000&auto=format&fit=crop')">🌐 Sanly Ulgam</button>
-                <button type="button" class="preset-btn" onclick="setPresetImg('https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=1000&auto=format&fit=crop')">🔬 Ylym</button>
-                <button type="button" class="preset-btn" onclick="setPresetImg('https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1000&auto=format&fit=crop')">📢 Mahabat</button>
-                <button type="button" class="preset-btn" onclick="setPresetImg('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&auto=format&fit=crop')">🏙 Şäher & Bina</button>
+            <div>
+              <label class="input-label">Esasy Surat (URL)</label>
+              <input type="url" id="postImage" class="form-control" placeholder="https://images.unsplash.com/..." required>
+              <div class="image-presets-row">
+                <span style="font-size:10px;color:var(--text-dim);align-self:center;">Taýyn suratlar:</span>
+                <button type="button" class="btn-preset" onclick="setPresetImg('tech')">Tehnologiýa</button>
+                <button type="button" class="btn-preset" onclick="setPresetImg('econ')">Ykdysadyýet</button>
+                <button type="button" class="btn-preset" onclick="setPresetImg('policy')">Syýasat</button>
+                <button type="button" class="btn-preset" onclick="setPresetImg('sport')">Sport</button>
+                <button type="button" class="btn-preset" onclick="setPresetImg('culture')">Medeniýet</button>
+                <button type="button" class="btn-preset" onclick="setPresetImg('ad')">Mahabat</button>
               </div>
             </div>
-            <div class="form-col full">
-              <label class="form-label">Gysgaça Mazmuny (Snippet) *</label>
-              <input type="text" class="form-input" id="inpArtSnippet" placeholder="Makalanyň esasy mazmunyny beýan edýän 1-2 sözlem..." required>
-            </div>
-
-            <!-- WORDPAD / RICH TEXT EDITOR BÖLÜMI -->
-            <div class="form-col full">
-              <label class="form-label">Makalanyň Doly Teksti (WordPad Redaktory & Stikerler) *</label>
-              
-              <div class="editor-wrapper">
-                <!-- TOOLBAR -->
-                <div class="editor-toolbar">
-                  <button type="button" class="tool-btn" onclick="formatDoc('bold')" title="Goýy (Bold)"><b>B</b></button>
-                  <button type="button" class="tool-btn" onclick="formatDoc('italic')" title="Gyşyk (Italic)"><i>I</i></button>
-                  <button type="button" class="tool-btn" onclick="formatDoc('underline')" title="Aşagy çyzylan (Underline)"><u>U</u></button>
-                  <button type="button" class="tool-btn" onclick="formatDoc('strikeThrough')" title="Üsti çyzylan"><s>S</s></button>
-                  
-                  <span class="tool-sep"></span>
-
-                  <button type="button" class="tool-btn" onclick="formatBlockTag('h2')" title="Esasy Sözbaşy">H2</button>
-                  <button type="button" class="tool-btn" onclick="formatBlockTag('h3')" title="Kiçi Sözbaşy">H3</button>
-                  <button type="button" class="tool-btn" onclick="formatBlockTag('p')" title="Adaty Abzas">¶</button>
-
-                  <span class="tool-sep"></span>
-
-                  <button type="button" class="tool-btn" onclick="formatDoc('insertUnorderedList')" title="Nokatly Sanaw">• Sanaw</button>
-                  <button type="button" class="tool-btn" onclick="formatDoc('insertOrderedList')" title="Sanly Tertip">1. Sanaw</button>
-                  <button type="button" class="tool-btn" onclick="formatBlockTag('blockquote')" title="Sitata / Bellik">“ Sitata</button>
-
-                  <span class="tool-sep"></span>
-
-                  <button type="button" class="tool-btn" onclick="addCustomLink()" title="Baglanyşyk Goş">🔗 Link</button>
-                  <button type="button" class="tool-btn" onclick="formatDoc('removeFormat')" title="Formaty Arassala">✕ Arassala</button>
-                </div>
-
-                <!-- STIKERLER & EMOSIÝALAR SALGYSY -->
-                <div class="emoji-tray">
-                  <span class="emoji-tag">Stikerler:</span>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('🔥')">🔥</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('💡')">💡</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('⚡')">⚡</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('🚀')">🚀</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('📈')">📈</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('🌐')">🌐</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('💼')">💼</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('🔬')">🔬</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('📌')">📌</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('✅')">✅</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('⚠️')">⚠️</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('🏆')">🏆</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('⭐')">⭐</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('🎯')">🎯</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('👏')">👏</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('🤝')">🤝</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('📊')">📊</button>
-                  <button type="button" class="emoji-btn" onclick="insertEmoji('📱')">📱</button>
-                </div>
-
-                <!-- EDITABLE CONTENT CONTAINER -->
-                <div class="editor-content-area" id="richEditorArea" contenteditable="true" placeholder="Makalanyň doly tekstini şu ýere ýazyň. Teksti saýlap, ýokarky B, I, U, H2, H3, sanaw we stiker düwmelerinden peýdalanyp bilersiňiz..."></div>
-              </div>
-            </div>
-
           </div>
-          <button type="submit" class="btn-submit" id="btnSubmitArticle">
-            <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
-            <span id="btnSubmitArticleText">Makalany Çap Etmek (Bütin Dünýäde Peýda Bolar)</span>
-          </button>
-        </form>
-      </div>
-    </div>
 
-    <!-- 2. GYZGYN HABAR LENTASY -->
-    <div id="tabTicker" class="tab-pane" style="display: none;">
-      <div class="card">
-        <div class="card-title">Baş Sahypanyň Gyzgyn Habar Lentasy (Live Ticker)</div>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
-          Bu tekst saýtyň iň ýokarsynda gyzyl ýanyp sönýän lenta hökmünde ähli ulanyjylara derrew görkezilýär.
-        </p>
-        <form id="tickerForm">
-          <div class="form-col full" style="margin-bottom: 18px;">
-            <label class="form-label">Lentanyň Mazmuny *</label>
-            <input type="text" class="form-input" id="inpTickerText" placeholder="Mysal: Türkmenistanda innowasiýa we tehnologiýa taslamalaryny goldamak boýunça giň gerimli meýilnama kabul edildi." required>
+          <div style="margin-bottom:14px;">
+            <label class="input-label">Gysgaça Mazmuny (Öňünden Görüniş)</label>
+            <input type="text" id="postSummary" class="form-control" placeholder="1-2 sözlem bilen makalanyň esasy mazmuny..." required>
           </div>
-          <button type="submit" class="btn-submit">Lentany Täzelemek</button>
-        </form>
-      </div>
-    </div>
 
-    <!-- 3. MAHABAT & BILDIRIŞLER -->
-    <div id="tabAds" class="tab-pane" style="display: none;">
-      <div class="card">
-        <div class="card-title">Baş Sahypadaky Mahabat / Bildiriş Spotlight Banneri</div>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">
-          Saýtyň merkezi böleginde aýratyn neon reňk bilen tapawutlandyrylýan mahabat ýa-da möhüm bildiriş meýdançasy.
-        </p>
-        <form id="adsForm">
-          <div class="form-grid">
-            <div class="form-col full">
-              <label class="form-label">Mahabat / Bildiriş Başlygy *</label>
-              <input type="text" class="form-input" id="inpAdTitle" placeholder="Mysal: Kärhanaňyz Üçin Ýokary Tizlikli Sanly Çözgütler" required>
+          <div style="margin-bottom:14px;">
+            <label class="input-label">Doly Mazmuny (WordPad Redaktory)</label>
+            <div class="wordpad-toolbar">
+              <button type="button" class="toolbar-btn" onclick="execCmd('bold')" title="Galyň"><b>B</b></button>
+              <button type="button" class="toolbar-btn" onclick="execCmd('italic')" title="Ýapgyt"><i>I</i></button>
+              <button type="button" class="toolbar-btn" onclick="execCmd('underline')" title="Aşagy çyzylan"><u>U</u></button>
+              <button type="button" class="toolbar-btn" onclick="execCmd('strikeThrough')" title="Üsti çyzylan"><s>S</s></button>
+              <div class="toolbar-sep"></div>
+              <button type="button" class="toolbar-btn" onclick="execFormat('h2')">H2</button>
+              <button type="button" class="toolbar-btn" onclick="execFormat('h3')">H3</button>
+              <button type="button" class="toolbar-btn" onclick="execFormat('p')">P</button>
+              <button type="button" class="toolbar-btn" onclick="execFormat('blockquote')">❝</button>
+              <div class="toolbar-sep"></div>
+              <button type="button" class="toolbar-btn" onclick="execCmd('insertUnorderedList')">•—</button>
+              <button type="button" class="toolbar-btn" onclick="execCmd('insertOrderedList')">1.</button>
+              <button type="button" class="toolbar-btn" onclick="insertLinkPrompt()">🔗</button>
+              <button type="button" class="toolbar-btn" onclick="execCmd('removeFormat')">🧹</button>
             </div>
-            <div class="form-col full">
-              <label class="form-label">Gysgaça Düşündiriş *</label>
-              <input type="text" class="form-input" id="inpAdSub" placeholder="Mysal: Web-sahypa, SEO we elektron söwda platformalary elýeterli bahadan." required>
+
+            <div class="rich-editor-area" id="postContentEditor" contenteditable="true">
+              <p>Makalanyň doly tekstini şu ýere ýazyň...</p>
             </div>
-            <div class="form-col full">
-              <label class="form-label">Düwmäniň Baglanyşygy (Link ýa-da Anchor) *</label>
-              <input type="text" class="form-input" id="inpAdLink" value="#articlesFeedBlock" required>
+
+            <div class="emoji-tray">
+              <span style="font-size:11px;color:var(--text-dim);font-weight:700;">STIKERLER:</span>
+              <span class="emoji-pill" onclick="insertEmoji('🚀')">🚀</span>
+              <span class="emoji-pill" onclick="insertEmoji('📈')">📈</span>
+              <span class="emoji-pill" onclick="insertEmoji('💡')">💡</span>
+              <span class="emoji-pill" onclick="insertEmoji('⚡')">⚡</span>
+              <span class="emoji-pill" onclick="insertEmoji('🌐')">🌐</span>
+              <span class="emoji-pill" onclick="insertEmoji('🏆')">🏆</span>
+              <span class="emoji-pill" onclick="insertEmoji('🥇')">🥇</span>
+              <span class="emoji-pill" onclick="insertEmoji('✨')">✨</span>
+              <span class="emoji-pill" onclick="insertEmoji('📱')">📱</span>
+              <span class="emoji-pill" onclick="insertEmoji('💻')">💻</span>
+              <span class="emoji-pill" onclick="insertEmoji('🔬')">🔬</span>
+              <span class="emoji-pill" onclick="insertEmoji('🛡️')">🛡️</span>
+              <span class="emoji-pill" onclick="insertEmoji('📊')">📊</span>
+              <span class="emoji-pill" onclick="insertEmoji('🕊️')">🕊️</span>
+              <span class="emoji-pill" onclick="insertEmoji('🎯')">🎯</span>
+              <span class="emoji-pill" onclick="insertEmoji('🔥')">🔥</span>
+              <span class="emoji-pill" onclick="insertEmoji('👏')">👏</span>
             </div>
           </div>
-          <button type="submit" class="btn-submit">Mahabat Bannerini Täzelemek</button>
+
+          <div class="form-actions-row">
+            <button type="button" class="btn-cancel-edit" id="btnCancelEdit" onclick="cancelEditMode()">Ýatyrmak</button>
+            <button type="submit" class="btn-submit-post" id="btnSubmitPost">Ýatda Sakla we Buluda Ýükle</button>
+          </div>
         </form>
       </div>
-    </div>
 
-    <!-- 4. BAR BOLAN MAKALALARY DOLANDYRMAK -->
-    <div id="tabManage" class="tab-pane" style="display: none;">
-      <div class="card">
-        <div class="card-title">
-          <span>Bar Bolan Ähli Makalalar (<span id="totalArtCount">0</span>)</span>
+      <!-- ARTICLES MANAGEMENT LIST -->
+      <div class="articles-card">
+        <div class="form-title">
+          <span>Ýerleşdirilen Makalalar</span>
+          <span style="font-size:12px;color:var(--text-dim);" id="articlesCountBadge">0 sany</span>
         </div>
-        <input type="text" class="manage-search-bar" id="manageSearchInput" placeholder="Makalalaryň arasyndan sözbaşy boýunça gözläň..." oninput="filterManageArticles(this.value)">
-        <div id="manageArticlesContainer"></div>
-      </div>
-    </div>
-
-    <!-- 5. HOWPSUZLYK & ÄTIÝAÇLYK NUSGA -->
-    <div id="tabSettings" class="tab-pane" style="display: none;">
-      <div class="card">
-        <div class="card-title">Admin Parolyny Üýtgetmek</div>
-        <form id="changePasswordForm">
-          <div class="form-grid">
-            <div class="form-col">
-              <label class="form-label">Häzirki Parol *</label>
-              <input type="password" class="form-input" id="inpOldPassword" placeholder="Häzirki paroly giriziň" required>
-            </div>
-            <div class="form-col">
-              <label class="form-label">Täze Parol *</label>
-              <input type="password" class="form-input" id="inpNewPassword" placeholder="Iň azyndan 4 belgi" required>
-            </div>
-          </div>
-          <button type="submit" class="btn-submit" style="background: linear-gradient(135deg, var(--neon-cyan), #0284c7);">Paroly Täzelemek</button>
-        </form>
+        <div class="articles-list" id="articlesAdminList"></div>
       </div>
 
-      <div class="card">
-        <div class="card-title">Ätiýaçlyk Göçürme & Dikeltme (Backup & Restore)</div>
-        <div class="backup-grid">
-          <div class="backup-box">
-            <div>
-              <div class="backup-box-title">📥 Ähli Makalalary Göçürip Almak</div>
-              <div class="backup-box-desc">Portaldaky ähli makalalary, teswirleri we bildirişleri kompýuteriňize ýa-da telefonyňyza JSON faýl hökmünde ýazdyryp saklaň.</div>
-            </div>
-            <button type="button" class="btn-backup-action" onclick="exportDataBackup()">JSON Faýly Ýükle</button>
-          </div>
-          <div class="backup-box">
-            <div>
-              <div class="backup-box-title">📤 Maglumatlary Dikeltmek (Import)</div>
-              <div class="backup-box-desc">Öň göçürip alan JSON ätiýaçlyk faýlyňyzy saýlaň we portalyň maglumatlaryny doly yzyna getiriň.</div>
-            </div>
-            <input type="file" id="importJsonFileInput" accept=".json" style="display: none;" onchange="importDataBackup(event)">
-            <button type="button" class="btn-backup-action" onclick="document.getElementById('importJsonFileInput').click()">JSON Faýldan Dikelt</button>
-          </div>
+      <!-- TICKER & BANNER MANAGER -->
+      <div class="manager-grid">
+        <div class="manager-card">
+          <h3 class="manager-title"><span>🚨</span> Wajyp Habar Lentasyny Dolandyrmak</h3>
+          <p style="font-size:12px;color:var(--text-dim);margin-bottom:8px;">Baş sahypanyň ýokarsyndaky gyssagly habar:</p>
+          <input type="text" id="tickerInput" class="form-control" placeholder="Wajyp habaryň teksti...">
+          <button class="btn-save-mini" onclick="saveTicker()">Lentany Täzele</button>
         </div>
-
-        <div style="margin-top: 24px; border-top: 1px solid var(--border-hairline); padding-top: 20px;">
-          <button type="button" class="btn-backup-action" style="color: var(--neon-red); border-color: rgba(239, 68, 68, 0.3);" onclick="resetPortalToDefault()">
-            ⚠️ Standart Başlangyç Makalalary Dikeltmek (Reset)
-          </button>
+        <div class="manager-card">
+          <h3 class="manager-title"><span>📢</span> Mahabat / Ýörite Banner Dolandyrmak</h3>
+          <div style="margin-bottom:8px;">
+            <input type="text" id="adBannerInputTitle" class="form-control" placeholder="Banner sözbaşysy..." style="margin-bottom:6px;">
+            <input type="text" id="adBannerInputSub" class="form-control" placeholder="Gysgaça düşündiriş...">
+          </div>
+          <button class="btn-save-mini" onclick="saveAdBanner()">Mahabaty Täzele</button>
         </div>
       </div>
-    </div>
 
+    </div>
   </div>
 
-  <div class="toast-box" id="toastMsg">Habar</div>
-
   <script>
-    // GLOBAL BULUT BAZASYNYŇ SALGYSY
-    const CLOUD_DB_URL = "https://kvdb.io/TV4MuAePqsBzBcFp1mz8Wh/portal_data";
+    const CLOUD_DB_URL = 'https://kvdb.io/TV4MuAePqsBzBcFp1mz8Wh/portal_data';
+    const LOCAL_CACHE_KEY = 'portal_cloud_state_cache_v2';
+    const PASS_STORAGE_KEY = 'portal_admin_pass';
 
-    let currentAdminPass = localStorage.getItem('osuse_admin_pass') || "admin2026";
-    let portalData = null;
+    let portalData = {
+      breakingTicker: "Türkmenistanda sanly ykdysadyýeti we innowasion taslamalary goldamak boýunça giň gerimli meýilnama kabul edildi.",
+      adBanner: {
+        title: "Kärhanaňyz Üçin Ýokary Tizlikli Sanly Çözgütler",
+        sub: "Döwrebap web-portallar, awtomatlaşdyrylan ulgamlar we IT goldaw hyzmaty.",
+        link: "#feedSection"
+      },
+      articles: []
+    };
 
-    // RICH TEXT FORMATTING HELPERS
-    function formatDoc(cmd, val = null) {
-      document.getElementById('richEditorArea').focus();
-      document.execCommand(cmd, false, val);
-    }
+    window.addEventListener('DOMContentLoaded', () => {
+      initTheme();
+      if (sessionStorage.getItem('admin_authenticated') === 'true') {
+        unlockPanel();
+      }
+    });
 
-    function formatBlockTag(tag) {
-      document.getElementById('richEditorArea').focus();
-      document.execCommand('formatBlock', false, tag);
-    }
-
-    function insertEmoji(em) {
-      const area = document.getElementById('richEditorArea');
-      area.focus();
-      document.execCommand('insertText', false, em);
-    }
-
-    function addCustomLink() {
-      const url = prompt('Baglanyşygyň (URL) salgysyny giriziň: (Mysal: https://...)');
-      if (url) {
-        formatDoc('createLink', url);
+    function verifyAdminPass() {
+      const input = document.getElementById('lockInput').value.trim();
+      const currentPass = localStorage.getItem(PASS_STORAGE_KEY) || 'admin2026';
+      if (input === currentPass) {
+        sessionStorage.setItem('admin_authenticated', 'true');
+        unlockPanel();
+      } else {
+        alert("Parol nädogry! Gaýtadan synanyşyň.");
       }
     }
 
-    // ADMIN THEME TOGGLE
-    function toggleAdminTheme() {
-      const cur = document.documentElement.getAttribute('data-theme') || 'dark';
+    function unlockPanel() {
+      document.getElementById('lockScreen').style.display = 'none';
+      document.getElementById('adminPanel').style.display = 'block';
+      loadCloudData();
+    }
+
+    function changeAdminPassword() {
+      const current = prompt("Häzirki parolyňyzy giriziň:");
+      const stored = localStorage.getItem(PASS_STORAGE_KEY) || 'admin2026';
+      if (current !== stored) {
+        alert("Häzirki parol nädogry!");
+        return;
+      }
+      const newPass = prompt("Täze paroly giriziň (iň az 6 belgi):");
+      if (newPass && newPass.length >= 6) {
+        localStorage.setItem(PASS_STORAGE_KEY, newPass);
+        alert("Parol üstünlikli üýtgedildi!");
+      }
+    }
+
+    function initTheme() {
+      const saved = localStorage.getItem('portal_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      updateThemeIcon(saved);
+    }
+
+    function toggleTheme() {
+      const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
       const target = cur === 'dark' ? 'light' : 'dark';
       document.documentElement.setAttribute('data-theme', target);
-      localStorage.setItem('osuse_theme', target);
-      updateAdminThemeSvg(target);
+      localStorage.setItem('portal_theme', target);
+      updateThemeIcon(target);
     }
 
-    function initAdminTheme() {
-      const saved = localStorage.getItem('osuse_theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', saved);
-      updateAdminThemeSvg(saved);
+    function updateThemeIcon(t) {
+      const icon = document.getElementById('adminThemeIcon');
+      if (icon) icon.textContent = t === 'light' ? '☀️' : '🌙';
     }
 
-    function updateAdminThemeSvg(theme) {
-      const svg = document.getElementById('adminThemeSvg');
-      if (theme === 'dark') {
-        svg.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
-      } else {
-        svg.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+    async function loadCloudData() {
+      const cached = localStorage.getItem(LOCAL_CACHE_KEY);
+      if (cached) {
+        try {
+          const parsed = JSON.parse(cached);
+          if (parsed && Array.isArray(parsed.articles)) {
+            portalData = parsed;
+            renderAdminUI();
+          }
+        } catch (e) {}
       }
+      try {
+        const res = await fetch(CLOUD_DB_URL);
+        if (res.ok) {
+          const data = await res.json();
+          if (data && Array.isArray(data.articles)) {
+            portalData = data;
+            localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(data));
+            renderAdminUI();
+          }
+        }
+      } catch (err) {}
     }
 
-    // AUTH VERIFICATION
-    function verifyAdminPassword() {
-      const val = document.getElementById('adminPasswordInput').value.trim();
-      currentAdminPass = localStorage.getItem('osuse_admin_pass') || "admin2026";
-      if (val === currentAdminPass) {
-        sessionStorage.setItem('osuse_admin_auth', 'true');
-        showDashboard();
-      } else {
-        alert('Parol nädogry! Standart parol: admin2026');
+    async function syncToCloud() {
+      localStorage.setItem(LOCAL_CACHE_KEY, JSON.stringify(portalData));
+      const badge = document.getElementById('cloudStatusBadge');
+      if (badge) {
+        badge.textContent = '⏳ Ýüklenýär...';
+        badge.style.color = 'var(--portal-amber)';
       }
-    }
-
-    function checkAuth() {
-      if (sessionStorage.getItem('osuse_admin_auth') === 'true') {
-        showDashboard();
-      }
-    }
-
-    function showDashboard() {
-      document.getElementById('lockScreen').style.display = 'none';
-      document.getElementById('adminDashboard').style.display = 'block';
-      loadAdminData();
-    }
-
-    function logoutAdmin() {
-      sessionStorage.removeItem('osuse_admin_auth');
-      window.location.reload();
-    }
-
-    function switchAdminTab(tabId) {
-      document.querySelectorAll('.tab-pane').forEach(p => p.style.display = 'none');
-      document.querySelectorAll('.tab-item').forEach(b => b.classList.remove('active'));
-      document.getElementById(tabId).style.display = 'block';
-      event.currentTarget.classList.add('active');
-    }
-
-    function showToast(text) {
-      const t = document.getElementById('toastMsg');
-      t.innerText = text;
-      t.style.display = 'block';
-      setTimeout(() => { t.style.display = 'none'; }, 3400);
-    }
-
-    function setPresetImg(url) {
-      document.getElementById('inpArtImg').value = url;
-    }
-
-    // GLOBAL CLOUD SAVE & SYNC
-    async function savePortalDataGlobally(message) {
-      localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
-
       try {
         await fetch(CLOUD_DB_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(portalData)
         });
-        showToast(message + ' (☁ Bulutda we ähli telefonlarda derrew täzelendi!)');
-      } catch (err) {
-        showToast(message + ' (Ýerli ýatda saklandy)');
-      }
-    }
-
-    // DATA LOADING & STATS
-    async function loadAdminData() {
-      const raw = localStorage.getItem('osuse_baran_yol_data');
-      if (raw) {
-        try {
-          portalData = JSON.parse(raw);
-          populateFieldsAndStats();
-        } catch(e) {}
-      }
-
-      try {
-        const res = await fetch(CLOUD_DB_URL);
-        if (res.ok) {
-          const cloudData = await res.json();
-          if (cloudData && Array.isArray(cloudData.articles)) {
-            portalData = cloudData;
-            localStorage.setItem('osuse_baran_yol_data', JSON.stringify(portalData));
-            populateFieldsAndStats();
-          }
+        if (badge) {
+          badge.textContent = '● Bulut Baglanyşykly';
+          badge.style.color = 'var(--portal-emerald)';
         }
-      } catch (e) {
-        console.log('Using local fallback');
-      }
-
-      if (!portalData) {
-        portalData = { articles: [], adBanner: {}, breakingTicker: "" };
-        populateFieldsAndStats();
+      } catch (err) {
+        if (badge) {
+          badge.textContent = '⚠️ Oflayn ýatda';
+          badge.style.color = 'var(--portal-red)';
+        }
       }
     }
 
-    function populateFieldsAndStats() {
-      updateStatsCounters();
-      renderManageList();
-
-      if (portalData.adBanner) {
-        document.getElementById('inpAdTitle').value = portalData.adBanner.title || '';
-        document.getElementById('inpAdSub').value = portalData.adBanner.sub || '';
-        document.getElementById('inpAdLink').value = portalData.adBanner.link || '#articlesFeedBlock';
-      }
-
-      if (portalData.breakingTicker) {
-        document.getElementById('inpTickerText').value = portalData.breakingTicker;
-      }
-    }
-
-    function updateStatsCounters() {
-      const list = portalData.articles || [];
-      document.getElementById('statArticlesCount').innerText = list.length;
-      document.getElementById('totalArtCount').innerText = list.length;
-
-      let totalViews = 0;
-      let totalLikes = 0;
-      let totalComments = 0;
-
-      list.forEach(a => {
-        totalViews += (a.views || 0);
-        totalLikes += (a.likes || 0);
-        totalComments += (a.comments ? a.comments.length : 0);
+    function renderAdminUI() {
+      const arts = portalData.articles || [];
+      let totalViews = 0, totalLikes = 0, totalComments = 0;
+      arts.forEach(a => {
+        totalViews += Number(a.views) || 0;
+        totalLikes += Number(a.likes) || 0;
+        totalComments += (a.comments || []).length;
       });
 
-      document.getElementById('statViewsCount').innerText = totalViews;
-      document.getElementById('statLikesCount').innerText = totalLikes;
-      document.getElementById('statCommentsCount').innerText = totalComments;
-    }
+      document.getElementById('metricArticles').textContent = arts.length;
+      document.getElementById('metricViews').textContent = totalViews;
+      document.getElementById('metricLikes').textContent = totalLikes;
+      document.getElementById('metricComments').textContent = totalComments;
+      document.getElementById('articlesCountBadge').textContent = `${arts.length} sany`;
 
-    function renderManageList(filterQuery = '') {
-      const container = document.getElementById('manageArticlesContainer');
-      container.innerHTML = '';
-      let list = portalData.articles || [];
-
-      if (filterQuery) {
-        const q = filterQuery.toLowerCase();
-        list = list.filter(a => a.title.toLowerCase().includes(q) || a.author.toLowerCase().includes(q) || a.category.toLowerCase().includes(q));
+      if (portalData.breakingTicker) document.getElementById('tickerInput').value = portalData.breakingTicker;
+      if (portalData.adBanner) {
+        document.getElementById('adBannerInputTitle').value = portalData.adBanner.title || '';
+        document.getElementById('adBannerInputSub').value = portalData.adBanner.sub || '';
       }
 
-      if (list.length === 0) {
-        container.innerHTML = '<div style="color: var(--text-dim); padding: 24px; text-align: center;">Makala tapylmady.</div>';
+      const list = document.getElementById('articlesAdminList');
+      if (!list) return;
+      if (arts.length === 0) {
+        list.innerHTML = '<p style="color:var(--text-dim);font-size:13px;padding:12px;">Häzirlikçe makala ýok.</p>';
         return;
       }
-
-      list.forEach((a) => {
-        const row = document.createElement('div');
-        row.className = 'article-item-row';
-        row.innerHTML = `
-          <div class="row-left">
-            <img src="${a.cover}" class="row-thumb" alt="thumb">
-            <div style="min-width: 0; flex: 1;">
-              <div class="row-title">${a.title}</div>
-              <div class="row-meta">${a.category} • ${a.date} • Awtory: ${a.author} • 👁 ${a.views || 0} • ❤️ ${a.likes || 0}</div>
+      list.innerHTML = arts.map(art => `
+        <div class="article-row-item">
+          <div class="article-row-left">
+            <img src="${escapeHtml(art.image)}" alt="" class="row-thumb">
+            <div class="row-info">
+              <div class="row-title">${escapeHtml(art.title)}</div>
+              <div class="row-meta">
+                <span class="row-cat-pill">${escapeHtml(art.category)}</span>
+                <span>${escapeHtml(art.date || '')}</span>
+                <span>•</span><span>${art.views || 0} okaldy</span>
+                <span>•</span><span>${art.likes || 0} ❤️</span>
+                <span>•</span><span>${(art.comments || []).length} teswir</span>
+              </div>
             </div>
           </div>
-          <div class="row-actions">
-            <button class="btn-row-action edit" onclick="startEditArticle('${a.id}')">Düzetmek ✎</button>
-            <button class="btn-row-action del" onclick="deleteArticle('${a.id}')">Pozmak ✕</button>
+          <div>
+            <button class="btn-action-edit" onclick="editArticle('${art.id}')">Üýtgetmek</button>
+            <button class="btn-action-delete" onclick="deleteArticle('${art.id}')">Pozmak</button>
           </div>
-        `;
-        container.appendChild(row);
-      });
+        </div>
+      `).join('');
     }
 
-    function filterManageArticles(q) {
-      renderManageList(q);
+    function execCmd(cmd, val = null) {
+      document.getElementById('postContentEditor').focus();
+      document.execCommand(cmd, false, val);
+    }
+    function execFormat(tag) {
+      document.getElementById('postContentEditor').focus();
+      document.execCommand('formatBlock', false, tag);
+    }
+    function insertLinkPrompt() {
+      const url = prompt("Baglanyşygyň salgysyny giriziň (URL):", "https://");
+      if (url) execCmd('createLink', url);
+    }
+    function insertEmoji(em) {
+      const ed = document.getElementById('postContentEditor');
+      ed.focus();
+      document.execCommand('insertText', false, ` ${em} `);
     }
 
-    // EDIT ARTICLE WORKFLOW
-    function startEditArticle(artId) {
-      const art = portalData.articles.find(a => a.id === artId);
-      if (!art) return;
-
-      document.getElementById('editingArticleId').value = art.id;
-      document.getElementById('editingArticleTitle').innerText = art.title;
-      document.getElementById('editNoticeBar').style.display = 'flex';
-
-      document.getElementById('inpArtTitle').value = art.title;
-      document.getElementById('inpArtCat').value = art.category;
-      document.getElementById('inpArtAuthor').value = art.author;
-      document.getElementById('inpArtImg').value = art.cover;
-      document.getElementById('inpArtSnippet').value = art.snippet;
-      
-      document.getElementById('richEditorArea').innerHTML = art.content || '';
-
-      document.getElementById('formCardHeader').innerText = 'Makalany Redaktirlemek';
-      document.getElementById('btnSubmitArticleText').innerText = 'Üýtgeşmeleri Ýatda Saklamak (Bulutda Täzelener)';
-      document.getElementById('btnSubmitArticle').classList.add('btn-edit-mode');
-
-      switchAdminTab('tabAddArticle');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    function setPresetImg(type) {
+      const presets = {
+        tech: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&auto=format&fit=crop&q=80",
+        econ: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&auto=format&fit=crop&q=80",
+        policy: "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=1000&auto=format&fit=crop&q=80",
+        sport: "https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=1000&auto=format&fit=crop&q=80",
+        culture: "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1000&auto=format&fit=crop&q=80",
+        ad: "https://images.unsplash.com/photo-1551434678-e076c223a692?w=1000&auto=format&fit=crop&q=80"
+      };
+      if (presets[type]) document.getElementById('postImage').value = presets[type];
     }
 
-    function cancelArticleEdit() {
-      document.getElementById('editingArticleId').value = '';
-      document.getElementById('editNoticeBar').style.display = 'none';
-      document.getElementById('newArticleForm').reset();
-      document.getElementById('richEditorArea').innerHTML = '';
-      document.getElementById('formCardHeader').innerText = 'Täze Makala ýa-da Habar Çap Etmek';
-      document.getElementById('btnSubmitArticleText').innerText = 'Makalany Çap Etmek (Bütin Dünýäde Peýda Bolar)';
-      document.getElementById('btnSubmitArticle').classList.remove('btn-edit-mode');
-    }
-
-    // SUBMIT NEW OR EDITED ARTICLE
-    document.getElementById('newArticleForm').addEventListener('submit', async (e) => {
+    function handleFormSubmit(e) {
       e.preventDefault();
       const editId = document.getElementById('editingArticleId').value;
-      const title = document.getElementById('inpArtTitle').value.trim();
-      const category = document.getElementById('inpArtCat').value;
-      const author = document.getElementById('inpArtAuthor').value.trim();
-      const cover = document.getElementById('inpArtImg').value.trim();
-      const snippet = document.getElementById('inpArtSnippet').value.trim();
-      const content = document.getElementById('richEditorArea').innerHTML.trim();
+      const title = document.getElementById('postTitle').value.trim();
+      const category = document.getElementById('postCategory').value;
+      const author = document.getElementById('postAuthor').value.trim() || 'Redaksiýa';
+      const image = document.getElementById('postImage').value.trim();
+      const summary = document.getElementById('postSummary').value.trim();
+      const content = document.getElementById('postContentEditor').innerHTML;
 
-      if (!content || content === '<br>') {
-        alert('Haýyş, makalanyň doly tekstini ýazyň!');
-        return;
-      }
+      const now = new Date();
+      const dateStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')} ${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}`;
 
-      if (!portalData.articles) portalData.articles = [];
-
-      let msg = "";
       if (editId) {
-        const idx = portalData.articles.findIndex(a => a.id === editId);
-        if (idx !== -1) {
-          portalData.articles[idx].title = title;
-          portalData.articles[idx].category = category;
-          portalData.articles[idx].author = author;
-          portalData.articles[idx].cover = cover;
-          portalData.articles[idx].snippet = snippet;
-          portalData.articles[idx].content = content;
-          msg = `«${title}» makalasy täzelendi!`;
+        const art = (portalData.articles || []).find(a => a.id === editId);
+        if (art) {
+          art.title = title; art.category = category; art.author = author;
+          art.image = image; art.summary = summary; art.content = content;
         }
-        cancelArticleEdit();
       } else {
         const newArt = {
-          id: 'art_' + Date.now(),
-          title,
-          category,
-          author,
-          date: new Date().toLocaleDateString('tk-TM', { day: 'numeric', month: 'long', year: 'numeric' }),
-          readTime: "3 min okalýar",
-          cover,
-          snippet,
-          content,
-          views: 1,
-          likes: 0,
-          comments: []
+          id: 'art-' + Date.now(),
+          title: title, category: category, author: author,
+          date: dateStr, image: image, summary: summary, content: content,
+          views: 1, likes: 0, comments: []
         };
+        if (!Array.isArray(portalData.articles)) portalData.articles = [];
         portalData.articles.unshift(newArt);
-        msg = `«${title}» makalasy üstünlikli çap edildi!`;
-        document.getElementById('newArticleForm').reset();
-        document.getElementById('richEditorArea').innerHTML = '';
       }
+      syncToCloud();
+      cancelEditMode();
+      renderAdminUI();
+      alert("Makala üstünlikli ýatda saklanyldy!");
+    }
 
-      await savePortalDataGlobally(msg);
-      updateStatsCounters();
-      renderManageList();
-    });
+    function editArticle(id) {
+      const art = (portalData.articles || []).find(a => a.id === id);
+      if (!art) return;
+      document.getElementById('editingArticleId').value = art.id;
+      document.getElementById('postTitle').value = art.title;
+      document.getElementById('postCategory').value = art.category;
+      document.getElementById('postAuthor').value = art.author || '';
+      document.getElementById('postImage').value = art.image;
+      document.getElementById('postSummary').value = art.summary || '';
+      document.getElementById('postContentEditor').innerHTML = art.content || '';
 
-    // TICKER FORM
-    document.getElementById('tickerForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const text = document.getElementById('inpTickerText').value.trim();
+      document.getElementById('formTitleText').textContent = 'Makalany Üýtgetmek';
+      document.getElementById('editBadge').style.display = 'inline-block';
+      document.getElementById('btnCancelEdit').style.display = 'inline-block';
+      document.getElementById('btnSubmitPost').textContent = 'Üýtgeşmäni Ýatda Sakla';
+      window.scrollTo({ top: 300, behavior: 'smooth' });
+    }
+
+    function cancelEditMode() {
+      document.getElementById('editingArticleId').value = '';
+      document.getElementById('articleForm').reset();
+      document.getElementById('postContentEditor').innerHTML = '<p>Makalanyň doly tekstini şu ýere ýazyň...</p>';
+      document.getElementById('formTitleText').textContent = 'Täze Makala Ýa-da Bildiriş Goşmak';
+      document.getElementById('editBadge').style.display = 'none';
+      document.getElementById('btnCancelEdit').style.display = 'none';
+      document.getElementById('btnSubmitPost').textContent = 'Ýatda Sakla we Buluda Ýükle';
+    }
+
+    function deleteArticle(id) {
+      if (!confirm("Bu makalany hakykatdan hem pozmak isleýärsiňizmi?")) return;
+      portalData.articles = (portalData.articles || []).filter(a => a.id !== id);
+      syncToCloud();
+      renderAdminUI();
+    }
+
+    function saveTicker() {
+      const text = document.getElementById('tickerInput').value.trim();
+      if (!text) return;
       portalData.breakingTicker = text;
-      await savePortalDataGlobally('Gyzgyn habar lentasy täzelendi!');
-    });
-
-    // ADS FORM
-    document.getElementById('adsForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const title = document.getElementById('inpAdTitle').value.trim();
-      const sub = document.getElementById('inpAdSub').value.trim();
-      const link = document.getElementById('inpAdLink').value.trim() || '#articlesFeedBlock';
-
-      portalData.adBanner = { title, sub, link };
-      await savePortalDataGlobally('Mahabat spotlight banneri täzelendi!');
-    });
-
-    // DELETE ARTICLE
-    async function deleteArticle(artId) {
-      if (confirm('Hakykatdan hem bu makalany saýtdan aýyrmak isleýärsiňizmi?')) {
-        portalData.articles = portalData.articles.filter(a => a.id !== artId);
-        await savePortalDataGlobally('Makala pozuldy.');
-        updateStatsCounters();
-        renderManageList();
-      }
+      syncToCloud();
+      alert("Wajyp habar lentasy täzelendi!");
     }
 
-    // CHANGE PASSWORD
-    document.getElementById('changePasswordForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const oldPass = document.getElementById('inpOldPassword').value.trim();
-      const newPass = document.getElementById('inpNewPassword').value.trim();
-      const actualPass = localStorage.getItem('osuse_admin_pass') || "admin2026";
-
-      if (oldPass !== actualPass) {
-        alert('Häzirki parolyňyz nädogry!');
-        return;
-      }
-
-      if (newPass.length < 4) {
-        alert('Täze parol iň az 4 simwoldan ybarat bolmaly!');
-        return;
-      }
-
-      localStorage.setItem('osuse_admin_pass', newPass);
-      currentAdminPass = newPass;
-      showToast('Admin paroly üstünlikli çalşyryldy!');
-      document.getElementById('changePasswordForm').reset();
-    });
-
-    // BACKUP & RESTORE
-    function exportDataBackup() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(portalData, null, 2));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `osuse_baran_yol_backup_${Date.now()}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-      showToast('Ätiýaçlyk JSON faýly ýüklenildi!');
+    function saveAdBanner() {
+      const title = document.getElementById('adBannerInputTitle').value.trim();
+      const sub = document.getElementById('adBannerInputSub').value.trim();
+      if (!title) return;
+      if (!portalData.adBanner) portalData.adBanner = {};
+      portalData.adBanner.title = title;
+      portalData.adBanner.sub = sub;
+      syncToCloud();
+      alert("Mahabat sensory üstünlikli täzelendi!");
     }
 
-    async function importDataBackup(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = async function(e) {
-        try {
-          const parsed = JSON.parse(e.target.result);
-          if (parsed && Array.isArray(parsed.articles)) {
-            portalData = parsed;
-            await savePortalDataGlobally('Ähli maglumatlar faýldan dikeldildi!');
-            populateFieldsAndStats();
-          } else {
-            alert('Ýüklenen faýl nädogry formatda!');
-          }
-        } catch(err) {
-          alert('Faýly okap bolmady!');
-        }
-      };
-      reader.readAsText(file);
+    function exportDataJson() {
+      const blob = new Blob([JSON.stringify(portalData, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `portal_backup_${Date.now()}.json`;
+      a.click();
     }
 
-    async function resetPortalToDefault() {
-      if (confirm('Standart başlangyç makalalary we sazlamalary dikeltmek isleýärsiňizmi?')) {
-        localStorage.removeItem('osuse_baran_yol_data');
-        location.reload();
-      }
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
-
-    window.onload = () => {
-      initAdminTheme();
-      checkAuth();
-    };
   </script>
 </body>
 </html>
