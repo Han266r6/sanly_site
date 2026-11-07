@@ -7,14 +7,6 @@
   <meta name="description" content="Türkmenistanyň we dünýäniň iň möhüm täzelikleri, sanly ykdysadyýet, tehnologiýa, jemgyýet we bildirişler portaly.">
   <meta name="theme-color" content="#070c18">
 
-  <!-- Asynchronous non-blocking fonts: Türkmenistanda VPN-siz dessine açylmagy üçin -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@700;800&display=swap" media="print" onload="this.media='all'">
-  <noscript>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Cinzel:wght@700;800&display=swap">
-  </noscript>
-
   <style>
     :root {
       --bg-base: #070c18;
@@ -39,7 +31,7 @@
       --ticker-bg: #060913;
       --orb-opacity: 0.10;
       --font-scale: 1rem;
-      --font-stack: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     }
 
     [data-theme="light"] {
@@ -130,8 +122,9 @@
     }
 
     .font-cinzel {
-      font-family: 'Cinzel', 'Plus Jakarta Sans', serif;
-      letter-spacing: 0.5px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.8px;
     }
 
     .icon {
@@ -1580,7 +1573,7 @@
   <div class="ambient-orb-2"></div>
   <div id="readingProgress"></div>
 
-  <!-- 1. TOP UTILITY BAR (CURRENCIES REMOVED, PROFILE & CONTROLS ACTIVE) -->
+  <!-- 1. TOP UTILITY BAR -->
   <div class="top-utility-bar">
     <div class="top-utility-inner">
       <div class="utility-left">
@@ -2136,7 +2129,10 @@
       const mTit = document.getElementById('heroMainTitle');
       const mVws = document.getElementById('heroMainViews');
       const mCom = document.getElementById('heroMainComments');
-      if (mImg) mImg.src = m.image;
+      if (mImg) {
+        mImg.onerror = () => handleImgFallback(mImg, m.category);
+        mImg.src = m.image;
+      }
       if (mCat) mCat.textContent = m.category;
       if (mTit) mTit.textContent = m.title;
       if (mVws) mVws.textContent = m.views || 0;
@@ -2148,7 +2144,10 @@
         const s1C = document.getElementById('heroSub1Cat');
         const s1T = document.getElementById('heroSub1Title');
         const s1V = document.getElementById('heroSub1Views');
-        if (s1I) s1I.src = s1.image;
+        if (s1I) {
+          s1I.onerror = () => handleImgFallback(s1I, s1.category);
+          s1I.src = s1.image;
+        }
         if (s1C) s1C.textContent = s1.category;
         if (s1T) s1T.textContent = s1.title;
         if (s1V) s1V.textContent = s1.views || 0;
@@ -2159,7 +2158,10 @@
         const s2C = document.getElementById('heroSub2Cat');
         const s2T = document.getElementById('heroSub2Title');
         const s2V = document.getElementById('heroSub2Views');
-        if (s2I) s2I.src = s2.image;
+        if (s2I) {
+          s2I.onerror = () => handleImgFallback(s2I, s2.category);
+          s2I.src = s2.image;
+        }
         if (s2C) s2C.textContent = s2.category;
         if (s2T) s2T.textContent = s2.title;
         if (s2V) s2V.textContent = s2.views || 0;
@@ -2215,7 +2217,7 @@
       }
       feed.innerHTML = filtered.map(art => `
         <article class="timeline-article-card" onclick="openArticleModal('${art.id}')">
-          <img src="${escapeHtml(art.image)}" alt="" class="timeline-thumb-img" loading="lazy">
+          <img src="${escapeHtml(art.image)}" alt="" class="timeline-thumb-img" loading="lazy" onerror="handleImgFallback(this, '${escapeHtml(art.category)}')">
           <div class="timeline-body">
             <div>
               <span class="timeline-cat-pill">${escapeHtml(art.category)}</span>
@@ -2263,7 +2265,7 @@
           const highlighted = highlightSearchTerm(art.title, query);
           return `
             <div class="instant-result-item" onclick="selectInstantResult('${art.id}')">
-              <img src="${escapeHtml(art.image)}" alt="" class="instant-thumb">
+              <img src="${escapeHtml(art.image)}" alt="" class="instant-thumb" onerror="handleImgFallback(this, '${escapeHtml(art.category)}')">
               <div class="instant-info">
                 <div class="instant-cat">${escapeHtml(art.category)}</div>
                 <div class="instant-title">${highlighted}</div>
@@ -2314,8 +2316,11 @@
       document.getElementById('modalArticleTitle').textContent = art.title;
       document.getElementById('modalArticleDate').textContent = art.date || '';
       document.getElementById('modalArticleAuthor').textContent = art.author || 'Redaksiýa';
-      document.getElementById('modalArticleViews').textContent = art.views;
-      document.getElementById('modalArticleImg').src = art.image;
+      const mModalImg = document.getElementById('modalArticleImg');
+      if (mModalImg) {
+        mModalImg.onerror = () => handleImgFallback(mModalImg, art.category);
+        mModalImg.src = art.image;
+      }
       document.getElementById('modalArticleContent').innerHTML = art.content || `<p>${escapeHtml(art.summary || '')}</p>`;
       document.getElementById('modalLikesCount').textContent = art.likes || 0;
 
@@ -2513,6 +2518,11 @@
     function escapeHtml(str) {
       if (!str) return '';
       return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function handleImgFallback(el, cat) {
+      el.onerror = null;
+      el.src = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400"><defs><linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="%231e3a8a"/><stop offset="100%" stop-color="%230c1527"/></linearGradient></defs><rect width="600" height="400" fill="url(%23bg)"/><text x="50%" y="46%" font-family="sans-serif" font-weight="800" font-size="28" fill="%23ffffff" text-anchor="middle">ÖSÜŞE BARÝAN ÝOL</text><text x="50%" y="60%" font-family="sans-serif" font-weight="700" font-size="16" fill="%2306b6d4" text-anchor="middle">${encodeURIComponent(cat || 'Habarlar')}</text></svg>`;
     }
   </script>
 </body>
